@@ -15,8 +15,16 @@ const router = createRouter({
       component: ArticlesList
     },
     {
-      path: '/articles/:id',
-      component: ArticleDetail
+      path: '/articles/:name',
+      component: ArticleDetail,
+      // Passing props to route components
+      // Function mode
+      props: route => (
+        {
+          query: route.query.id,
+          id: route.params.name,
+        }
+      )
     }
   ]
 })

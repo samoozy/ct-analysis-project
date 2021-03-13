@@ -1,33 +1,27 @@
 const ARTICLES = {
   1: {
     id: 1,
-    meta: {
-      title: "Lorem Ipsum",
-      url: "lorem-ipsum",
-      categories: ["LOREM"],
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum a ante sed commodo. Maecenas luctus elementum enim vitae dapibus. In hac habitasse platea dictumst.",
-      author: "Test Admin",
-    },
+    title: "Lorem Ipsum",
+    url: "lorem-ipsum",
+    categories: ["LOREM"],
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum a ante sed commodo. Maecenas luctus elementum enim vitae dapibus. In hac habitasse platea dictumst.",
+    author: "Test Admin"
   },
   2: {
     id: 2,
-    meta: {
-      title: "Lorem Ipsum2",
-      url: "lorem-ipsum2",
-      categories: ["LOREM"],
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum a ante sed commodo. Maecenas luctus elementum enim vitae dapibus. In hac habitasse platea dictumst.",
-      author: "Test Admin",
-    },
+    title: "Lorem Ipsum2",
+    url: "lorem-ipsum2",
+    categories: ["LOREM"],
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum a ante sed commodo. Maecenas luctus elementum enim vitae dapibus. In hac habitasse platea dictumst.",
+    author: "Test Admin",
   },
   3: {
     id: 3,
-    meta: {
-      title: "Lorem Ipsum3",
-      url: "lorem-ipsum3",
-      categories: ["IPSUM"],
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum a ante sed commodo. Maecenas luctus elementum enim vitae dapibus. In hac habitasse platea dictumst.",
-      author: "Test Admin",
-    },
+    title: "Lorem Ipsum3",
+    url: "lorem-ipsum3",
+    categories: ["IPSUM"],
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc rutrum a ante sed commodo. Maecenas luctus elementum enim vitae dapibus. In hac habitasse platea dictumst.",
+    author: "Test Admin",
   },
 }
 
