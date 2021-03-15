@@ -9,6 +9,7 @@
     "init:db": "node ./db/init-db.js"
   },
   "dependencies": {
+    "@stripe/stripe-js": "^1.13.1",
     "core-js": "^3.6.5",
     "firebase": "^8.3.0",
     "vue": "^3.0.0",

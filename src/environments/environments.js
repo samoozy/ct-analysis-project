@@ -6,5 +6,11 @@ export default {
     storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
     messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.VUE_APP_FIREBASE_APP_ID
+  },
+  stripe: {
+    publicKey: process.env.VUE_APP_STRIPE_PUBLIC_KEY
+  },
+  api: {
+    url: `${window.location.protocol}//${window.location.hostname}:3000`
   }
 }
