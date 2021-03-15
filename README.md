@@ -22,3 +22,11 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+# Stripe server-side endpoint
+### The server directory contains all the server-side code
+```
+npm run server
+```
+
+
