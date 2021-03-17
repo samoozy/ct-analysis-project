@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import ArticlesList from './pages/articles/ArticlesList.vue'
 import ArticleDetail from './pages/articles/ArticleDetail.vue'
+import Login from './pages/login/Login.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -25,6 +26,10 @@ const router = createRouter({
           id: route.params.name,
         }
       )
+    },
+    {
+      path: '/login',
+      component: Login
     }
   ]
 })

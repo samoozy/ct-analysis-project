@@ -14,7 +14,7 @@ export default {
   data() {
     return {
       checkoutInProgress: false,
-      pricingPlanId: 'price_1IVMerGbs0CRrGibwusy2nhQ'
+      pricingPlanId: process.env.VUE_APP_STRIPE_PRICING_PLAN_ID
     }
   },
   methods: {

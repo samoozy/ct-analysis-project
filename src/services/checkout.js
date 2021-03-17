@@ -3,8 +3,8 @@ import {loadStripe} from '@stripe/stripe-js'
 
 export default class CheckoutService {
   constructor(pricingPlanId) {
-    this.protocol = window.location.protocol,
-    this.hostname = window.location.hostname,
+    this.protocol = window.location.protocol
+    this.hostname = window.location.hostname
     this.port = window.location.port
     this.endpoint = environments.api.url
     this.pricingPlanId = pricingPlanId
@@ -32,14 +32,8 @@ export default class CheckoutService {
 
     } catch(err) {
       
-      console.log("ERROR 1: " + err)
+      console.log("startSubscriptionSession ERROR : " + err)
     }
-  }
-  
-  buildCallbackUrl() {
-    let callbackUrl = `${this.protocol}//${this.hostname}`
-
-    return this.port ? callbackUrl += `:${this.port}/stripe-checkout` : `${callbackUrl}/stripe-checkout`
   }
 
   async redirectToCheckout(session) {
@@ -50,7 +44,13 @@ export default class CheckoutService {
         sessionId: session.id
       })
     } catch(err) {
-      console.log("ERROR 2: " + err)
+      console.log("redirectToCheckout ERROR: " + err)
     }
+  }
+
+  buildCallbackUrl() {
+    let callbackUrl = `${this.protocol}//${this.hostname}`
+
+    return this.port ? callbackUrl += `:${this.port}/stripe-checkout` : `${callbackUrl}/stripe-checkout`
   }
 }
