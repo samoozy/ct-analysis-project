@@ -3,6 +3,9 @@
     <h1>Login</h1>
     <div id="firebaseui-auth-container"></div>
   </div>
+  <button @click="signout">
+    Signout
+  </button>
 </template>
 
 <script>
@@ -12,16 +15,32 @@ import * as firebaseui from 'firebaseui'
 import 'firebaseui/dist/firebaseui.css'
 
 export default {
-  mounted() {
-    const uiConfig = {
-      signInSuccessUrl: "/",
-      signInOptions: [
-        firebase.auth.GoogleAuthProvider.PROVIDER_ID
-      ]
-    }
+  methods: {
+    signout() {
+      console.log('signing out')
+      firebase.auth().signOut()
 
-    const ui = new firebaseui.auth.AuthUI(firebase.auth())
-    ui.start('#firebaseui-auth-container', uiConfig)
-  }
+      this.$store.commit('auth/resetUser')
+      this.$router.push('articles')
+    }
+  },
+  mounted() {
+    firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        return
+      } else {
+        const uiConfig = {
+          signInSuccessUrl: "/",
+          signInOptions: [
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID
+          ]
+        }
+
+        const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth())
+        ui.start('#firebaseui-auth-container', uiConfig)
+    }
+      
+    })
+    }
 }
 </script>
