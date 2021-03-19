@@ -41,7 +41,8 @@ export default {
 
         // This will redirect the user if theyre not logged in
         if(!session) {
-          this.$router.push('login')
+          alert("please login and authenticate yourself")
+          return this.$router.push('login')
         }
 
         return await checkoutService.redirectToCheckout(session)
