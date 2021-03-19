@@ -18,8 +18,9 @@ export default class CheckoutService {
 
       this.jwt = await this.getAccessToken()
 
+      // End the session if no access token
       if(!this.jwt) {
-        return
+        return null
       }
 
       const data = {
@@ -30,7 +31,8 @@ export default class CheckoutService {
       const response = await fetch(`${this.endpoint}/api/checkout`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': this.jwt
         },
         body: JSON.stringify(data)
       })
@@ -41,7 +43,6 @@ export default class CheckoutService {
       return session
 
     } catch(err) {
-      
       console.log("startSubscriptionSession ERROR : " + err)
     }
   }
@@ -55,6 +56,8 @@ export default class CheckoutService {
       })
     } catch(err) {
       console.log("redirectToCheckout ERROR: " + err)
+      // Error message sent from the server
+      console.log(session.message)
     }
   }
 
