@@ -36,7 +36,7 @@ export async function createCheckoutSession(req, res) {
 
     // Find customer id
     const user = await getDocData(`users/${info.userId}`)
-    const stripeCustomerId = user ? user.stripeCustomerId : undefined
+    const stripeCustomerId = user ? user.customer : undefined
     // Initiate Stripe checkout session
     const sessionConfig = setupSubscription(info, purchaseSession.id, stripeCustomerId)
     const session = await stripe.checkout.sessions.create(sessionConfig)
@@ -60,7 +60,7 @@ export async function createCheckoutSession(req, res) {
 function setupSubscription(info, sessionId, stripeCustomerId) {
   const sessionConfig = {
     payment_method_types: ['card'],
-    success_url: `${info.callbackUrl}/?purchaseResult=success`,
+    success_url: `${info.callbackUrl}/?purchaseResult=success&ongoingPurchaseSessionId=${sessionId}`,
     cancel_url: `${info.callbackUrl}/?purchaseResult=failed`,
     locale: 'ja',
     subscription_data: {
