@@ -1,6 +1,7 @@
 import express from 'express'
 import {createCheckoutSession} from './checkout.route.mjs'
 import {getUserMiddleware} from './user.middleware.mjs'
+import {stripeWebhook} from './stripe-webhooks.route.mjs'
 import cors from 'cors'
 
 export function initServer() {
@@ -20,7 +21,8 @@ export function initServer() {
   )
 
   app.route("/stripe-webhooks").post(
-
+    express.raw({type: 'application/json'}),
+    stripeWebhook
   )
 
   const PORT = process.env.PORT || 3000

@@ -21,7 +21,7 @@ export default {
       firebase.auth().signOut()
 
       this.$store.commit('auth/resetUser')
-      this.$router.push('articles')
+      this.$router.push('/articles')
     }
   },
   mounted() {

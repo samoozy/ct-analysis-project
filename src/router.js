@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ArticlesList from './pages/articles/ArticlesList.vue'
 import ArticleDetail from './pages/articles/ArticleDetail.vue'
 import Login from './pages/login/Login.vue'
+import StripeCheckout from './pages/stripe-checkout/StripeCheckout.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -32,6 +33,10 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login
+    },
+    {
+      path: '/stripe-checkout',
+      component: StripeCheckout
     }
   ]
 })
