@@ -1,12 +1,18 @@
 <template>
-  <p>{{ id }}</p>
-  <p>{{ query }}</p>
-  <div>{{ selectedArticle }}</div>
+
+  <!-- <div class="misc">id: {{ id }}<br>query: {{ query }}</div> -->
+  <router-link class="back-link" to="/">戻る</router-link>
+
+  <div class="container">
+    <h2>{{ selectedArticle.title }}</h2>
+    <p>{{ selectedArticle.description }}</p>
+  </div>
 
 
-  <p v-if="show">{{ articleContent }}</p>
+  <p class="content" v-if="show">{{ articleContent.content }}</p>
+  <a class="btn" v-if="show && articleContent.downloadUrl" :href="articleContent.downloadUrl">有料リンク</a>
 
-  <button v-else-if="!show" @click="showContent">Show content</button>
+  <button class="btn" v-else-if="!show" @click="showContent">有料コンテンツの表示</button>
 
 </template>
 
@@ -18,7 +24,9 @@ export default {
   data() {
     return {
       selectedArticle: null,
-      articleContent: null,
+      articleContent: {
+        content: "有料プランのコンテンツです。ユーザーとして登録することでコンテンツの続きをお読みいただけます。"
+      },
       show: false
     }
   },
@@ -41,3 +49,41 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.back-link {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
+
+.misc {
+  font-size: 0.8rem;
+}
+
+h2 {
+  color: steelblue;
+}
+
+.btn {
+  text-decoration: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  background-color: steelblue;
+  color: #fff;
+  font-size: 1.1rem;
+  box-shadow: 2px 2px 3px #D3D3D3;
+  border-radius: 4px;
+}
+
+.content {
+  font-size: 1.2rem;
+  color: steelblue;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+</style>
