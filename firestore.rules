@@ -1,0 +1,38 @@
+service cloud.firestore {
+
+  match /databases/{database}/documents {
+
+    function isUserWithId(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isSubscriber(userId) {
+      return "pricingPlanId" in get(/databases/$(database)/documents/users/$(userId)).data;
+    }
+    
+    match /articles/{articleId} {
+      allow read: if true;
+
+      match /content/{contentId} {
+
+        allow read: if isSubscriber(request.auth.uid);
+
+      }
+
+    }
+
+    match /purchaseSessions/{purchaseId} {
+
+      allow read: if request.auth.uid == resource.data.userId;
+
+    }
+
+    match /users/{userId} {
+
+      allow read: if isUserWithId(userId);
+
+    }
+
+  }
+
+}
