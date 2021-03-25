@@ -1,8 +1,7 @@
 import admin from "firebase-admin"
-import dotenv from 'dotenv'
-dotenv.config()
+import env from "./environments.mjs"
 
-const serviceAccountPath = `./service-accounts/${process.env.SERVICE_ACCOUNT_FILE_NAME}`
+const serviceAccountPath = `./service-accounts/${env.firebase.serviceAccount}`
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccountPath)

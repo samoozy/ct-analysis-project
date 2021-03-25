@@ -1,11 +1,11 @@
 import Stripe from "stripe"
 import {db, getDocData} from "./database.mjs"
 import {Timestamp} from "@google-cloud/firestore"
-
+import env from "./environments.mjs"
+const stripe = new Stripe(env.stripe.secretKey)
 
 export async function createCheckoutSession(req, res) {
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
     // Create info object with reuqest body
     const info = {
@@ -45,7 +45,7 @@ export async function createCheckoutSession(req, res) {
     // Send back the response data to frontend
     res.status(200).json({
       id: session.id,
-      stripePublicKey: process.env.STRIPE_PUBLIC_KEY
+      stripePublicKey: env.stripe.publicKey
     })
 
 

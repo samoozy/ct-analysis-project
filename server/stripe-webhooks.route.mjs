@@ -1,15 +1,17 @@
 import Stripe from "stripe"
 import {getDocData, db} from "./database.mjs"
+import env from "./environments.mjs"
+
+const stripe = new Stripe(env.stripe.secretKey)
 
 export async function stripeWebhook(req, res) {
   try {
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
     const signature = req.headers["stripe-signature"]
 
     const event = stripe.webhooks.constructEvent(
       req.body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET
+      env.stripe.webhookSecret
     )
 
     // Business logic

@@ -3,7 +3,8 @@
     class="subscription-btn"
     :disabled="!!checkoutInProgress"
     @click="subscribeToPlan"
-  >今すぐ登録</button>
+  >有料メンバーになる</button>
+  
 </template>
 
 <script>
@@ -28,7 +29,7 @@ export default {
 
         // This will redirect the user if theyre not logged in
         if(!session) {
-          alert("please login and authenticate yourself")
+          alert("グーグル認証を行ってください。")
           return this.$router.push('login')
         }
 
@@ -52,6 +53,7 @@ export default {
   font-size: 1.1rem;
   box-shadow: 2px 2px 3px #D3D3D3;
   border-radius: 4px;
+  outline: none;
 }
 
 .subscription-btn:hover,
