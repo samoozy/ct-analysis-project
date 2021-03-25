@@ -1,6 +1,3 @@
-// import getters from './getters.js'
-// import actions from './actions.js'
-// import mutations from './mutations'
 import firestore from '@/firebase/firestore'
 
 export default {

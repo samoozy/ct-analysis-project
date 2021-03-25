@@ -1,4 +1,4 @@
-export default {
+let environments = {
   firebase: {
     apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
     authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
@@ -9,8 +9,17 @@ export default {
   },
   stripe: {
     publicKey: process.env.VUE_APP_STRIPE_PUBLIC_KEY
-  },
-  api: {
-    url: `${window.location.protocol}//${window.location.hostname}:3000`
   }
 }
+
+if(process.env.NODE_ENV == "development" || process.env.NODE_ENV == "test") {
+  environments.api = {
+    url: `${window.location.protocol}//${window.location.hostname}:3000`
+  }
+} else if(process.env.NODE_ENV == "production") {
+  environments.api = {
+    url: process.env.VUE_APP_PROD_API_URL
+  }
+}
+
+export default environments

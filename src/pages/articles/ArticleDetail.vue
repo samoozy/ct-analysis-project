@@ -75,6 +75,7 @@ h2 {
   font-size: 1.1rem;
   box-shadow: 2px 2px 3px #D3D3D3;
   border-radius: 4px;
+  outline: none;
 }
 
 .content {

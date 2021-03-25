@@ -1,11 +1,10 @@
 import { Firestore } from '@google-cloud/firestore'
-import dotenv from 'dotenv'
-dotenv.config()
+import env from "./environments.mjs"
 
-const serviceAccountPath = `./service-accounts/${process.env.SERVICE_ACCOUNT_FILE_NAME}`
+const serviceAccountPath = `./service-accounts/${env.firebase.serviceAccount}`
 
 export const db = new Firestore({
-  projectId: process.env.PROJECT_ID,
+  projectId: env.firebase.projectId,
   keyFilename: serviceAccountPath
 })
 

@@ -26,6 +26,8 @@ export default {
             this.wait = false
             this.message = "登録に成功しました。"
             setTimeout(() => this.$router.push('/articles'), 3000)
+          } else if (doc.data().status === "ongoing") {
+            this.message = "登録中、、、"
           }
         }, (error) => {
           console.log("Firestore onSnapshot error: ", error)

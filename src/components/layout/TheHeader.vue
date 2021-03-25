@@ -15,7 +15,7 @@
   <div class="container">
     <subscription-button></subscription-button>
   </div>
-  
+  <p>グーグル認証をしたユーザーのみ</p>
   
 </template>
 
