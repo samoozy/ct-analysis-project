@@ -1,6 +1,7 @@
 import express from 'express'
 import {createCheckoutSession} from './checkout.route.mjs'
 import {getUserMiddleware} from './user.middleware.mjs'
+import {createCustomerPortalSession} from './customer-portal.route.mjs'
 import {stripeWebhook} from './stripe-webhooks.route.mjs'
 import cors from 'cors'
 
@@ -18,6 +19,12 @@ export function initServer() {
     express.json(),
     getUserMiddleware,
     createCheckoutSession
+  )
+
+  app.route("/api/customer-portal/").post(
+    express.json(),
+    getUserMiddleware,
+    createCustomerPortalSession
   )
 
   app.route("/stripe-webhooks").post(

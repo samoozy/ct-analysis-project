@@ -17,14 +17,20 @@
   </div>
   <p>グーグル認証をしたユーザーのみ</p>
   
+  <div class="container">
+    <customer-portal></customer-portal>
+  </div>
+  
 </template>
 
 <script>
 import SubscriptionButton from "@/components/ui/SubscriptionButton.vue"
+import CustomerPortal from "@/components/ui/CustomerPortal.vue"
 
 export default {
   components: {
-    SubscriptionButton
+    SubscriptionButton,
+    CustomerPortal
   },
   computed: {
     user() {
