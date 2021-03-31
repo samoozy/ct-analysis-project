@@ -22,19 +22,22 @@ export async function createCustomerPortalSession(req, res) {
     // No customer id means the user isnt a subscriber
     if(!stripeCustomerId) {
       console.log('このユーザーはまだStripeに登録されていません')
-      res.status(403).json({message: "Stripeに登録されていないユーザーです。"})
+      res.status(403).json({error: "有料会員のみアクセス可能"})
+
+    } else {
+
+      // Start customer portal session
+      const session = await stripe.billingPortal.sessions.create({
+        customer: stripeCustomerId,
+        return_url: returnUrl
+      })
+
+      // Send back the url to frontend
+      res.status(200).json({
+        url: session.url,
+        success: true
+      })
     }
-
-    // Start customer portal session
-    const session = await stripe.billingPortal.sessions.create({
-      customer: stripeCustomerId,
-      return_url: returnUrl
-    })
-
-    // Send back the url to frontend
-    res.status(200).json({
-      url: session.url
-    })
 
     // This causes CORS error. Cant find the solution.
     // Maybe has to do with cors not being able to recoginize status code 302 as a valid status
