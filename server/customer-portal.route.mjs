@@ -25,14 +25,19 @@ export async function createCustomerPortalSession(req, res) {
       res.status(403).json({message: "Stripeに登録されていないユーザーです。"})
     }
 
-    console.log(stripeCustomerId)
-
     // Start customer portal session
-    // const session = await stripe.billingPortal.sessions.create({
-    //   customer: stripeCustomerId,
-    //   return_url: returnUrl
-    // })
+    const session = await stripe.billingPortal.sessions.create({
+      customer: stripeCustomerId,
+      return_url: returnUrl
+    })
 
+    // Send back the url to frontend
+    res.status(200).json({
+      url: session.url
+    })
+
+    // This causes CORS error. Cant find the solution.
+    // Maybe has to do with cors not being able to recoginize status code 302 as a valid status
     // res.redirect(session.url)
 
   } catch(error) {
