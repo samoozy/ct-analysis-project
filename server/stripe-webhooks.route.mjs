@@ -16,20 +16,27 @@ export async function stripeWebhook(req, res) {
 
     // Business logic
     // check which event to trigger webhook
+
+    // checkout.session.completed
     if(event.type === "checkout.session.completed") {
       const session = event.data.object
       onCheckoutSessionCompleted(session)
     }
+    // customer.subscription.deleted
+    if(event.type === "customer.subscription.deleted") {
+      console.log("CUSTOMER DELETED!")
+    }
 
     // Send response to Stripe acknowledging that the server did receive the Event Object and handled it accordingly
     res.json({received:true})
-
 
   } catch(err) {
     console.log('Error processing webhook event', err)
     return res.status(400).send(`Webhook Error: ${err.message}`)
   }
 }
+
+// New subscription
 
 async function onCheckoutSessionCompleted(session) {
   // the id of the purchase session
@@ -53,3 +60,6 @@ async function fulfillSubscriptionPurchase(userId, pricingPlanId, purchaseSessio
 
   return batch.commit()
 }
+
+
+// Subscription deleted

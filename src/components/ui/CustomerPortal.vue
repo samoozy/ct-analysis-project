@@ -23,11 +23,14 @@ export default {
 
       const session = await customerPortal.startCustomerPortalSession()
 
-      if(!session) {
-        alert("有料会員のみアクセス可能")
-      }
+      if(!session.success) {
+        
+        alert(session.error)
 
-      window.location.replace(session.url)
+      } else {
+        // Redirect the user to customer portal
+        window.location.replace(session.url)
+      }
     }
   }
 }
