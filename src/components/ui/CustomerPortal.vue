@@ -1,7 +1,8 @@
 <template>
   <button
     class="portal-btn"
-    @click="clickMe"
+    @click="openCustomerPortal"
+    :disabled="!!portalInProgress"
   >カスタマーポータル</button>
 </template>
 
@@ -9,13 +10,24 @@
 import CustomerPortal from '@/services/customer-portal'
 
 export default {
+  data() {
+    return {
+      portalInProgress: false
+    }
+  },
   methods: {
-    async clickMe() {
+    async openCustomerPortal() {
+      this.portalInProgress = true
+
       const customerPortal = new CustomerPortal()
 
       const session = await customerPortal.startCustomerPortalSession()
 
-      return session
+      if(!session) {
+        alert("有料会員のみアクセス可能")
+      }
+
+      window.location.replace(session.url)
     }
   }
 }

@@ -73,7 +73,7 @@ export default class CheckoutService {
       if(user) {
         return await user.getIdToken()
       }
-      console.log("not logged in")
+      console.log("ログインしてください")
       return null
 
     } catch(err) {

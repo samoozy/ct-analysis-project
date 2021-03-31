@@ -17,11 +17,17 @@ import 'firebaseui/dist/firebaseui.css'
 export default {
   methods: {
     signout() {
-      console.log('signing out')
-      firebase.auth().signOut()
+      let r = confirm("本当にログアウトしますか？")
 
-      this.$store.commit('auth/resetUser')
-      this.$router.push('/articles')
+      if(r) {
+        console.log('signing out')
+        firebase.auth().signOut()
+
+        this.$store.commit('auth/resetUser')
+        this.$router.push('/articles')
+      }
+
+      return    
     }
   },
   mounted() {

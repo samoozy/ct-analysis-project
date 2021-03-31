@@ -3,7 +3,7 @@
     class="subscription-btn"
     :disabled="!!checkoutInProgress"
     @click="subscribeToPlan"
-  >有料メンバーになる</button>
+  >有料会員になる</button>
   
 </template>
 

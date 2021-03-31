@@ -6,9 +6,13 @@
     <div class="flex">
       <router-link class="nav-link" to="/">コンテンツ一覧</router-link>
       <router-link class="nav-link" to="/login">ログイン</router-link>
-      <img class="profile-pic" :src="user.userPhotoURL" alt="">
+      <img 
+        class="profile-pic" 
+        :src="user.userPhotoURL" 
+        alt=""
+      >
     </div>
-
+    
   </div>
 
   
