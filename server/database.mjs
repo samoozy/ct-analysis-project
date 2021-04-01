@@ -12,3 +12,15 @@ export async function getDocData(docPath) {
   const snap = await db.doc(docPath).get()
   return snap.data()
 }
+
+export async function getDocIdByPropValue(colPath, propName, propValue) {
+  let docId = []
+  const collectionRef = db.collection(colPath)
+  const querySnapShot = await collectionRef.where(propName, '==', propValue).get()
+
+  querySnapShot.forEach(documentSnapshot => {
+    docId = documentSnapshot.id
+  })
+
+  return docId
+}
