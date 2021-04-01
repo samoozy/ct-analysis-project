@@ -1,5 +1,5 @@
 import Stripe from "stripe"
-import {getDocData, db} from "./database.mjs"
+import {getDocIdByPropValue, getDocData, db} from "./database.mjs"
 import env from "./environments.mjs"
 
 const stripe = new Stripe(env.stripe.secretKey)
@@ -16,15 +16,19 @@ export async function stripeWebhook(req, res) {
 
     // Business logic
     // check which event to trigger webhook
-
-    // checkout.session.completed
-    if(event.type === "checkout.session.completed") {
-      const session = event.data.object
-      onCheckoutSessionCompleted(session)
-    }
-    // customer.subscription.deleted
-    if(event.type === "customer.subscription.deleted") {
-      console.log("CUSTOMER DELETED!")
+    switch(event.type) {
+      // checkout.session.completed
+      case "checkout.session.completed":
+        const session = event.data.object
+        onCheckoutSessionCompleted(session)
+        break
+      // customer.subscription.deleted
+      case "customer.subscription.deleted":
+        const subscriptionDeleted = event.data.object
+        onSubscriptionDeleted(subscriptionDeleted)
+        break
+      default:
+        console.log(`Unhandled event type ${event.type}`)
     }
 
     // Send response to Stripe acknowledging that the server did receive the Event Object and handled it accordingly
@@ -37,7 +41,6 @@ export async function stripeWebhook(req, res) {
 }
 
 // New subscription
-
 async function onCheckoutSessionCompleted(session) {
   // the id of the purchase session
   const purchaseSessionId = session.client_reference_id
@@ -63,3 +66,20 @@ async function fulfillSubscriptionPurchase(userId, pricingPlanId, purchaseSessio
 
 
 // Subscription deleted
+async function onSubscriptionDeleted(subscriptionDeleted) {
+  const customerId = subscriptionDeleted.customer
+  // Get the user Id associated with the stripe customer id
+  const userId = await getDocIdByPropValue('users', 'customer', customerId)
+
+  await removePricingPlanIdFromUser(userId)
+}
+
+async function removePricingPlanIdFromUser(userId) {
+  const batch = db.batch()
+
+  const userRef = db.doc(`users/${userId}`)
+  batch.delete(userRef)
+  // batch.update(userRef, {pricingPlanId: ""})
+
+  return batch.commit()
+}
