@@ -14,6 +14,7 @@ export default {
   },
   firebase: {
     serviceAccount: process.env.SERVICE_ACCOUNT_FILE_NAME,
-    projectId: process.env.PROJECT_ID
+    projectId: process.env.PROJECT_ID,
+    bucketName: process.env.STORAGE_BUCKET_NAME
   }
 }
