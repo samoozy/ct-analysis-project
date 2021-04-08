@@ -40,7 +40,7 @@ export default {
     user() {
       return this.$store.getters['auth/user']
     }
-  }
+  },
 }
 </script>
 

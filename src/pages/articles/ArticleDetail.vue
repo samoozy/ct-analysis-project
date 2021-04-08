@@ -14,10 +14,14 @@
 
   <button class="btn" v-else-if="!show" @click="showContent">有料コンテンツの表示</button>
 
+
+  <button class="btn" @click="openReportPdf">ダウンロード</button>
+
 </template>
 
 <script>
 import firestore from '@/firebase/firestore'
+import ReportService from '@/services/reports'
 
 export default {
   props: ['id', 'query'],
@@ -27,7 +31,8 @@ export default {
       articleContent: {
         content: "有料プランのコンテンツです。ユーザーとして登録することでコンテンツの続きをお読みいただけます。"
       },
-      show: false
+      show: false,
+      reportId: 'report15'
     }
   },
   methods: {
@@ -40,6 +45,13 @@ export default {
       contentCollection.forEach(doc => {
         this.articleContent = doc.data()
       })
+    },
+    async openReportPdf() {
+      const reportService = new ReportService(this.reportId)
+
+      const session = await reportService.generateSignedUrl()
+
+      console.log(session.signedUrl)
     }
   },
   async created() {
