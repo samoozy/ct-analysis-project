@@ -12,13 +12,28 @@
       class="article-link"
       :to="{
         path: `/articles/${article.url}`,
-        query: {id: article.articleId}
+        query: {
+          id: article.articleId, 
+          test: 'hello-world'
+        },
       }"
     >
       <h3>{{ article.title }}</h3>
       <p>{{ article.description }}</p>
     </router-link>
 
+  </div>
+
+  <div 
+    v-for="post in posts"
+    :key="post.id"
+  >
+    <img :src="post.imgUrl" alt="">
+    <h3>{{ post.title }}</h3>
+    <div>{{ post.id }}</div>
+    <div>{{ post.type }}</div>
+    <div>{{ post.date }}</div>
+    <div v-html="post.content"></div>
   </div>
 </template>
 
@@ -27,10 +42,14 @@ export default {
   computed: {
     articles() {
       return this.$store.getters['articles/articles']
+    },
+    posts() {
+      return this.$store.getters['posts/posts']
     }
   },
   async created() {
     await this.$store.dispatch('articles/loadArticles')
+    await this.$store.dispatch('posts/loadPosts')
   }
 }
 </script>
