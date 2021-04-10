@@ -9,16 +9,22 @@ let environments = {
   },
   stripe: {
     publicKey: process.env.VUE_APP_STRIPE_PUBLIC_KEY
-  }
+  },
 }
 
 if(process.env.NODE_ENV == "development" || process.env.NODE_ENV == "test") {
   environments.api = {
     url: `${window.location.protocol}//${window.location.hostname}:3000`
   }
+  environments.wpgraphql = {
+    url: process.env.VUE_APP_DEV_WPGRAPHQL_URL
+  }
 } else if(process.env.NODE_ENV == "production") {
   environments.api = {
     url: process.env.VUE_APP_PROD_API_URL
+  }
+  environments.wpgraphql = {
+    url: ""
   }
 }
 

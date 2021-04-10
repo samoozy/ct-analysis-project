@@ -1,6 +1,6 @@
 <template>
 
-  <!-- <div class="misc">id: {{ id }}<br>query: {{ query }}</div> -->
+  <div class="misc">id: {{ id }}<br>query: {{ query }}<br>boi: {{ b }}</div>
   <router-link class="back-link" to="/">戻る</router-link>
 
   <div class="container">
@@ -24,7 +24,7 @@ import firestore from '@/firebase/firestore'
 import ReportService from '@/services/reports'
 
 export default {
-  props: ['id', 'query'],
+  props: ['id', 'query', 'b'],
   data() {
     return {
       selectedArticle: null,
