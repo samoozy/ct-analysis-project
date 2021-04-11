@@ -10,7 +10,23 @@
     <div v-html="post.content"></div>
   </div>
 
-  <button class="btn" @click="openReportPdf">ダウンロード</button>
+  LoggedIn: {{ loggedIn }}
+  PaidSubscriber: {{ paidSubscriber }}
+
+  <!-- if user is not logged in -->
+  
+
+    <!-- if the report is free -->
+  
+
+
+    <!-- if the report is for paid subscribers only -->
+    
+    <button class="btn" @click="openReportPdf">ダウンロード</button>
+
+    
+
+
 
 </template>
 
@@ -24,8 +40,10 @@ export default {
   data() {
     return {
       post: {},
-      message: "有料プランのコンテンツです。ユーザーとして登録することでコンテンツの続きをお読みいただけます。",
-      show: false
+      metaInfo: {},
+      permission: 0,
+      message: "ユーザー登録を行ってください。",
+      show: false,
     }
   },
   methods: {
@@ -38,10 +56,30 @@ export default {
       const session = await reportService.generateSignedUrl()
 
       console.log(session.signedUrl)
+    },
+    setMetaInfoAndPermission(loggedIn, paidSubscriber, postType) {
+      this.metaInfo = {
+        loggedIn,
+        paidSubscriber,
+        postType
+      }
+
+      !this.metaInfo.loggedIn ? 
+        this.permission = 0 : this.metaInfo.paidSubscriber ? 
+          this.permission = 2 : this.metaInfo.postType === "無料" ? 
+            this.permission = 1 : this.permission = -1
     }
   },
   mounted() {
     this.post = this.$store.getters['posts/getPostById'](this.postId)
+
+    this.setMetaInfoAndPermission(
+      this.$store.getters['auth/loggedIn'], 
+      this.$store.getters['auth/paidSubscriber'],
+      this.post.type
+    )
+
+    console.log(this.permission)
   }
 }
 </script>

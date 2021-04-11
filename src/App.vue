@@ -12,7 +12,7 @@ export default {
   components: {
     TheHeader
   },
-  async mounted() {
+  mounted() {
     this.$store.dispatch('auth/initAuth')
   }
 }
