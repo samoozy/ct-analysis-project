@@ -24,13 +24,14 @@ export default {
         firebase.auth().signOut()
 
         this.$store.commit('auth/resetUser')
-        this.$router.push('/articles')
+        this.$router.push('/')
       }
 
       return    
     }
   },
   mounted() {
+    // firebase auth
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
         return
@@ -44,10 +45,10 @@ export default {
 
         const ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth())
         ui.start('#firebaseui-auth-container', uiConfig)
-    }
+      }
       
     })
-    }
+  }
 }
 </script>
 
