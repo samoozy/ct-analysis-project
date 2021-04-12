@@ -3,6 +3,8 @@
     <button @click="initGoogleAuthProvider">GOOGLE AUTH</button>
   </div>
 
+  {{ mode }}
+
   <form @submit.prevent="submitForm">
     <div class="form-control">
       <label for="email">メールアドレス</label>
@@ -59,14 +61,24 @@ export default {
         console.error()
       }
 
+    },
+    async signInWithEmailAndPassword() {
+      try {
+        const userCredential = await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
 
+        return userCredential.user
+      } catch(err) {
+        console.error()
+      }
     },
     async submitForm() {
-      console.log(this.email)
-      console.log(this.password)
-      const user = await this.registerUserWithEmailAndPassword()
-
-      console.log(user)
+      if(this.mode === "register") {
+        const user = await this.registerUserWithEmailAndPassword()
+        console.log(user)
+      } else if (this.mode === "login") {
+        const user = await this.signInWithEmailAndPassword()
+        console.log(user)
+      }
     }
   }
 }

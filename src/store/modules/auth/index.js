@@ -15,6 +15,9 @@ export default {
     user(state) {
       return state.user
     },
+    userVerified(state) {
+      return state.user.verified
+    },
     loggedIn(state) {
       return state.loggedIn
     },
@@ -48,7 +51,8 @@ export default {
             userId: user.uid,
             userPhotoURL: user.photoURL,
             displayName: user.displayName,
-            email: user.email
+            email: user.email, 
+            verified: user.emailVerified
           })
           context.commit('setLoggedIn')
 
