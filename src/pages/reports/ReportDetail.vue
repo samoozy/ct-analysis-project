@@ -17,6 +17,11 @@
     <router-link to="/login">会員登録する</router-link>
   </div>
 
+  <!-- if user has not verified email -->
+  <div v-else-if="permission == -2">
+    <p>{{ user.email }} 宛てに確認メールを送信しました。</p>
+  </div>
+
   <!-- if the user has no permission -->
   <div v-else-if="permission == -1">
     <router-link to="/login">有料会員になる</router-link>
@@ -41,6 +46,11 @@ export default {
   props: [
     'postId'
   ],
+  computed: {
+    user() {
+      return this.$store.getters['auth/user']
+    }
+  },
   data() {
     return {
       post: {},
@@ -61,22 +71,33 @@ export default {
 
       console.log(session.signedUrl)
     },
-    setMetaInfoAndPermission(loggedIn, paidSubscriber, postType) {
+    setMetaInfoAndPermission(loggedIn, paidSubscriber, postType, userVerified) {
       this.metaInfo = {
         loggedIn,
         paidSubscriber,
-        postType
+        postType,
+        userVerified
       }
 
+      console.log(this.metaInfo.loggedIn)
+
+      
+
       !this.metaInfo.loggedIn ? 
-        this.permission = 0 : this.metaInfo.paidSubscriber ? 
-          this.permission = 2 : this.metaInfo.postType === "無料" ? 
-            this.permission = 1 : this.permission = -1
+        this.permission = 0 : !this.metaInfo.userVerified ? 
+          this.permission = -2 : this.metaInfo.paidSubscriber ? 
+            this.permission = 2 : this.metaInfo.postType === "無料" ? 
+              this.permission = 1 : this.permission = -1
+      
+
     },
     setMessage() {
       switch(this.permission) {
         case 0:
           this.message = "ユーザー登録を行ってください。"
+          break
+        case -2:
+          this.message = "メールアドレスの認証を行ってください"
           break
         case -1:
           this.message = "有料コンテンツです。有料会員のみ閲覧可能"
@@ -98,12 +119,12 @@ export default {
     this.setMetaInfoAndPermission(
       this.$store.getters['auth/loggedIn'], 
       this.$store.getters['auth/paidSubscriber'],
-      this.post.type
+      this.post.type,
+      this.user.verified
     )
 
     this.setMessage()
 
-    console.log(this.permission)
   }
 }
 </script>
