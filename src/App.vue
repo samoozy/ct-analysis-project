@@ -32,5 +32,6 @@ body {
 
 .router-container {
   padding: 0 3rem;
+  margin-bottom: 3rem;
 }
 </style>

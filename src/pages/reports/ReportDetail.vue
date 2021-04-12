@@ -10,23 +10,27 @@
     <div v-html="post.content"></div>
   </div>
 
-  LoggedIn: {{ loggedIn }}
-  PaidSubscriber: {{ paidSubscriber }}
+  <p class="message">{{ message }}</p>
 
   <!-- if user is not logged in -->
-  
+  <div v-if="permission == 0">
+    <router-link to="/login">会員登録する</router-link>
+  </div>
 
-    <!-- if the report is free -->
-  
+  <!-- if the user has no permission -->
+  <div v-else-if="permission == -1">
+    <router-link to="/login">有料会員になる</router-link>
+  </div>
 
-
-    <!-- if the report is for paid subscribers only -->
-    
+  <!-- if user is a free subscriber -->
+  <div v-else-if="permission == 1">
     <button class="btn" @click="openReportPdf">ダウンロード</button>
+  </div>
 
-    
-
-
+  <!-- if the user is a paid subscriber -->
+  <div v-else-if="permission == 2">
+    <button class="btn" @click="openReportPdf">ダウンロード</button>
+  </div>
 
 </template>
 
@@ -42,7 +46,7 @@ export default {
       post: {},
       metaInfo: {},
       permission: 0,
-      message: "ユーザー登録を行ってください。",
+      message: "",
       show: false,
     }
   },
@@ -68,6 +72,24 @@ export default {
         this.permission = 0 : this.metaInfo.paidSubscriber ? 
           this.permission = 2 : this.metaInfo.postType === "無料" ? 
             this.permission = 1 : this.permission = -1
+    },
+    setMessage() {
+      switch(this.permission) {
+        case 0:
+          this.message = "ユーザー登録を行ってください。"
+          break
+        case -1:
+          this.message = "有料コンテンツです。有料会員のみ閲覧可能"
+          break
+        case 1:
+          this.message = "無料ユーザーとしてアクセス"
+          break
+        case 2:
+          this.message = "有料ユーザーとしてアクセス"
+          break
+        default:
+          this.message = "something went wrong..."
+      }
     }
   },
   mounted() {
@@ -78,6 +100,8 @@ export default {
       this.$store.getters['auth/paidSubscriber'],
       this.post.type
     )
+
+    this.setMessage()
 
     console.log(this.permission)
   }
@@ -119,6 +143,10 @@ h2 {
 
 .btn:hover {
   opacity: 0.8;
+}
+
+.message {
+  font-size: 1.2rem;
 }
 
 </style>

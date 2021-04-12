@@ -43,10 +43,12 @@ export default {
 
       firebase.auth().onAuthStateChanged(user => {
         if(user) {
-          
+
           context.commit('setUser', {
             userId: user.uid,
-            userPhotoURL: user.photoURL
+            userPhotoURL: user.photoURL,
+            displayName: user.displayName,
+            email: user.email
           })
           context.commit('setLoggedIn')
 

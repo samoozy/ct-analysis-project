@@ -1,35 +1,20 @@
 <template>
+
   <div>
     <h1>ログイン</h1>
     <div id="firebaseui-auth-container"></div>
   </div>
-  <button class="btn" @click="signout">
-    サインアウト
-  </button>
+
+  
 </template>
 
 <script>
 import firebase from "firebase/app"
 import "firebase/auth"
-import * as firebaseui from 'firebaseui'
-import 'firebaseui/dist/firebaseui.css'
+import * as firebaseui from 'firebaseui-ja'
+import 'firebaseui-ja/dist/firebaseui.css'
 
 export default {
-  methods: {
-    signout() {
-      let r = confirm("本当にログアウトしますか？")
-
-      if(r) {
-        console.log('signing out')
-        firebase.auth().signOut()
-
-        this.$store.commit('auth/resetUser')
-        this.$router.push('/')
-      }
-
-      return    
-    }
-  },
   mounted() {
     // firebase auth
     firebase.auth().onAuthStateChanged(user => {
@@ -39,6 +24,7 @@ export default {
         const uiConfig = {
           signInSuccessUrl: "/",
           signInOptions: [
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
             firebase.auth.GoogleAuthProvider.PROVIDER_ID
           ]
         }

@@ -4,43 +4,112 @@
     <h2>CT ANALYSIS</h2>
 
     <div class="flex">
-      <router-link class="nav-link" to="/">コンテンツ一覧</router-link>
-      <router-link class="nav-link" to="/login">ログイン</router-link>
-      <img 
-        class="profile-pic" 
-        :src="user.userPhotoURL" 
-        alt=""
+
+      <router-link class="nav-link" to="/reports">レポート一覧</router-link>
+
+      <!-- not logged in -->
+      <div
+        v-if="!loggedIn"
+        class="flex"
       >
-    </div>
-    
+        <!-- <router-link 
+          class="nav-link" 
+          to="/login"
+        >ログイン</router-link>
+
+        <router-link
+          class="nav-link"
+          to="/login"
+        >
+          新規登録
+        </router-link> -->
+
+        <button 
+          class="nav-link" 
+          @click="toggleModal('login')"
+          :disabled="showRegister"
+        >
+          ログイン
+        </button>
+
+        <button 
+          class="nav-link" 
+          @click="toggleModal('register')"
+          :disabled="showLogin"
+        >
+          新規登録
+        </button>
+
+      </div>
+
+      <!-- logged in -->
+      <div 
+        v-else
+        class="flex"
+      >
+        <router-link 
+          class="nav-link" 
+          to="/account"
+        >アカウント情報</router-link>
+        <img 
+          class="profile-pic" 
+          :src="user.userPhotoURL" 
+          alt=""
+        >
+      </div>
+
+    </div> 
   </div>
 
-  
+
+  <!-- login modal -->
   <div class="container">
-    <subscription-button></subscription-button>
+    <div v-if="showLogin">
+      <user-auth mode="login"></user-auth>
+    </div>
+    <div v-else-if="showRegister">
+      <user-auth mode="register"></user-auth>
+    </div>
   </div>
-  <p>グーグル認証をしたユーザーのみ</p>
-  
-  <div class="container">
-    <customer-portal></customer-portal>
-  </div>
+
+
   
 </template>
 
 <script>
-import SubscriptionButton from "@/components/ui/SubscriptionButton.vue"
-import CustomerPortal from "@/components/ui/CustomerPortal.vue"
+import UserAuth from "@/auth/UserAuth.vue"
 
 export default {
   components: {
-    SubscriptionButton,
-    CustomerPortal
+    UserAuth
+  },
+  data() {
+    return {
+      showLogin: false,
+      showRegister: false
+    }
   },
   computed: {
     user() {
       return this.$store.getters['auth/user']
+    },
+    paidSubscriber() {
+      return this.$store.getters['auth/paidSubscriber']
+    },
+    loggedIn() {
+      return this.$store.getters['auth/loggedIn']
     }
   },
+  methods: {
+    toggleModal(modal) {
+      if(modal === "login") {
+        this.showLogin = !this.showLogin
+      } else if(modal === "register") {
+        this.showRegister = !this.showRegister
+      }
+
+    }
+  }
 }
 </script>
 
@@ -80,10 +149,17 @@ h2 {
   text-decoration: none;
   margin: 0 0.5rem;
   font-size: 0.9rem;
+  background-color: #fff;
+  outline: none;
 }
 
 .nav-link:hover {
   opacity: 0.6;
+}
+
+.nav-link:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .container {
