@@ -5,21 +5,7 @@ service cloud.firestore {
     function isUserWithId(userId) {
       return request.auth.uid == userId;
     }
-
-    function isSubscriber(userId) {
-      return "pricingPlanId" in get(/databases/$(database)/documents/users/$(userId)).data;
-    }
     
-    match /articles/{articleId} {
-      allow read: if true;
-
-      match /content/{contentId} {
-
-        allow read: if isSubscriber(request.auth.uid);
-
-      }
-
-    }
 
     match /purchaseSessions/{purchaseId} {
 
@@ -31,6 +17,10 @@ service cloud.firestore {
 
       allow read: if isUserWithId(userId);
 
+    }
+
+    match /reports/{reportId} {
+      allow read: if true;
     }
 
   }

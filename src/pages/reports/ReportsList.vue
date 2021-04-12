@@ -1,4 +1,6 @@
 <template>
+  <h1>レポート一覧</h1>
+
   <div 
     v-for="post in posts"
     :key="post.id"
