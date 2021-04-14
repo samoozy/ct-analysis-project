@@ -21,6 +21,20 @@
       </div>
 
       <div class="container">
+        <change-password></change-password>
+      </div>
+
+      <div class="container">
+        <link-provider></link-provider>
+      </div>
+
+      <div class="container">
+        <!-- delete account -->
+        <!-- make sure its not a paid customer -->
+      </div>
+
+
+      <div class="container">
         <button class="btn" @click="signout">
           サインアウト
         </button>
@@ -38,11 +52,15 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import SubscriptionButton from "@/components/ui/SubscriptionButton.vue"
 import CustomerPortal from "@/components/ui/CustomerPortal.vue"
+import ChangePassword from "@/components/ui/ChangePassword.vue"
+import LinkProvider from "@/components/ui/LinkProvider.vue"
 
 export default {
   components: {
     SubscriptionButton,
-    CustomerPortal
+    CustomerPortal,
+    ChangePassword,
+    LinkProvider
   },
   methods: {
     signout() {
@@ -97,7 +115,9 @@ h1 {
 
 .container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   padding-top: 2rem;
 }
 

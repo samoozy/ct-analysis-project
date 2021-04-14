@@ -19,12 +19,18 @@ if(process.env.NODE_ENV == "development" || process.env.NODE_ENV == "test") {
   environments.wpgraphql = {
     url: process.env.VUE_APP_DEV_WPGRAPHQL_URL
   }
+  environments.front = {
+    url: `${window.location.protocol}//${window.location.hostname}:8080`
+  }
 } else if(process.env.NODE_ENV == "production") {
   environments.api = {
     url: process.env.VUE_APP_PROD_API_URL
   }
   environments.wpgraphql = {
     url: ""
+  }
+  environments.front = {
+    url: process.env.VUE_APP_PROD_FRONT_URL
   }
 }
 

@@ -18,6 +18,9 @@ export default {
     userVerified(state) {
       return state.user.verified
     },
+    userEmail(state) {
+      return state.user.email
+    },
     loggedIn(state) {
       return state.loggedIn
     },
