@@ -13,27 +13,43 @@
   <p class="message">{{ message }}</p>
 
   <!-- if user is not logged in -->
-  <div v-if="permission == 0">
+  <div v-if="!loggedIn">
     <router-link to="/login">会員登録する</router-link>
   </div>
 
   <!-- if user has not verified email -->
-  <div v-else-if="permission == -2">
-    <p>{{ user.email }} 宛てに確認メールを送信しました。</p>
+  <div v-else-if="loggedIn && !userVerified">
+    <p>{{ userEmail }} 宛てに確認メールを送信しました。</p>
   </div>
 
   <!-- if the user has no permission -->
-  <div v-else-if="permission == -1">
+  <div v-else-if="
+    loggedIn && 
+    userVerified && 
+    !paidSubscriber && 
+    post.type === '有料'"
+  >
     <router-link to="/login">有料会員になる</router-link>
   </div>
 
   <!-- if user is a free subscriber -->
-  <div v-else-if="permission == 1">
+  <div v-else-if="
+    loggedIn && 
+    userVerified && 
+    !paidSubscriber && 
+    post.type === '無料'"
+  >
+    <p>無料ユーザー</p>
     <button class="btn" @click="openReportPdf">ダウンロード</button>
   </div>
 
   <!-- if the user is a paid subscriber -->
-  <div v-else-if="permission == 2">
+  <div v-else-if="
+    loggedIn && 
+    userVerified && 
+    paidSubscriber"
+  >
+    <p>有料ユーザー</p>
     <button class="btn" @click="openReportPdf">ダウンロード</button>
   </div>
 
@@ -47,15 +63,22 @@ export default {
     'postId'
   ],
   computed: {
-    user() {
-      return this.$store.getters['auth/user']
+    userEmail() {
+      return this.$store.getters['auth/userEmail']
+    },
+    userVerified() {
+      return this.$store.getters['auth/userVerified']
+    },
+    loggedIn() {
+      return this.$store.getters['auth/loggedIn']
+    },
+    paidSubscriber() {
+      return this.$store.getters['auth/paidSubscriber']
     }
   },
   data() {
     return {
       post: {},
-      metaInfo: {},
-      permission: 0,
       message: "",
       show: false,
     }
@@ -71,59 +94,9 @@ export default {
 
       console.log(session.signedUrl)
     },
-    setMetaInfoAndPermission(loggedIn, paidSubscriber, postType, userVerified) {
-      this.metaInfo = {
-        loggedIn,
-        paidSubscriber,
-        postType,
-        userVerified
-      }
-
-      console.log(this.metaInfo.loggedIn)
-
-      
-
-      !this.metaInfo.loggedIn ? 
-        this.permission = 0 : !this.metaInfo.userVerified ? 
-          this.permission = -2 : this.metaInfo.paidSubscriber ? 
-            this.permission = 2 : this.metaInfo.postType === "無料" ? 
-              this.permission = 1 : this.permission = -1
-      
-
-    },
-    setMessage() {
-      switch(this.permission) {
-        case 0:
-          this.message = "ユーザー登録を行ってください。"
-          break
-        case -2:
-          this.message = "メールアドレスの認証を行ってください"
-          break
-        case -1:
-          this.message = "有料コンテンツです。有料会員のみ閲覧可能"
-          break
-        case 1:
-          this.message = "無料ユーザーとしてアクセス"
-          break
-        case 2:
-          this.message = "有料ユーザーとしてアクセス"
-          break
-        default:
-          this.message = "something went wrong..."
-      }
-    }
   },
   mounted() {
     this.post = this.$store.getters['posts/getPostById'](this.postId)
-
-    this.setMetaInfoAndPermission(
-      this.$store.getters['auth/loggedIn'], 
-      this.$store.getters['auth/paidSubscriber'],
-      this.post.type,
-      this.user.verified
-    )
-
-    this.setMessage()
 
   }
 }

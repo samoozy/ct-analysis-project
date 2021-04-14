@@ -17,9 +17,11 @@
     <button>登録する</button>
   </form>
 
+
 </template>
 
 <script>
+import environments from "@/environments/environments"
 import firebase from "firebase/app"
 import "firebase/auth"
 
@@ -51,11 +53,23 @@ export default {
 
     },
     async registerUserWithEmailAndPassword() {
+
+      console.log(environments.front.url)
+
       // create User with email and password
       try {
+        // Register new user
         const userCredential =  await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
 
-        return userCredential.user
+        // set redirect url
+        const actionCodeSettings = {
+          url: environments.front.url
+        }
+
+        // send confirmation email
+        const res = await userCredential.user.sendEmailVerification(actionCodeSettings)
+
+        return res
 
       } catch(err) {
         console.error()
@@ -73,13 +87,12 @@ export default {
     },
     async submitForm() {
       if(this.mode === "register") {
-        const user = await this.registerUserWithEmailAndPassword()
-        console.log(user)
+        await this.registerUserWithEmailAndPassword()
       } else if (this.mode === "login") {
         const user = await this.signInWithEmailAndPassword()
         console.log(user)
       }
-    }
+    },
   }
 }
 </script>
@@ -92,4 +105,5 @@ form {
 label {
   display: block;
 }
+
 </style>

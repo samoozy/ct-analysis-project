@@ -72,12 +72,18 @@
     </div>
   </div>
 
+  <!-- <div class="container">
+    <button @click="sendEmail">SEND EMAIL</button>
+  </div> -->
+
 
   
 </template>
 
 <script>
 import UserAuth from "@/auth/UserAuth.vue"
+import firebase from "firebase/app"
+import "firebase/auth"
 
 export default {
   components: {
@@ -108,6 +114,17 @@ export default {
         this.showRegister = !this.showRegister
       }
 
+    },
+    async sendEmail() {
+      const actionCodeSettings = {
+        url: "http://localhost:8080/"
+      }
+
+      const user = firebase.auth().currentUser
+      
+      const res = await user.sendEmailVerification(actionCodeSettings)
+      
+      console.log(res)
     }
   }
 }
