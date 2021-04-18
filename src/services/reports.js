@@ -33,14 +33,6 @@ export default class ReportsService {
     }
   }
 
-  // async checkUserSubscriptionStatus() {
-  //   try {
-
-  //   } catch(err) {
-  //     console.log(err)
-  //   }
-  // }
-
   async getAccessToken() {
     try {
       const user = firebase.auth().currentUser

@@ -8,7 +8,11 @@ export default {
     return {
       loggedIn: false,
       paidSubscriber: false,
-      user: {}
+      user: {},
+      provider: {
+        password: false,
+        google: false
+      }
     }
   },
   getters: {
@@ -26,6 +30,9 @@ export default {
     },
     paidSubscriber(state) {
       return state.paidSubscriber
+    },
+    provider(state) {
+      return state.provider
     }
   },
   mutations: {
@@ -38,11 +45,27 @@ export default {
     setPaidSubscriber(state) {
       state.paidSubscriber = true
     },
+    setProvider(state, payload) {  
+      // Find all the provider the user have linked their account 
+      payload.forEach(provider => {
+        if(provider === "google.com") {
+          // set true if google is linked
+          state.provider.google = true
+        } else if(provider === "password") {
+          //set true if email and password is linked
+          state.provider.password = true
+        }
+      })
+    },
     resetUser(state) {
       state.user = {}
       state.loggedIn = false
       state.paidSubscriber = false
-    }
+      state.provider = {
+        password: false,
+        google: false
+      }
+    },
   },
   actions: {
     initAuth(context) {
@@ -50,6 +73,7 @@ export default {
       firebase.auth().onAuthStateChanged(user => {
         if(user) {
 
+          // set user
           context.commit('setUser', {
             userId: user.uid,
             userPhotoURL: user.photoURL,
@@ -64,9 +88,15 @@ export default {
             // if the pricingPlanId exists for this user, that means the user is a paid subscriber
             if(doc.data()) {
               context.commit('setPaidSubscriber')
-            }
-            
+            }      
           })
+
+          // set provider
+          let provider = []
+          user.providerData.forEach(profile => {
+            provider.push(profile.providerId)
+          })
+          context.commit('setProvider', provider)
           
         } else {
           console.log("not logged in")

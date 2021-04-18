@@ -1,5 +1,15 @@
 <template>
-  <button @click="changePassword" :disabled="!show">CHANGE PASSWORD</button>
+
+  <div class="container" v-if="provider.google && !provider.password">
+    <div>メールアドレス・パスワード設定</div>
+    <button @click="changePassword" :disabled="!show">パスワードを設定する</button>
+  </div>
+  <div class="container" v-else-if="provider.password">
+    <button @click="changePassword" :disabled="!show">パスワードを変更</button>
+  </div>
+
+
+  <!-- message -->
   <div v-if="show">
     <p>{{ message }}</p>
   </div>
@@ -14,6 +24,9 @@ import "firebase/auth"
 import environments from "@/environments/environments"
 
 export default {
+  props: {
+    provider: Object
+  },
   data() {
     return {
       show: true,
@@ -48,37 +61,22 @@ export default {
         console.log(err)
       }
 
-
-      // try {
-      //   this.show = false
-
-      //   const reAuthenticate = await user.reauthenticateWithPopup(new firebase.auth.GoogleAuthProvider())
-
-      //   this.show = true
-
-      //   console.log(reAuthenticate)
-      // } catch(err) {
-      //   this.show = true
-      //   this.message = err.message
-      //   console.log(err.message)
-      // }
-
-      
-
-
-      // only allow email and password users to change their password
-      // user.providerData.forEach(async profile => {
-      //   if(profile.providerId === "password") {
-      //     const updatePasswordReq = await user.updatePassword('test123')
-
-      //     return updatePasswordReq
-      //   } else {
-      //     console.log("only allowed for user pass users")
-      //   }
-      // })
-
       return
     }
   }
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2rem;
+}
+
+div {
+  text-align: center;
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <button @click="linkToGoogleProvider">LINK TO GOOGLE</button>
 
-  <p v-if="success">
+  <p v-if="show">
     {{ message }}
   </p>
 
@@ -26,11 +26,11 @@ export default {
 
         const result = await user.linkWithPopup(googleProvider)
 
-        console.log(result)
-
         this.message = "グーグルと連携しました。"
 
         this.show = true
+
+        return result
 
       } catch(err) {
         console.error()
@@ -41,9 +41,6 @@ export default {
       }
 
     }
-  },
-  mounted() {
-    console.log(firebase.auth().currentUser)
   }
 }
 </script>

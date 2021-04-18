@@ -9,28 +9,43 @@
       <h1 class="text-center">アカウント情報</h1>
 
       <div class="container">
-        {{ user }}
+        <div>メールアドレス：{{ user.email }}</div>
+        <div>
+          認証：
+          <span v-if="user.verified">メール認証済み</span>
+          <span v-else>メール認証中。確認メールを{{user.email}}宛に送りました。</span>
+        </div>
+        <div>
+          サブスクリプション：<span v-if="paidSubscriber">有料</span><span v-else>無料</span>
+        </div>
+        <div>
+          連携済みサービス：
+          <div v-if="provider.google">Google</div>
+          <div v-if="provider.password">メールアドレス・パスワード</div>
+        </div>
       </div>
 
-      <div v-if="paidSubscriber" class="container">
-        <customer-portal></customer-portal>
-      </div>
+      <!-- change password and/or set password -->
+      <change-password :provider="provider"></change-password>
 
-      <div v-else class="container">
-        <subscription-button></subscription-button>
-      </div>
-
-      <div class="container">
-        <change-password></change-password>
-      </div>
-
-      <div class="container">
+      <!-- link to google -->
+      <div class="container" v-if="!provider.google">
         <link-provider></link-provider>
       </div>
 
-      <div class="container">
-        <!-- delete account -->
+
+      <!-- delete account -->
+      <div>
         <!-- make sure its not a paid customer -->
+        <!-- warn user if is a paid customer -->
+      </div>
+
+      <!-- show customer portal or subscription -->
+      <div v-if="paidSubscriber" class="container">
+        <customer-portal></customer-portal>
+      </div>
+      <div v-else class="container">
+        <subscription-button></subscription-button>
       </div>
 
 
@@ -62,21 +77,6 @@ export default {
     ChangePassword,
     LinkProvider
   },
-  methods: {
-    signout() {
-      let r = confirm("本当にログアウトしますか？")
-
-      if(r) {
-        console.log('signing out')
-        firebase.auth().signOut()
-
-        this.$store.commit('auth/resetUser')
-        this.$router.push('/')
-      }
-
-      return    
-    }
-  },
   computed: {
     user() {
       return this.$store.getters['auth/user']
@@ -86,6 +86,23 @@ export default {
     },
     paidSubscriber() {
       return this.$store.getters['auth/paidSubscriber']
+    },
+    provider() {
+      return this.$store.getters['auth/provider']
+    }
+  },
+  methods: {
+    signout() {
+      let r = confirm("本当にログアウトしますか？")
+
+      if(r) {
+        firebase.auth().signOut()
+
+        this.$store.commit('auth/resetUser')
+        this.$router.push('/')
+      }
+
+      return    
     }
   },
 }
