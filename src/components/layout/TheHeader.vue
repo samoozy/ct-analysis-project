@@ -51,11 +51,11 @@
           class="nav-link" 
           to="/account"
         >アカウント情報</router-link>
-        <img 
+        <!-- <img 
           class="profile-pic" 
           :src="user.userPhotoURL" 
           alt=""
-        >
+        > -->
       </div>
 
     </div> 
