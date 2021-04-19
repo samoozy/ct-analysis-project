@@ -1,3 +1,25 @@
+/* import font-family first */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+/* import tailwind css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* tailwind css base styling */
+@layer base {
+  body {
+    @apply font-sans-jp;
+  }
+}
+
+/* This is the custom styling for the post content recieved from WP API */
+@layer components {
+  .report-post-content {
+    @apply my-5;
+  }
+
+  .report-post-content > p {
+    @apply py-2 leading-8;
+  }
+}

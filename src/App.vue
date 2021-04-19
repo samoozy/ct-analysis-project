@@ -1,6 +1,6 @@
 <template>
   <the-header></the-header>
-  <div class="router-container">
+  <div class="xl:px-48 sm:px-10 px-5 mb-8">
     <router-view></router-view>
   </div>
 </template>
@@ -18,20 +18,3 @@ export default {
 }
 
 </script>
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Noto Sans JP', sans-serif;
-}
-
-.router-container {
-  padding: 0 3rem;
-  margin-bottom: 3rem;
-}
-</style>
