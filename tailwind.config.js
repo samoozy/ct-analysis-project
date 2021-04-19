@@ -8,7 +8,10 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      pointerEvents: ['disabled'],
+      opacity: ['disabled']
+    },
   },
   plugins: [],
 }
