@@ -16,26 +16,45 @@
     <div class="report-post-content" v-html="post.content"></div>
   </div>
 
-  
 
-  <p class="message">{{ message }}</p>
+  <p class="text-center">{{ message }}</p>
 
   <!-- if user is not logged in -->
   <div v-if="!loggedIn"
   class="flex flex-col justify-center items-center">
-    <router-link 
-      class="bg-indigo-600 px-5 py-2 text-white rounded text-lg hover:bg-indigo-800 duration-200 w-max my-2" 
-      to="/"
-    >会員登録する</router-link>
-    <router-link 
-      class="px-5 py-2 text-indigo-600 rounded text-lg hover:text-indigo-400 duration-200 w-max my-2 border-indigo-600 border hover:border-indigo-400" 
-      to="/"
-    >有料プラン詳細</router-link>
+    <div class="my-4">
+      <p class="text-center pt-2">リサーチレポートをダウンロードするには、会員登録が必要です。</p>
+      <p class="text-center py-2">既にアカウントをお持ちの方はログインしてください。</p>
+    </div>
+    
+    <router-button 
+      :dest="`/`"
+      :mode="`primary`"
+    >
+      今すぐ無料登録
+    </router-button>
+
+    <router-button 
+      :dest="`/`"
+      :mode="`secondary`"
+    >
+      有料プラン詳細
+    </router-button>
   </div>
 
   <!-- if user has not verified email -->
-  <div v-else-if="loggedIn && !userVerified">
-    <p>{{ userEmail }} 宛てに確認メールを送信しました。</p>
+  <div v-else-if="loggedIn && !userVerified"
+  class="flex flex-col justify-center items-center">
+    <div class="my-4">
+      <p class="text-center pt-2">メールアドレスの承認を行ってください。</p>
+      <p class="text-center py-2">アカウント作成時に{{ userEmail }} 宛てに確認メールを送信しました。</p>
+    </div>
+    <router-button
+      :dest="`/account`"
+      :mode="`secondary`"
+    >
+      もう一度承認メールを送る
+    </router-button>
   </div>
 
   <!-- if the user has no permission -->
@@ -44,8 +63,19 @@
     userVerified && 
     !paidSubscriber && 
     post.type === '有料'"
-  >
-    <router-link to="/login">有料会員になる</router-link>
+    class="flex flex-col justify-center items-center"
+  > 
+    <div class="my-4">
+      <p class="text-center pt-2">このレポートは有料コンテンツです。</p>
+      <p class="text-center py-4">有料会員に登録すると、ダウンロードすることができます。</p>
+    </div>
+    
+    <router-button
+      :dest="`/`"
+      :mode="`secondary`"
+    >
+      有料プラン詳細
+    </router-button>
   </div>
 
   <!-- if user is a free subscriber -->
@@ -54,9 +84,18 @@
     userVerified && 
     !paidSubscriber && 
     post.type === '無料'"
+    class="flex flex-col justify-center items-center"
   >
-    <p>無料ユーザー</p>
-    <button class="btn" @click="openReportPdf">ダウンロード</button>
+    <download-button
+      :mode="`primary`"
+      :loading="isLoading"
+      :completed="isCompleted"
+      :disabled="isLoading || isCompleted"
+      @click="openReportPdf"
+    >
+      ダウンロード
+    </download-button>
+
   </div>
 
   <!-- if the user is a paid subscriber -->
@@ -65,16 +104,29 @@
     userVerified && 
     paidSubscriber"
   >
-    <p>有料ユーザー</p>
-    <button class="btn" @click="openReportPdf">ダウンロード</button>
+    <download-button
+      :mode="`primary`"
+      :loading="isLoading"
+      :completed="isCompleted"
+      :disabled="isLoading || isCompleted"
+      @click="openReportPdf"
+    >
+      ダウンロード
+    </download-button>
   </div>
 
 </template>
 
 <script>
 import ReportService from '@/services/reports'
+import RouterButton from '@/components/ui/RouterButton'
+import DownloadButton from '@/components/ui/DownloadButton'
 
 export default {
+  components: {
+    RouterButton,
+    DownloadButton
+  },
   props: [
     'postId'
   ],
@@ -97,6 +149,8 @@ export default {
       post: {},
       message: "",
       show: false,
+      isLoading: false,
+      isCompleted: false
     }
   },
   methods: {
@@ -104,17 +158,23 @@ export default {
       this.show = true
     },
     async openReportPdf() {
+      // disable the button
+      this.isLoading = true
+
       const reportService = new ReportService(this.post.reportId)
 
       const session = await reportService.generateSignedUrl()
 
       console.log(session.signedUrl)
+
+      this.isCompleted = true
+      this.isLoading = false
     },
   },
   mounted() {
     this.post = this.$store.getters['posts/getPostById'](this.postId)
-
+    this.isLoading = false
+    this.isCompleted = false
   }
 }
 </script>
-
