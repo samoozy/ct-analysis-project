@@ -1,27 +1,26 @@
 <template>
-  <h1>レポート一覧</h1>
+  <h1 class="text-center mb-8 text-2xl">レポート一覧</h1>
 
-  <div 
-    v-for="post in posts"
-    :key="post.id"
-  >
-    <router-link
-      :to="`/reports/${post.id}`"
-    >
-      <img 
-        :src="post.imgUrl" 
-        alt=""
-      >
-      <h3>{{ post.title }}</h3>
-      <div>{{ post.type }}</div>
-      <div>{{ post.date }}</div>
-    </router-link>
+  <ul class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4">
     
-  </div>
+    <report-card 
+      v-for="post in posts"
+      :key="post.id" 
+      :post="post"
+    ></report-card>
+      
+  </ul>
+
+  
 </template>
 
 <script>
+import ReportCard from '@/components/ui/ReportCard.vue'
+
 export default {
+  components: {
+    ReportCard
+  },
   computed: {
     posts() {
       return this.$store.getters['posts/posts']
@@ -34,7 +33,7 @@ export default {
 </script>
 
 <style scoped>
-  img {
+  /* img {
     height: 100px;
-  }
+  } */
 </style>
