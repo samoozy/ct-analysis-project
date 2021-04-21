@@ -1,64 +1,53 @@
 <template>
 
-  <div class="navbar">
-    <h2>CT ANALYSIS</h2>
+  <div class="px-10">
 
-    <div class="flex">
+    <!-- navbar -->
+    <nav class="flex justify-center lg:justify-between items-center">
 
-      <router-link class="nav-link" to="/reports">レポート一覧</router-link>
+      <router-link to="/">
+        <div class="h-9 sm:h-14 w-auto">
+          <img class="h-full w-auto" src="@/assets/navbar-logo.png" alt="">
+        </div>
+      </router-link>
 
-      <!-- not logged in -->
-      <div
-        v-if="!loggedIn"
-        class="flex"
+      <MobileNavmenu />
+
+      <ul 
+        class="lg:flex lg:static hidden"
       >
-        <!-- <router-link 
-          class="nav-link" 
-          to="/login"
-        >ログイン</router-link>
+        <li class="ml-4">
+          <navbar-button 
+            mode="primary"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="fill-current mr-2" width="16" height="16" viewBox="0 0 24 24"><path d="M4 4v20h20v-20h-20zm18 18h-16v-13h16v13zm-3-3h-10v-1h10v1zm0-3h-10v-1h10v1zm0-3h-10v-1h10v1zm2-11h-19v19h-2v-21h21v2z"/></svg>
+            レポート一覧
+          </navbar-button>
+        </li>
+        <li class="ml-4">
+          <navbar-button
+            mode="secondary"
+          >
+            アカウント情報
+          </navbar-button>
+        </li>
+        <li class="ml-4">
+          <navbar-button
+            mode="secondary"
+          >
+            ログイン
+          </navbar-button>
+        </li>
+        <li class="ml-4">
+          <navbar-button
+            mode="primary"
+          >
+            新規登録
+          </navbar-button>
+        </li>
+      </ul>
 
-        <router-link
-          class="nav-link"
-          to="/login"
-        >
-          新規登録
-        </router-link> -->
-
-        <button 
-          class="nav-link" 
-          @click="toggleModal('login')"
-          :disabled="showRegister"
-        >
-          ログイン
-        </button>
-
-        <button 
-          class="nav-link" 
-          @click="toggleModal('register')"
-          :disabled="showLogin"
-        >
-          新規登録
-        </button>
-
-      </div>
-
-      <!-- logged in -->
-      <div 
-        v-else
-        class="flex"
-      >
-        <router-link 
-          class="nav-link" 
-          to="/account"
-        >アカウント情報</router-link>
-        <!-- <img 
-          class="profile-pic" 
-          :src="user.userPhotoURL" 
-          alt=""
-        > -->
-      </div>
-
-    </div> 
+    </nav>
   </div>
 
 
@@ -76,8 +65,6 @@
     <button @click="sendEmail">SEND EMAIL</button>
   </div> -->
 
-
-  
 </template>
 
 <script>
@@ -85,14 +72,19 @@ import UserAuth from "@/auth/UserAuth.vue"
 import firebase from "firebase/app"
 import "firebase/auth"
 
+import NavbarButton from "@/components/ui/NavbarButton"
+import MobileNavmenu from "@/components/layout/MobileNavmenu"
+
 export default {
   components: {
-    UserAuth
+    UserAuth,
+    NavbarButton,
+    MobileNavmenu
   },
   data() {
     return {
       showLogin: false,
-      showRegister: false
+      showRegister: false,
     }
   },
   computed: {
@@ -129,65 +121,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.navbar {
-  display: flex;
-  box-shadow: 0px 3px 5px#D3D3D3;
-  height: 70px;
-  padding: 0 3rem;
-  align-items: center;
-  justify-content: space-between;
-}
-
-h2 {
-  color: steelblue;
-}
-
-.profile-pic {
-  height: 100%;
-  width: auto;
-  padding: 1rem;
-}
-
-.flex {
-  display: flex;
-  height: 100%;
-  align-items: center;
-}
-
-.nav-link {
-  display: block;
-  padding: 7px 12px;
-  cursor: pointer;
-  border: 1px solid steelblue;
-  color: steelblue;
-  border-radius: 4px;
-  text-decoration: none;
-  margin: 0 0.5rem;
-  font-size: 0.9rem;
-  background-color: #fff;
-  outline: none;
-}
-
-.nav-link:hover {
-  opacity: 0.6;
-}
-
-.nav-link:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.container {
-  display: flex;
-  justify-content: center;
-  padding-top: 2rem;
-}
-
-p {
-  margin: 0;
-  text-align: center;
-}
-
-</style>
