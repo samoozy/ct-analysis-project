@@ -12,8 +12,7 @@
     </router-link>
     <p class="my-2">{{ post.date }}</p>
     <div
-      :class="`${post.type === '無料' ? `bg-gray-200` : `bg-yellow-300`} 
-      w-max px-2 py-1 rounded-sm text-sm`"
+      :class="`${post.type === '無料' ? `bg-gray-200` : `bg-yellow-300`} w-max px-2 py-1 rounded-sm text-sm`"
     >{{ post.type }}</div>
   </li>
 </template>
