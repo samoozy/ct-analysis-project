@@ -38,7 +38,7 @@
         <li class="ml-4">
           <navbar-button
             mode="ghost"
-            @emitClick="openModal"
+            @emitClick="openAuthModal('login')"
           >
             ログイン
           </navbar-button>
@@ -46,6 +46,7 @@
         <li class="ml-4">
           <navbar-button
             mode="filled"
+            @emitClick="openAuthModal('register')"
           >
             新規登録
           </navbar-button>
@@ -55,33 +56,36 @@
     </nav>
   </div>
 
-  <user-auth mode="login"></user-auth>
-
-  <TheModal 
-    @onClick="closeModal"
+  <the-modal
+    @onClick="closeAuthModal"
     :isOpen="isOpen"
-  />
+  >
+    <UserAuth
+      :mode="mode"
+     />
+  </the-modal>
 
   
 
 </template>
 
 <script>
-import UserAuth from "@/auth/UserAuth.vue"
+import UserAuth from "@/auth/UserAuth"
 import NavbarButton from "@/components/ui/NavbarButton"
 import MobileNavmenu from "@/components/layout/MobileNavmenu"
 import TheModal from "@/components/layout/TheModal"
 
 export default {
   components: {
-    UserAuth,
     NavbarButton,
     MobileNavmenu,
-    TheModal
+    TheModal,
+    UserAuth
   },
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      mode: ''
     }
   },
   computed: {
@@ -102,12 +106,13 @@ export default {
     redirectToPath(path) {
       this.$router.push(path)
     },
-    openModal() {
+    openAuthModal(mode) {
+      this.mode = mode
       this.isOpen = true
     },
-    closeModal() {
+    closeAuthModal() {
       this.isOpen = false
-    }
+    },
   }
 }
 </script>

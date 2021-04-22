@@ -5,7 +5,9 @@
       @click="$emit('onClick')"
     ></div>
 
-    <div class="bg-white top-1/2 left-1/2 w-72 h-96 fixed -mt-48 -ml-36 sm:w-96 sm:-ml-48 rounded p-4">
+    <div class="bg-white top-1/2 left-1/2 w-72 h-96 fixed -mt-48 -ml-36 sm:w-96 sm:-ml-48 rounded py-4 px-8">
+
+      <!-- close button -->
       <div class="flex justify-end">
         <button 
           class="focus:outline-none"
@@ -21,15 +23,19 @@
         </button>
       </div>
 
+      <!-- login/registration -->
+      <slot></slot>
+
     </div>
   </div>
 
 </template>
 
 <script>
+
 export default {
   props: {
-    isOpen: Boolean
+    isOpen: Boolean,
   },
   emits: ['onClick']
 }
