@@ -11,14 +11,17 @@
         </div>
       </router-link>
 
-      <MobileNavmenu />
+      <MobileNavmenu 
+        @redirectToAccount="redirectToPath('/account')"
+      />
 
       <ul 
         class="lg:flex lg:static hidden"
       >
         <li class="ml-4">
           <navbar-button 
-            mode="primary"
+            mode="filled"
+            @emitClick="redirectToPath('/')"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-current mr-2" width="16" height="16" viewBox="0 0 24 24"><path d="M4 4v20h20v-20h-20zm18 18h-16v-13h16v13zm-3-3h-10v-1h10v1zm0-3h-10v-1h10v1zm0-3h-10v-1h10v1zm2-11h-19v19h-2v-21h21v2z"/></svg>
             レポート一覧
@@ -26,21 +29,23 @@
         </li>
         <li class="ml-4">
           <navbar-button
-            mode="secondary"
+            mode="ghost"
+            @emitClick="redirectToPath('/account')"
           >
             アカウント情報
           </navbar-button>
         </li>
         <li class="ml-4">
           <navbar-button
-            mode="secondary"
+            mode="ghost"
+            @emitClick="openModal"
           >
             ログイン
           </navbar-button>
         </li>
         <li class="ml-4">
           <navbar-button
-            mode="primary"
+            mode="filled"
           >
             新規登録
           </navbar-button>
@@ -50,41 +55,33 @@
     </nav>
   </div>
 
+  <user-auth mode="login"></user-auth>
 
-  <!-- login modal -->
-  <div class="container">
-    <div v-if="showLogin">
-      <user-auth mode="login"></user-auth>
-    </div>
-    <div v-else-if="showRegister">
-      <user-auth mode="register"></user-auth>
-    </div>
-  </div>
+  <TheModal 
+    @onClick="closeModal"
+    :isOpen="isOpen"
+  />
 
-  <!-- <div class="container">
-    <button @click="sendEmail">SEND EMAIL</button>
-  </div> -->
+  
 
 </template>
 
 <script>
 import UserAuth from "@/auth/UserAuth.vue"
-import firebase from "firebase/app"
-import "firebase/auth"
-
 import NavbarButton from "@/components/ui/NavbarButton"
 import MobileNavmenu from "@/components/layout/MobileNavmenu"
+import TheModal from "@/components/layout/TheModal"
 
 export default {
   components: {
     UserAuth,
     NavbarButton,
-    MobileNavmenu
+    MobileNavmenu,
+    TheModal
   },
   data() {
     return {
-      showLogin: false,
-      showRegister: false,
+      isOpen: false
     }
   },
   computed: {
@@ -96,27 +93,20 @@ export default {
     },
     loggedIn() {
       return this.$store.getters['auth/loggedIn']
+    },
+    open() {
+      return this.isOpen
     }
   },
   methods: {
-    toggleModal(modal) {
-      if(modal === "login") {
-        this.showLogin = !this.showLogin
-      } else if(modal === "register") {
-        this.showRegister = !this.showRegister
-      }
-
+    redirectToPath(path) {
+      this.$router.push(path)
     },
-    async sendEmail() {
-      const actionCodeSettings = {
-        url: "http://localhost:8080/"
-      }
-
-      const user = firebase.auth().currentUser
-      
-      const res = await user.sendEmailVerification(actionCodeSettings)
-      
-      console.log(res)
+    openModal() {
+      this.isOpen = true
+    },
+    closeModal() {
+      this.isOpen = false
     }
   }
 }

@@ -12,7 +12,7 @@
     <!-- menu overlay -->
     <div 
       v-if="isActive"
-      class="fixed top-0 left-0 w-full h-full bg-black opacity-70"
+      class="fixed top-0 left-0 w-full h-full bg-black opacity-50"
       @click="closeMenu"
     ></div>
 
@@ -35,21 +35,22 @@
         </li>
         <li>
           <navbar-button
-            mode="secondary"
+            mode="ghost"
+            @click="$emit('redirectToAccount')"
           >
             アカウント情報
           </navbar-button>
         </li>
         <li>
           <navbar-button
-            mode="secondary"
+            mode="ghost"
           >
             ログイン
           </navbar-button>
         </li>
         <li>
           <navbar-button
-            mode="primary"
+            mode="filled"
           >
             新規登録
           </navbar-button>
@@ -66,6 +67,9 @@ export default {
   components: {
     NavbarButton
   },
+  emits: [
+    'redirectToAccount'
+  ],
   data() {
     return {
       isActive: false
