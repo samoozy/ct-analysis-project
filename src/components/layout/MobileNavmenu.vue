@@ -88,6 +88,6 @@ export default {
 
 <style scoped>
 li {
-  @apply mt-9;
+  @apply mt-7;
 }
 </style>
