@@ -24,9 +24,6 @@
         </button>
       </div>
 
-      {{ open }}
-
-
       <!-- login/registration -->
       <slot></slot>
 
@@ -38,12 +35,9 @@
 <script>
 
 export default {
-  props: {
-    isOpen: Boolean,
-  },
   emits: ['onClick'],
   computed: {
-    open() {
+    isOpen() {
       return this.$store.getters['modal/isOpen']
     }
   }

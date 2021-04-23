@@ -21,9 +21,7 @@
     
   </div>
 
-  <button @click="testing">OPEN</button>
 
-  
   <div v-if="showForm">
     <button 
       class="focus:outline-none mb-2 flex items-center"
@@ -65,7 +63,10 @@
         <error-message v-if="error.passwordConfirm">{{ error.passwordConfirm }}</error-message>
       </div>
 
-      <button class="my-1 w-full text-center bg-indigo-600 px-3 py-2 rounded hover:bg-indigo-800 duration-200 text-white text-base focus:outline-none border border-indigo-600 hover:border-indigo-800 disabled:opacity-50 disabled:pointer-events-none">{{ textContent.btn }}</button>
+      <button 
+        class="my-1 w-full text-center bg-indigo-600 px-3 py-2 rounded hover:bg-indigo-800 duration-200 text-white text-base focus:outline-none border border-indigo-600 hover:border-indigo-800 disabled:opacity-50 disabled:pointer-events-none"
+        :disabled="deactivated"
+      >{{ textContent.btn }}</button>
       <error-message v-if="error.register || error.login">{{ error.register || error.login }}</error-message>
 
     </form>
@@ -150,6 +151,7 @@ export default {
       email: '',
       password: '',
       passwordConfirm: '',
+      deactivated: false,
       error: {
         emailRegister: '',
         passwordRegister: '',
@@ -177,9 +179,6 @@ export default {
     this.setBtnText(this.mode)
   },
   methods: {
-    testing() {
-      this.$store.commit('modal/openModal')
-    },
     validateLogin() {
       return
     },
@@ -213,8 +212,7 @@ export default {
       if(this.mode === "register") {
         await this.registerUserWithEmailAndPassword()
       } else if (this.mode === "login") {
-        const user = await this.signInWithEmailAndPassword()
-        console.log(user)
+        await this.signInWithEmailAndPassword()
       }
     },
     // This method is for initiating Google Authentication
@@ -254,6 +252,8 @@ export default {
         // send confirmation email
         const res = await userCredential.user.sendEmailVerification(actionCodeSettings)
 
+        this.$store.commit('modal/closeModal')
+
         return res
 
       } catch(err) {
@@ -286,7 +286,12 @@ export default {
     // This is for signing user in with their email and password
     async signInWithEmailAndPassword() {
       try {
+        this.deactivated = true 
+        
         const userCredential = await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+
+        this.$store.commit('modal/closeModal')
+        this.deactivated = false
 
         return userCredential.user
       } catch(err) {
