@@ -5,7 +5,8 @@
       @click="$emit('onClick')"
     ></div>
 
-    <div class="bg-white top-1/2 left-1/2 w-72 h-96 fixed -mt-48 -ml-36 sm:w-96 sm:-ml-48 rounded py-4 px-8">
+
+    <div class="bg-white top-1/2 left-1/2 w-72 h-96 fixed -mt-48 -ml-36 sm:w-96 sm:-ml-48 rounded py-5 px-8 overflow-auto">
 
       <!-- close button -->
       <div class="flex justify-end">
@@ -23,6 +24,9 @@
         </button>
       </div>
 
+      {{ open }}
+
+
       <!-- login/registration -->
       <slot></slot>
 
@@ -37,6 +41,11 @@ export default {
   props: {
     isOpen: Boolean,
   },
-  emits: ['onClick']
+  emits: ['onClick'],
+  computed: {
+    open() {
+      return this.$store.getters['modal/isOpen']
+    }
+  }
 }
 </script>
