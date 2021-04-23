@@ -100,7 +100,7 @@ export default {
     },
     open() {
       return this.isOpen
-    }
+    },
   },
   methods: {
     redirectToPath(path) {
