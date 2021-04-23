@@ -58,7 +58,6 @@
 
   <the-modal
     @onClick="closeAuthModal"
-    :isOpen="isOpen"
   >
     <UserAuth
       :mode="mode"
@@ -84,7 +83,6 @@ export default {
   },
   data() {
     return {
-      isOpen: false,
       mode: ''
     }
   },
@@ -108,10 +106,10 @@ export default {
     },
     openAuthModal(mode) {
       this.mode = mode
-      this.isOpen = true
+      this.$store.commit('modal/openModal')
     },
     closeAuthModal() {
-      this.isOpen = false
+      this.$store.commit('modal/closeModal')
     },
   }
 }

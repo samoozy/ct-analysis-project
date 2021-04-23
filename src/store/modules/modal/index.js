@@ -15,7 +15,6 @@ export default {
       state.isOpen = false
     },
     openModal(state) {
-      console.log('test')
       state.isOpen = true
     }
   }
