@@ -173,9 +173,17 @@ export default {
       this.isCompleted = true
       this.isLoading = false
     },
+    async loadPostById() {
+      // load posts in case the posts state is empty.
+      await this.$store.dispatch('posts/loadPosts')
+
+      this.post = this.$store.getters['posts/getPostById'](this.$route.params.reportId)
+    }
   },
-  mounted() {
-    this.post = this.$store.getters['posts/getPostById'](this.postId)
+  async mounted() { 
+    await this.loadPostById()
+
+    // This is for resetting the loading spinner
     this.isLoading = false
     this.isCompleted = false
   }
