@@ -1,7 +1,6 @@
 <template>
   <div v-if="!loggedIn">
       ログインしてください。
-    <router-link to="/login">ログイン</router-link>
   </div>
 
   <div v-else>

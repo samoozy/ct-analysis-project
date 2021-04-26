@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-
 import ReportsList from './pages/reports/ReportsList.vue'
 import ReportDetail from './pages/reports/ReportDetail.vue'
-import Login from './pages/user/Login.vue'
 import Account from './pages/user/Account.vue'
 import StripeCheckout from './pages/stripe-checkout/StripeCheckout.vue'
 
@@ -27,11 +25,6 @@ const router = createRouter({
           postId: route.params.reportId
         }
       )
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login
     },
     {
       path: '/account',
