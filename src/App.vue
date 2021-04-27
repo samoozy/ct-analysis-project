@@ -1,4 +1,5 @@
 <template>
+  <LoadScreen />
   <the-header></the-header>
   <div class="xl:px-48 sm:px-10 px-5 mb-8">
     <router-view></router-view>
@@ -7,13 +8,15 @@
 
 <script>
 import TheHeader from './components/layout/TheHeader.vue'
+import LoadScreen from './components/layout/LoadScreen.vue'
 
 export default {
   components: {
-    TheHeader
+    TheHeader,
+    LoadScreen
   },
-  created() {
-    this.$store.dispatch('auth/initAuth')
+  async created() {
+    await this.$store.dispatch('auth/initAuth')
   }
 }
 

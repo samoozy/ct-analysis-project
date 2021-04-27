@@ -1,6 +1,6 @@
 <template>
 
-  <div class="px-10 py-1 mb-3 shadow">
+  <div class="px-10 py-2 mb-3 shadow">
 
     <!-- navbar -->
     <nav class="flex justify-center lg:justify-between items-center">
