@@ -231,6 +231,8 @@ export default {
 
       console.log(credential, token, user)
 
+      this.$store.commit('modal/closeModal')
+
     },
     // This is for registering user with email and password
     async registerUserWithEmailAndPassword() {

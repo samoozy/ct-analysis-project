@@ -181,13 +181,13 @@ export default {
     }
   },
   async mounted() { 
-    this.$store.commit('ui/startLoading')
+
     await this.loadPostById()
 
     // This is for resetting the loading spinner
     this.isLoading = false
     this.isCompleted = false
-    this.$store.commit('ui/stopLoading')
+
   }
 }
 </script>

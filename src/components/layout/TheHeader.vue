@@ -27,7 +27,7 @@
             レポート一覧
           </navbar-button>
         </li>
-        <li class="ml-4">
+        <li v-if="loggedIn" class="ml-4">
           <navbar-button
             mode="ghost"
             @emitClick="redirectToPath('/account')"
@@ -35,7 +35,7 @@
             アカウント情報
           </navbar-button>
         </li>
-        <li class="ml-4">
+        <li v-if="!loggedIn" class="ml-4">
           <navbar-button
             mode="ghost"
             @emitClick="openAuthModal('login')"
@@ -43,7 +43,7 @@
             ログイン
           </navbar-button>
         </li>
-        <li class="ml-4">
+        <li v-if="!loggedIn" class="ml-4">
           <navbar-button
             mode="filled"
             @emitClick="openAuthModal('register')"

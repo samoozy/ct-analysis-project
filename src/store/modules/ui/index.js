@@ -16,6 +16,6 @@ export default {
     },
     stopLoading(state) {
       state.loading = false
-    }
-  }
+    },
+  },
 }

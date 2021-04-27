@@ -88,6 +88,9 @@ export default {
     },
     provider() {
       return this.$store.getters['auth/provider']
+    },
+    isLoadingAuth() {
+      return this.$store.getters['auth/isLoadingAuth']
     }
   },
   methods: {
@@ -104,6 +107,18 @@ export default {
       return    
     }
   },
+  watch: {
+    // deactivate loading screen
+    isLoadingAuth() {
+      this.$store.commit('ui/stopLoading')
+    }
+  },
+  mounted() {
+    // activate loading screen
+    if(this.isLoadingAuth) {
+      this.$store.commit('ui/startLoading')
+    }
+  }
 }
 </script>
 
