@@ -27,9 +27,9 @@ export default {
     }
   },
   async mounted() {
-    this.$store.commit('ui/startLoading')
+
     await this.$store.dispatch('posts/loadPosts')
-    this.$store.commit('ui/stopLoading')
+
   }
 }
 </script>

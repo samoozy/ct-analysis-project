@@ -6,6 +6,7 @@ export default {
   namespaced: true,
   state() {
     return {
+      isLoadingAuth: false,
       loggedIn: false,
       paidSubscriber: false,
       user: {},
@@ -16,6 +17,9 @@ export default {
     }
   },
   getters: {
+    isLoadingAuth(state) {
+      return state.isLoadingAuth
+    },
     user(state) {
       return state.user
     },
@@ -33,9 +37,15 @@ export default {
     },
     provider(state) {
       return state.provider
-    }
+    },
   },
   mutations: {
+    startLoadingAuth(state) {
+      state.isLoadingAuth = true
+    },
+    stopLoadingAuth(state) {
+      state.isLoadingAuth = false
+    },
     setUser(state, payload) {
       state.user = payload
     },
@@ -68,9 +78,11 @@ export default {
     },
   },
   actions: {
-    initAuth(context) {
+    async initAuth(context) {
+      // start loading
+      context.commit('startLoadingAuth')
 
-      firebase.auth().onAuthStateChanged(user => {
+      firebase.auth().onAuthStateChanged(async user => {
         if(user) {
 
           // set user
@@ -83,14 +95,6 @@ export default {
           })
           context.commit('setLoggedIn')
 
-          // check if the user is a subscriber
-          firestore.collection('users').doc(user.uid).get().then(doc => {
-            // if the pricingPlanId exists for this user, that means the user is a paid subscriber
-            if(doc.data()) {
-              context.commit('setPaidSubscriber')
-            }      
-          })
-
           // set provider
           let provider = []
           user.providerData.forEach(profile => {
@@ -98,10 +102,23 @@ export default {
           })
           context.commit('setProvider', provider)
           
+          // check if the user is a subscriber
+          const doc = await firestore.collection('users').doc(user.uid).get()
+
+          if(doc.data()) {
+            context.commit('setPaidSubscriber')
+          }
+
+          // stop loading
+          context.commit('stopLoadingAuth')
+          
         } else {
           console.log("not logged in")
+
+          // stop loading
+          context.commit('stopLoadingAuth')
         }
       })
-    }
+    },
   }
 }

@@ -18,13 +18,16 @@ export default {
     async loadPosts(context) {
 
       try {
+
         // Since Vue returns a Proxy object instead of an array, we have to check the length of the returned object. 
-        
         // This checks the length of the returned Proxy Object.
-        // if(context.getters['posts'].length) {
-        //   console.log('state exists')
-        //   return
-        // }
+        if(context.getters['posts'].length) {
+          return
+        }
+
+        // activate loading screen
+        context.commit('ui/startLoading', null, {root: true})
+
 
         // fetch posts from wpgraphql
         const response = await fetch(environments.wpgraphql.url, {
@@ -63,9 +66,13 @@ export default {
         const posts = res.data.posts.nodes
 
         context.commit('setPosts', posts)
+        // deactivate loading screen
+        context.commit('ui/stopLoading', null, {root: true})
         
       } catch(error) {
         console.error()
+        // deactivate loading screen
+        context.commit('ui/stopLoading', null, {root: true})
       }
     }
 
