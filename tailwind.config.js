@@ -5,7 +5,13 @@ module.exports = {
     fontFamily: {
       'sans-jp': ['"Noto Sans JP"','sans-serif']
     },
-    extend: {},
+    extend: {
+      spacing: {
+        '108': '27rem',
+        '120': '30rem',
+        '144': '36rem'
+      },
+    },
   },
   variants: {
     extend: {

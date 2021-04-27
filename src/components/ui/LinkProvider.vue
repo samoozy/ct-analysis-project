@@ -1,10 +1,12 @@
 <template>
-  <button @click="linkToGoogleProvider">LINK TO GOOGLE</button>
+  <div>
+    <button class="border" @click="linkToGoogleProvider">LINK TO GOOGLE</button>
 
-  <p v-if="show">
-    {{ message }}
-  </p>
+    <p v-if="show">
+      {{ message }}
+    </p>
 
+  </div>
 </template>
 
 <script>

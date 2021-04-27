@@ -1,11 +1,11 @@
 <template>
 
-  <div class="container" v-if="provider.google && !provider.password">
+  <div v-if="provider.google && !provider.password">
     <div>メールアドレス・パスワード設定</div>
-    <button @click="changePassword" :disabled="!show">パスワードを設定する</button>
+    <button class="border" @click="changePassword" :disabled="!show">パスワードを設定する</button>
   </div>
-  <div class="container" v-else-if="provider.password">
-    <button @click="changePassword" :disabled="!show">パスワードを変更</button>
+  <div  v-else-if="provider.password">
+    <button class="border" @click="changePassword" :disabled="!show">パスワードを変更</button>
   </div>
 
 
@@ -66,17 +66,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 2rem;
-}
-
-div {
-  text-align: center;
-}
-</style>
