@@ -1,62 +1,78 @@
 <template>
+  
+
   <div v-if="!loggedIn">
       ログインしてください。
   </div>
 
+
   <div v-else>
-    <div>
-      <h1 class="text-center">アカウント情報</h1>
 
-      <div class="container">
-        <div>メールアドレス：{{ user.email }}</div>
-        <div>
-          認証：
-          <span v-if="user.verified">メール認証済み</span>
-          <span v-else>メール認証中。確認メールを{{user.email}}宛に送りました。</span>
+    <div class="grid grid-cols-2">
+
+
+      <div class="items-center h-full">
+        <h5>アカウント情報</h5>
+        <div>アカウント設定</div>
+        <div>お支払い設定</div>
+      </div>
+
+
+      <div class="content-container">
+        
+        <div class="wrapper">
+          <h5>メールアドレス</h5>
+
+          <p>{{ user.email }}</p>
+          <change-password :provider="provider"></change-password>
+
         </div>
-        <div>
-          サブスクリプション：<span v-if="paidSubscriber">有料</span><span v-else>無料</span>
+
+        <div class="wrapper">
+          <h5>メールアドレス認証</h5>
+          <p v-if="user.verified">認証済み</p>
+          <p v-else>メール認証中。確認メールを{{user.email}}宛に送りました。</p>
+          <!-- resend verfication email -->
+          <div></div>
         </div>
-        <div>
-          連携済みサービス：
-          <div v-if="provider.google">Google</div>
-          <div v-if="provider.password">メールアドレス・パスワード</div>
+
+        <div class="wrapper">
+          <h5>サブスクリプション</h5>
+          <p v-if="paidSubscriber">有料</p>
+          <p v-else>無料</p>
+          <subscription-button></subscription-button>
         </div>
-      </div>
-
-      <!-- change password and/or set password -->
-      <change-password :provider="provider"></change-password>
-
-      <!-- link to google -->
-      <div class="container" v-if="!provider.google">
-        <link-provider></link-provider>
-      </div>
 
 
-      <!-- delete account -->
-      <div>
-        <!-- make sure its not a paid customer -->
-        <!-- warn user if is a paid customer -->
-      </div>
+        <div class="wrapper">
+          <h5>外部サービスとの連携</h5>
+          <p v-if="provider.google">Google連携済み</p>
+          <p v-if="provider.password">メールアドレス・パスワード連携済み</p>
+          <link-provider></link-provider>
+        </div>
 
-      <!-- show customer portal or subscription -->
-      <div v-if="paidSubscriber" class="container">
-        <customer-portal></customer-portal>
-      </div>
-      <div v-else class="container">
-        <subscription-button></subscription-button>
-      </div>
+        <div class="wrapper">
+          <h5>お支払い設定</h5>
+          <customer-portal></customer-portal>
+        </div>
 
-
-      <div class="container">
-        <button class="btn" @click="signout">
-          サインアウト
-        </button>
-      </div>
+        <div class="wrapper">
+          <h5>アカウント</h5>
+          <button class="border" @click="signout">
+            サインアウト
+          </button>
+          <!-- delete account -->
+          <div>
+            <!-- make sure its not a paid customer -->
+            <!-- warn user if is a paid customer -->
+          </div>
+        </div>
       
+      </div>     
 
     </div>
     
+
   </div>
 
 </template>
@@ -122,37 +138,17 @@ export default {
 }
 </script>
 
-<style scoped>
-h1 {
-  color: steelblue;
+<style scoped lang="postcss">
+
+.wrapper {
+  @apply mb-1;
 }
 
-.btn {
-  text-decoration: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border: none;
-  background-color: steelblue;
-  color: #fff;
-  font-size: 1.1rem;
-  box-shadow: 2px 2px 3px #D3D3D3;
-  border-radius: 4px;
-  outline: none;
+h5 {
+  @apply font-bold mr-5 text-xl;
 }
 
-.btn:hover {
-  opacity: 0.8;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding-top: 2rem;
-}
-
-.text-center {
-  text-align: center;
+p {
+  @apply text-black;
 }
 </style>

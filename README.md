@@ -1,4 +1,4 @@
-# vue-stripe-test
+# ct-analysis-project
 
 ## Project setup
 ```

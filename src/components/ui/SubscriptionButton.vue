@@ -1,9 +1,12 @@
 <template>
-  <button 
-    class="subscription-btn"
-    :disabled="!!checkoutInProgress"
-    @click="subscribeToPlan"
-  >有料会員になる</button>
+  
+  <div>
+    <button 
+      class="border"
+      :disabled="!!checkoutInProgress"
+      @click="subscribeToPlan"
+    >有料会員になる</button>
+  </div>
   
 </template>
 
@@ -43,21 +46,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.subscription-btn {
-  padding: 10px 20px;
-  cursor: pointer;
-  border: none;
-  background-color: steelblue;
-  color: #fff;
-  font-size: 1.1rem;
-  box-shadow: 2px 2px 3px #D3D3D3;
-  border-radius: 4px;
-  outline: none;
-}
-
-.subscription-btn:hover,
-.subscription-btn:disabled {
-  opacity: 0.8;
-}
-</style>
