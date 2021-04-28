@@ -5,6 +5,9 @@ import ReportDetail from './pages/reports/ReportDetail.vue'
 import UserAccount from './pages/user/UserAccount.vue'
 import StripeCheckout from './pages/stripe-checkout/StripeCheckout.vue'
 
+import AccountSettings from './components/account/AccountSettings.vue'
+import AccountPayment from './components/account/AccountPayment.vue'
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -29,7 +32,21 @@ const router = createRouter({
     {
       path: '/account',
       name: 'account',
-      component: UserAccount
+      component: UserAccount,
+      children: [
+        {
+          path: '',
+          redirect: '/account/settings'
+        },
+        {
+          path: 'settings',
+          component: AccountSettings
+        },
+        {
+          path: 'payment',
+          component: AccountPayment
+        },
+      ]
     },
     {
       path: '/stripe-checkout',
