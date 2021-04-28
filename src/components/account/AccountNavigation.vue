@@ -1,5 +1,5 @@
 <template>
-  <h3 class="title">アカウント情報</h3>
+  <h3 class="font-bold text-xl mb-8 pl-2">アカウント情報</h3>
 
   <router-link 
     class="nav-link"
@@ -33,15 +33,11 @@ export default {
 </script>
 
 <style scoped lang="postcss">
-.title {
-  @apply font-bold text-xl mb-8 pl-2;
-}
-
 .active {
   @apply text-indigo-600 font-bold;
 }
 
 .nav-link {
-  @apply block py-3 pl-2 hover:bg-gray-100 rounded;
+  @apply block py-3 pl-2 rounded hover:bg-gray-100;
 }
 </style>
