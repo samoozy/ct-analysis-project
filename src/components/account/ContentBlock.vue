@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-10">
+  <div class="mb-8">
 
     <h5 class="font-bold">
       <slot name="title"></slot>
@@ -10,7 +10,7 @@
     <div>
       <slot name="btn"></slot>
     </div>
-    
+
   </div>
 </template>
 

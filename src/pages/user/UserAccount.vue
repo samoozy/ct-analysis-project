@@ -4,14 +4,13 @@
       ログインしてください。
   </div>
 
-
   <div v-else>
 
-    <div class="flex">
-      <div class="h-full w-3/12 mr-8">
+    <div class="lg:flex">
+      <div class="lg:w-3/12 lg:mr-8 h-full">
         <AccountNavigation />
       </div>
-      <div class="w-9/12 border p-12 rounded shadow-sm">
+      <div class="lg:w-9/12 border p-12 rounded shadow-sm">
         <router-view></router-view>
       </div>
     </div>
@@ -49,7 +48,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="postcss">
-
-</style>
