@@ -8,22 +8,14 @@
   <div v-else>
 
     <div class="flex">
-
-
-      <div class="h-full w-3/12">
+      <div class="h-full w-3/12 mr-8">
         <AccountNavigation />
       </div>
-
-
-      <div class="w-9/12 border p-8">
-
+      <div class="w-9/12 border p-12 rounded shadow-sm">
         <router-view></router-view>
-
       </div>
-
     </div>
     
-
   </div>
 
 </template>
@@ -34,11 +26,6 @@ import AccountNavigation from '@/components/account/AccountNavigation'
 export default {
   components: {
     AccountNavigation
-  },
-  data() {
-    return {
-
-    }
   },
   computed: {
     loggedIn() {

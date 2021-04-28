@@ -2,10 +2,11 @@
   <!-- メールアドレス -->
   <content-block>
     <template v-slot:title>
-      メールアドレス
+      メールアドレス・パスワード
     </template>
     <template v-slot:text>
       <p>{{ user.email }}</p>
+      <p>******</p>
     </template>
     <template v-slot:btn>
       <ChangePassword :provider="provider" />
@@ -113,7 +114,7 @@ export default {
         this.$store.commit('auth/resetUser')
         this.$router.push('/')
       }
-      return    
+      return
     }
   }
 }
