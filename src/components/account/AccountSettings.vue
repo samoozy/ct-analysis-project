@@ -43,7 +43,7 @@
       <router-link 
         v-if="!paidSubscriber" 
         class="text-sm text-indigo-600"
-        to="/">有料プラン詳細</router-link>
+        to="/promotion">有料プラン詳細</router-link>
     </template>
   </content-block>
 

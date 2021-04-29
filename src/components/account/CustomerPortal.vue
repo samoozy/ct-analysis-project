@@ -8,7 +8,7 @@
     <small class="block text-xs text-red-700">{{ errorMessage }}</small>
     <p class="text-sm" v-if="!paidSubscriber">
       Stripe決済の設定は有料会員のみ利用可能です。
-      <router-link class="text-sm text-indigo-600" to="/">有料プラン詳細</router-link>
+      <router-link class="text-sm text-indigo-600" to="/promotion">有料プラン詳細</router-link>
     </p>
   </div>
 </template>
