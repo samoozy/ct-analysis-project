@@ -37,7 +37,7 @@
 
     <base-button
       mode="ghost-lg"
-      @emitClick="redirectToPath('/')"
+      @emitClick="redirectToPath('/promotion')"
     >有料プラン詳細</base-button>
 
   </div>
@@ -71,7 +71,7 @@
 
     <base-button
       mode="ghost-lg"
-      @emitClick="redirectToPath('/')"
+      @emitClick="redirectToPath('/promotion')"
     >有料プラン詳細</base-button>
   </div>
 

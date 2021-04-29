@@ -1,7 +1,7 @@
 <template>
-  <h1 class="text-center mb-8 text-2xl">レポート一覧</h1>
+  <TheTitle title="レポート一覧" />
 
-  <ul class="grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 gap-4">
+  <ul class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
     
     <report-card 
       v-for="post in posts"
@@ -16,10 +16,12 @@
 
 <script>
 import ReportCard from '@/components/reports/ReportCard.vue'
+import TheTitle from '@/components/layout/TheTitle'
 
 export default {
   components: {
-    ReportCard
+    ReportCard,
+    TheTitle
   },
   computed: {
     posts() {

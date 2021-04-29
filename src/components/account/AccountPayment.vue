@@ -17,7 +17,7 @@
 
 <script>
 import ContentBlock from "@/components/account/ContentBlock"
-import CustomerPortal from "@/components/ui/CustomerPortal.vue"
+import CustomerPortal from "@/components/account/CustomerPortal.vue"
 
 export default {
   components: {

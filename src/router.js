@@ -4,6 +4,7 @@ import ReportsList from './pages/reports/ReportsList.vue'
 import ReportDetail from './pages/reports/ReportDetail.vue'
 import UserAccount from './pages/user/UserAccount.vue'
 import StripeCheckout from './pages/stripe-checkout/StripeCheckout.vue'
+import ThePromotion from './pages/promotion/ThePromotion.vue'
 
 import AccountSettings from './components/account/AccountSettings.vue'
 import AccountPayment from './components/account/AccountPayment.vue'
@@ -51,6 +52,10 @@ const router = createRouter({
     {
       path: '/stripe-checkout',
       component: StripeCheckout
+    },
+    {
+      path: '/promotion',
+      component: ThePromotion
     }
   ]
 })
