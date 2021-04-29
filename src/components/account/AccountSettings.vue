@@ -5,8 +5,10 @@
       メールアドレス・パスワード
     </template>
     <template v-slot:text>
-      <p>{{ user.email }}</p>
-      <p>******</p>
+      <div v-if="user.email">
+        <p>{{ user.email }}</p>
+        <p>********</p>
+      </div>
     </template>
     <template v-slot:btn>
       <ChangePassword :provider="provider" />
@@ -24,7 +26,7 @@
     </template>
     <!-- resend verfication email -->
     <template v-slot:btn>
-      <button class="border">RESEND VERIFICATION</button>
+      <ResendVerification v-if="!user.verified" />
     </template>
   </content-block>
 
@@ -38,7 +40,10 @@
       <p v-else>無料</p>
     </template>
     <template v-slot:btn>
-      <SubscriptionButton />
+      <router-link 
+        v-if="!paidSubscriber" 
+        class="text-sm text-indigo-600"
+        to="/">有料プラン詳細</router-link>
     </template>
   </content-block>
 
@@ -52,21 +57,27 @@
       <p v-if="provider.password">メールアドレス・パスワード連携済み</p>
     </template>
     <template v-slot:btn>
-      <LinkProvider />
+      <LinkProvider v-if="!provider.google" />
     </template>
   </content-block>
 
   <!-- サインアウトと退会手続き -->
   <content-block>
     <template v-slot:btn>
-      <button class="border" @click="signout">
+      <base-button mode="ghost" @emitClick="signout">
         サインアウト
-      </button>
+      </base-button>
       <!-- delete account -->
       <div>
         <!-- make sure its not a paid customer -->
         <!-- warn user if is a paid customer -->
       </div>
+    </template>
+  </content-block>
+
+  <content-block>
+    <template v-slot:btn>
+      <router-link class="text-gray-600 text-sm" to="/">退会手続きへ</router-link>
     </template>
   </content-block>
 
@@ -81,18 +92,19 @@ import "firebase/auth"
 /**
  * components
  */
-import ChangePassword from "@/components/ui/ChangePassword.vue"
-import SubscriptionButton from "@/components/ui/SubscriptionButton.vue"
-import LinkProvider from "@/components/ui/LinkProvider.vue"
+import ChangePassword from "@/components/account/ChangePassword.vue"
+import ResendVerification from "@/components/account/ResendVerification"
+import LinkProvider from "@/components/account/LinkProvider.vue"
 import ContentBlock from "@/components/account/ContentBlock"
-
+import BaseButton from "@/components/ui/BaseButton"
 
 export default {
   components: {
     ChangePassword,
-    SubscriptionButton,
+    ResendVerification,
     LinkProvider,
-    ContentBlock
+    ContentBlock,
+    BaseButton
   },
   computed: {
     user() {
@@ -107,7 +119,7 @@ export default {
   },
   methods: {
     signout() {
-      let r = confirm("本当にログアウトしますか？")
+      let r = confirm("本当にサインアウトしますか？")
       if(r) {
         firebase.auth().signOut()
 

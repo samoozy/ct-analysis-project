@@ -7,10 +7,10 @@
   <div v-else>
 
     <div class="lg:flex">
-      <div class="lg:w-3/12 lg:mr-8 h-full">
+      <div class="lg:w-3/12 lg:mr-5 h-full">
         <AccountNavigation />
       </div>
-      <div class="lg:w-9/12 border p-12 rounded shadow-sm">
+      <div class="lg:w-9/12 lg:border lg:px-12 lg:py-4 lg:rounded lg:shadow border-t border-b border-gray-300">
         <router-view></router-view>
       </div>
     </div>

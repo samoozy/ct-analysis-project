@@ -23,26 +23,23 @@
   <p class="text-center">{{ message }}</p>
 
   <!-- if user is not logged in -->
-  <div v-if="!loggedIn"
-  class="flex flex-col justify-center items-center">
+  <div v-if="!loggedIn" class="flex flex-col justify-center items-center">
     <div class="my-4">
       <p class="text-center pt-2">リサーチレポートをダウンロードするには、会員登録が必要です。</p>
       <p class="text-center py-2">既にアカウントをお持ちの方はログインしてください。</p>
     </div>
-    
-    <router-button 
-      :dest="`/`"
-      :mode="`primary`"
-    >
-      今すぐ無料登録
-    </router-button>
 
-    <router-button 
-      :dest="`/`"
-      :mode="`secondary`"
-    >
-      有料プラン詳細
-    </router-button>
+    <base-button 
+      class="mb-2" 
+      mode="filled-lg"
+      @emitClick="openAuthModal('register')"
+    >今すぐ無料登録</base-button>
+
+    <base-button
+      mode="ghost-lg"
+      @emitClick="redirectToPath('/')"
+    >有料プラン詳細</base-button>
+
   </div>
 
   <!-- if user has not verified email -->
@@ -52,12 +49,11 @@
       <p class="text-center pt-2">メールアドレスの承認を行ってください。</p>
       <p class="text-center py-2">アカウント作成時に{{ userEmail }} 宛てに確認メールを送信しました。</p>
     </div>
-    <router-button
-      :dest="`/account`"
-      :mode="`secondary`"
-    >
-      もう一度承認メールを送る
-    </router-button>
+
+    <base-button
+      mode="ghost-lg"
+      @emitClick="redirectToPath('/account')"
+    >アカウント情報</base-button>
   </div>
 
   <!-- if the user has no permission -->
@@ -72,13 +68,11 @@
       <p class="text-center pt-2">このレポートは有料コンテンツです。</p>
       <p class="text-center py-4">有料会員に登録すると、ダウンロードすることができます。</p>
     </div>
-    
-    <router-button
-      :dest="`/`"
-      :mode="`secondary`"
-    >
-      有料プラン詳細
-    </router-button>
+
+    <base-button
+      mode="ghost-lg"
+      @emitClick="redirectToPath('/')"
+    >有料プラン詳細</base-button>
   </div>
 
   <!-- if user is a free subscriber -->
@@ -118,17 +112,19 @@
     </download-button>
   </div>
 
+
+
 </template>
 
 <script>
 import ReportService from '@/services/reports'
-import RouterButton from '@/components/ui/RouterButton'
 import DownloadButton from '@/components/ui/DownloadButton'
+import BaseButton from '@/components/ui/BaseButton'
 
 export default {
   components: {
-    RouterButton,
-    DownloadButton
+    DownloadButton,
+    BaseButton
   },
   props: [
     'postId'
@@ -145,7 +141,7 @@ export default {
     },
     paidSubscriber() {
       return this.$store.getters['auth/paidSubscriber']
-    }
+    },
   },
   data() {
     return {
@@ -178,6 +174,12 @@ export default {
       await this.$store.dispatch('posts/loadPosts')
 
       this.post = this.$store.getters['posts/getPostById'](this.$route.params.reportId)
+    },
+    redirectToPath(path) {
+      this.$router.push(path)
+    },
+    openAuthModal(mode) {
+      this.$store.commit('modal/openModal', mode)
     }
   },
   async mounted() { 

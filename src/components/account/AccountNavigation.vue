@@ -1,5 +1,5 @@
 <template>
-  <h3 class="font-bold text-xl mb-8 pl-2">アカウント情報</h3>
+  <h3 class="font-bold text-xl mb-3 pl-2">アカウント情報</h3>
 
   <router-link 
     class="nav-link"

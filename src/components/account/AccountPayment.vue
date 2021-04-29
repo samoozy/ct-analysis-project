@@ -6,7 +6,7 @@
       お支払い設定
     </template>
     <template v-slot:text>
-      <p>Stripe customer portal</p>
+      <!-- <p>Stripe決済のリンクを開きます。</p> -->
     </template>
     <template v-slot:btn>
       <CustomerPortal />

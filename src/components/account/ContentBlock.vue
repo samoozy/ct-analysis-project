@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-8">
+  <div class="my-8">
 
     <h5 class="font-bold">
       <slot name="title"></slot>

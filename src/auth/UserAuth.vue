@@ -104,10 +104,10 @@
         />
       </div> 
 
-      <navbar-button 
+      <base-button 
         mode="filled"
         :isDisabled="passwordReset.deactivated"
-      >送信</navbar-button>
+      >送信</base-button>
 
       <error-message v-if="passwordReset.error">{{ passwordReset.error }}</error-message>
 
@@ -127,13 +127,13 @@
 import environments from "@/environments/environments"
 import firebase from "firebase/app"
 import "firebase/auth"
-import NavbarButton from "@/components/ui/NavbarButton"
+import BaseButton from "@/components/ui/BaseButton"
 import FormInput from "@/components/ui/formcontrol/FormInput"
 import ErrorMessage from "@/components/ui/formcontrol/ErrorMessage"
 
 export default {
   components: {
-    NavbarButton,
+    BaseButton,
     FormInput,
     ErrorMessage
   },
