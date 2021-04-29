@@ -1,21 +1,18 @@
 <template>
 
   <div v-if="provider.google && !provider.password">
-    <div>メールアドレス・パスワード設定</div>
-    <button class="border" @click="changePassword" :disabled="!show">パスワードを設定する</button>
+    <p>メールアドレス・パスワード設定</p>
+    <button class="btn" @click="changePassword" :disabled="!show">パスワードを設定する</button>
   </div>
   <div  v-else-if="provider.password">
-    <button class="border" @click="changePassword" :disabled="!show">パスワードを変更</button>
+    <button class="btn" @click="changePassword" :disabled="!show">パスワードを変更する</button>
   </div>
-
 
   <!-- message -->
-  <div v-if="show">
-    <p>{{ message }}</p>
+  <div>
+    <p class="text-sm">{{ message }}</p>
   </div>
-  <div v-else>
-    <h1>LOADING...</h1>
-  </div>
+
 </template>
 
 <script>
@@ -25,7 +22,10 @@ import environments from "@/environments/environments"
 
 export default {
   props: {
-    provider: Object
+    provider: {
+      type: Object,
+      required: true,
+    }
   },
   data() {
     return {
@@ -48,21 +48,23 @@ export default {
           url: environments.front.url
         }
 
-        const res = await auth.sendPasswordResetEmail(user.email, actionCodeSettings)
+        await auth.sendPasswordResetEmail(user.email, actionCodeSettings)
 
-        this.message = `確認メールを${user.email}宛に送りました。`
-
+        this.message = `確認メールを${user.email}宛に送信しました。`
         this.show = true
-        console.log(res)
 
       } catch(err) {
 
         this.show = true
         console.log(err)
       }
-
-      return
     }
   }
 }
 </script>
+
+<style scoped lang="postcss">
+.btn {
+  @apply focus:outline-none disabled:opacity-50 disabled:pointer-events-none text-indigo-600 text-sm;
+}
+</style>

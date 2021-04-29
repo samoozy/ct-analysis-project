@@ -34,26 +34,26 @@
           </router-link>
         </li>
         <li>
-          <navbar-button
+          <base-button
             mode="ghost"
             @click="$emit('redirectToAccount')"
           >
             アカウント情報
-          </navbar-button>
+          </base-button>
         </li>
         <li>
-          <navbar-button
+          <base-button
             mode="ghost"
           >
             ログイン
-          </navbar-button>
+          </base-button>
         </li>
         <li>
-          <navbar-button
+          <base-button
             mode="filled"
           >
             新規登録
-          </navbar-button>
+          </base-button>
         </li>
       </ul>
     </div>
@@ -61,11 +61,11 @@
 </template>
 
 <script>
-import NavbarButton from "@/components/ui/NavbarButton"
+import BaseButton from "@/components/ui/BaseButton"
 
 export default {
   components: {
-    NavbarButton
+    BaseButton
   },
   emits: [
     'redirectToAccount'

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ReportCard from '@/components/ui/ReportCard.vue'
+import ReportCard from '@/components/reports/ReportCard.vue'
 
 export default {
   components: {
