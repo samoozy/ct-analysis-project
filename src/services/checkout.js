@@ -44,6 +44,7 @@ export default class CheckoutService {
 
     } catch(err) {
       console.log("startSubscriptionSession ERROR : " + err)
+      this.$store.commit('ui/stopLoading')
     }
   }
 
@@ -58,6 +59,7 @@ export default class CheckoutService {
       console.log("redirectToCheckout ERROR: " + err)
       // Error message sent from the server
       console.log(session.message)
+      this.$store.commit('ui/stopLoading')
     }
   }
 

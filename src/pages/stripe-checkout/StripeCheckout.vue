@@ -25,7 +25,7 @@ export default {
           if(doc.data().status === "completed") {
             this.wait = false
             this.message = "登録に成功しました。"
-            setTimeout(() => this.$router.push('/articles'), 3000)
+            setTimeout(() => this.$router.push('/'), 3000)
           } else if (doc.data().status === "ongoing") {
             this.message = "登録中、、、"
           }
@@ -35,7 +35,7 @@ export default {
       } else {
         this.wait = false
         this.message = "登録に失敗しました。"
-        setTimeout(() => this.$router.push('/articles'), 3000)
+        setTimeout(() => this.$router.push('/'), 3000)
       }
     }
   },

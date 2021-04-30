@@ -5,111 +5,114 @@
     <span class="pl-2">レポート一覧に戻る</span>
   </router-link>
 
-  <div>
-    <div class="flex justify-center py-5">
-      <img class="rounded-lg" :src="post.imgUrl" alt="">
-    </div>
-    <h2 class="text-2xl font-bold my-3">{{ post.title }}</h2>
+  <div v-if="completed">
     <div>
-      <span :class="`${post.type === '無料' ? `bg-gray-200` : `bg-yellow-300`} 
-        w-max px-2 py-1 rounded-sm text-sm`">{{ post.type }} 
-      </span>
-      <span class="text-gray-500 ml-2">公開日：{{ post.date }}</span>
-    </div>
-    <div class="report-post-content" v-html="post.content"></div>
-  </div>
-
-
-  <p class="text-center">{{ message }}</p>
-
-  <!-- if user is not logged in -->
-  <div v-if="!loggedIn" class="flex flex-col justify-center items-center">
-    <div class="my-4">
-      <p class="text-center pt-2">リサーチレポートをダウンロードするには、会員登録が必要です。</p>
-      <p class="text-center py-2">既にアカウントをお持ちの方はログインしてください。</p>
+      <div class="flex justify-center py-5">
+        <img class="rounded-lg" :src="post.imgUrl" alt="">
+      </div>
+      <h2 class="text-2xl font-bold my-3">{{ post.title }}</h2>
+      <div>
+        <span :class="`${post.type === '無料' ? `bg-gray-200` : `bg-yellow-300`} 
+          w-max px-2 py-1 rounded-sm text-sm`">{{ post.type }} 
+        </span>
+        <span class="text-gray-500 ml-2">公開日：{{ post.date }}</span>
+      </div>
+      <div class="report-post-content" v-html="post.content"></div>
     </div>
 
-    <base-button 
-      class="mb-2" 
-      mode="filled-lg"
-      @emitClick="openAuthModal('register')"
-    >今すぐ無料登録</base-button>
 
-    <base-button
-      mode="ghost-lg"
-      @emitClick="redirectToPath('/promotion')"
-    >有料プラン詳細</base-button>
+    <p class="text-center">{{ message }}</p>
 
-  </div>
+    <!-- if user is not logged in -->
+    <div v-if="!loggedIn" class="flex flex-col justify-center items-center">
+      <div class="my-4">
+        <p class="text-center pt-2">リサーチレポートをダウンロードするには、会員登録が必要です。</p>
+        <p class="text-center py-2">既にアカウントをお持ちの方はログインしてください。</p>
+      </div>
 
-  <!-- if user has not verified email -->
-  <div v-else-if="loggedIn && !userVerified"
-  class="flex flex-col justify-center items-center">
-    <div class="my-4">
-      <p class="text-center pt-2">メールアドレスの承認を行ってください。</p>
-      <p class="text-center py-2">アカウント作成時に{{ userEmail }} 宛てに確認メールを送信しました。</p>
+      <base-button 
+        class="mb-2" 
+        mode="filled-lg"
+        @emitClick="openAuthModal('register')"
+      >今すぐ無料登録</base-button>
+
+      <base-button
+        mode="ghost-lg"
+        @emitClick="redirectToPath('/promotion')"
+      >有料プラン詳細</base-button>
+
     </div>
 
-    <base-button
-      mode="ghost-lg"
-      @emitClick="redirectToPath('/account')"
-    >アカウント情報</base-button>
-  </div>
+    <!-- if user has not verified email -->
+    <div v-else-if="loggedIn && !userVerified"
+    class="flex flex-col justify-center items-center">
+      <div class="my-4">
+        <p class="text-center pt-2">メールアドレスの承認を行ってください。</p>
+        <p class="text-center py-2">アカウント作成時に{{ userEmail }} 宛てに確認メールを送信しました。</p>
+      </div>
 
-  <!-- if the user has no permission -->
-  <div v-else-if="
-    loggedIn && 
-    userVerified && 
-    !paidSubscriber && 
-    post.type === '有料'"
-    class="flex flex-col justify-center items-center"
-  > 
-    <div class="my-4">
-      <p class="text-center pt-2">このレポートは有料コンテンツです。</p>
-      <p class="text-center py-4">有料会員に登録すると、ダウンロードすることができます。</p>
+      <base-button
+        mode="ghost-lg"
+        @emitClick="redirectToPath('/account')"
+      >アカウント情報</base-button>
     </div>
 
-    <base-button
-      mode="ghost-lg"
-      @emitClick="redirectToPath('/promotion')"
-    >有料プラン詳細</base-button>
-  </div>
+    <!-- if the user has no permission -->
+    <div v-else-if="
+      loggedIn && 
+      userVerified && 
+      !paidSubscriber && 
+      post.type === '有料'"
+      class="flex flex-col justify-center items-center"
+    > 
+      <div class="my-4">
+        <p class="text-center pt-2">このレポートは有料コンテンツです。</p>
+        <p class="text-center py-4">有料会員に登録すると、ダウンロードすることができます。</p>
+      </div>
 
-  <!-- if user is a free subscriber -->
-  <div v-else-if="
-    loggedIn && 
-    userVerified && 
-    !paidSubscriber && 
-    post.type === '無料'"
-    class="flex flex-col justify-center items-center"
-  >
-    <download-button
-      :mode="`primary`"
-      :loading="isLoading"
-      :completed="isCompleted"
-      :disabled="isLoading || isCompleted"
-      @click="openReportPdf"
+      <base-button
+        mode="ghost-lg"
+        @emitClick="redirectToPath('/promotion')"
+      >有料プラン詳細</base-button>
+    </div>
+
+    <!-- if user is a free subscriber -->
+    <div v-else-if="
+      loggedIn && 
+      userVerified && 
+      !paidSubscriber && 
+      post.type === '無料'"
+      class="flex flex-col justify-center items-center"
     >
-      ダウンロード
-    </download-button>
+      <download-button
+        :mode="`primary`"
+        :loading="isLoading"
+        :completed="isCompleted"
+        :disabled="isLoading || isCompleted"
+        @click="openReportPdf"
+      >
+        ダウンロード
+      </download-button>
 
-  </div>
+    </div>
 
-  <!-- if the user is a paid subscriber -->
-  <div v-else-if="
-    loggedIn && 
-    userVerified && 
-    paidSubscriber"
-  >
-    <download-button
-      :mode="`primary`"
-      :loading="isLoading"
-      :completed="isCompleted"
-      :disabled="isLoading || isCompleted"
-      @click="openReportPdf"
+    <!-- if the user is a paid subscriber -->
+    <div v-else-if="
+      loggedIn && 
+      userVerified && 
+      paidSubscriber"
+      class="flex flex-col justify-center items-center"
     >
-      ダウンロード
-    </download-button>
+      <download-button
+        :mode="`primary`"
+        :loading="isLoading"
+        :completed="isCompleted"
+        :disabled="isLoading || isCompleted"
+        @click="openReportPdf"
+      >
+        ダウンロード
+      </download-button>
+    </div>
   </div>
 
 
@@ -142,6 +145,9 @@ export default {
     paidSubscriber() {
       return this.$store.getters['auth/paidSubscriber']
     },
+    completed() {
+      return this.$store.getters['data/completed']
+    }
   },
   data() {
     return {
@@ -149,7 +155,14 @@ export default {
       message: "",
       show: false,
       isLoading: false,
-      isCompleted: false
+      isCompleted: false,
+    }
+  },
+  watch: {
+    completed() {
+      if(this.completed) {
+        this.loadPostById()
+      }
     }
   },
   methods: {
@@ -169,10 +182,7 @@ export default {
       this.isCompleted = true
       this.isLoading = false
     },
-    async loadPostById() {
-      // load posts in case the posts state is empty.
-      await this.$store.dispatch('posts/loadPosts')
-
+    loadPostById() {
       this.post = this.$store.getters['posts/getPostById'](this.$route.params.reportId)
     },
     redirectToPath(path) {
@@ -183,8 +193,9 @@ export default {
     }
   },
   async mounted() { 
-
-    await this.loadPostById()
+    if(this.completed) {
+      this.loadPostById()
+    }
 
     // This is for resetting the loading spinner
     this.isLoading = false

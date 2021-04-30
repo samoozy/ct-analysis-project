@@ -7,18 +7,27 @@ const stripe = new Stripe(env.stripe.secretKey)
 export async function createCheckoutSession(req, res) {
   try {
 
+    // User Verification
+    if(!req['uid']) {
+      console.log('認証されていないユーザー')
+      res.status(403).json({message: "認証されていないユーザーです。"})
+    }
+
+    // Check to see if the user is already a paid subscriber
+    const documentSnapshot = await db.doc(`users/${req['uid']}`).get()
+    const pid = documentSnapshot.get('pricingPlanId')
+    const priceId = pid ? pid : undefined
+    if(priceId === req.body.pricingPlanId) {
+      console.log("有料会員に登録済み")
+      res.status(403).json({message: "このアカウントは、有料会員に登録済みです"})
+    }
+
+
     // Create info object with reuqest body
     const info = {
       pricingPlanId: req.body.pricingPlanId,
       callbackUrl: req.body.callbackUrl,
       userId: req['uid']
-    }
-
-
-    // User Verification
-    if(!info.userId) {
-      console.log('認証されていないユーザー')
-      res.status(403).json({message: "認証されていないユーザーです。"})
     }
 
 

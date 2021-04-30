@@ -96,7 +96,7 @@ export default {
     },
     mode() {
       return this.$store.getters['modal/mode']
-    }
+    },
   },
   methods: {
     redirectToPath(path) {
