@@ -80,7 +80,7 @@ export default {
   actions: {
     async initAuth(context) {
       // start loading
-      context.commit('startLoadingAuth')
+      // context.commit('startLoadingAuth')
 
       firebase.auth().onAuthStateChanged(async user => {
         if(user) {
@@ -110,13 +110,13 @@ export default {
           }
 
           // stop loading
-          context.commit('stopLoadingAuth')
+          // context.commit('stopLoadingAuth')
           
         } else {
           console.log("not logged in")
 
           // stop loading
-          context.commit('stopLoadingAuth')
+          // context.commit('stopLoadingAuth')
         }
       })
     },

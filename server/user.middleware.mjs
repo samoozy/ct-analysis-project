@@ -19,6 +19,7 @@ export async function getUserMiddleware(req, res, next) {
     }
 
     req['uid'] = uid
+
     next()
 
   } else {

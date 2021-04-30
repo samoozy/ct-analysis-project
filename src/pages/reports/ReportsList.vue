@@ -11,7 +11,6 @@
       
   </ul>
 
-  
 </template>
 
 <script>
@@ -26,12 +25,7 @@ export default {
   computed: {
     posts() {
       return this.$store.getters['posts/posts']
-    }
+    },
   },
-  async mounted() {
-
-    await this.$store.dispatch('posts/loadPosts')
-
-  }
 }
 </script>

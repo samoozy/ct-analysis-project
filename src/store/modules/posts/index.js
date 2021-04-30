@@ -26,7 +26,7 @@ export default {
         }
 
         // activate loading screen
-        context.commit('ui/startLoading', null, {root: true})
+        // context.commit('ui/startLoading', null, {root: true})
 
 
         // fetch posts from wpgraphql
@@ -67,12 +67,12 @@ export default {
 
         context.commit('setPosts', posts)
         // deactivate loading screen
-        context.commit('ui/stopLoading', null, {root: true})
+        // context.commit('ui/stopLoading', null, {root: true})
         
       } catch(error) {
         console.error()
         // deactivate loading screen
-        context.commit('ui/stopLoading', null, {root: true})
+        // context.commit('ui/stopLoading', null, {root: true})
       }
     }
 
