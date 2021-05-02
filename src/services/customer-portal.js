@@ -8,7 +8,7 @@ export default class CustomerPortal extends CheckoutService {
   buildReturnUrl() {
     let url = `${this.protocol}//${this.hostname}`
 
-    return this.port ? url += `:${this.port}` : url
+    return this.port ? url += `:${this.port}/account/payment` : `${url}/account/payment`
   }
 
   async startCustomerPortalSession() {

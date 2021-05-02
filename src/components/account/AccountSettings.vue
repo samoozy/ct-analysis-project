@@ -7,7 +7,7 @@
     <template v-slot:text>
       <div v-if="user.email">
         <p>{{ user.email }}</p>
-        <p>********</p>
+        <p v-if="provider.password">********</p>
       </div>
     </template>
     <template v-slot:btn>

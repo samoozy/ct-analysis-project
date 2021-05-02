@@ -1,5 +1,5 @@
 import env from "./environments.mjs"
-import {getDocData, getDocIdByPropValue} from "./database.mjs"
+import {db, getDocData, getDocIdByPropValue} from "./database.mjs"
 import { Storage } from "@google-cloud/storage"
 
 export async function signedUrl(req, res, next) {
@@ -10,11 +10,13 @@ export async function signedUrl(req, res, next) {
       keyFilename: serviceAccountPath
     })
     const bucketName = env.firebase.bucketName
-    const reportId = req.body.reportId
-    const fileName = `${reportId}.pdf`
-    const userId = req['uid']
-    const subscriber = await checkIfUserIsSubscriber(userId)
-    const reportDocId = await getDocIdByPropValue('reports/', 'name', reportId)
+
+    const fileName = `${req.body.reportId}.pdf`
+
+    const subscriber = await checkIfUserIsSubscriber(req['uid'], req.body.pricingPlanId)
+
+    const reportDocId = await getDocIdByPropValue('reports/', 'name', req.body.reportId)
+
     const reportDocData = await getDocData(`reports/${reportDocId}`)
     const paid = reportDocData.paid
 
@@ -51,15 +53,25 @@ export async function signedUrl(req, res, next) {
   
 }
 
-async function checkIfUserIsSubscriber(userId) {
-  const user = await getDocData(`users/${userId}`)
+async function checkIfUserIsSubscriber(userId, pricingPlanId) {
 
-  // If no user exits, the user is not a subscriber so should not be able to access paid download link
-  if(user) {
+  // Check if the user has this specific pricingPlanId in its pricingPlanId field
+  const documentSnapshot = await db.doc(`users/${userId}`).get()
+  const pid = documentSnapshot.get('pricingPlanId')
+  
+  if(pid === pricingPlanId) {
     return true
+  } else {
+    return false
   }
 
-  return false
+  // If no user exits, the user is not a subscriber so should not be able to access paid download link
+  // const user = await getDocData(`users/${userId}`)
+  // if(user) {
+  //   return true
+  // }
+
+  // return false
 }
 
 async function generateV4ReadSignedUrl(storage, bucketName, fileName) {
