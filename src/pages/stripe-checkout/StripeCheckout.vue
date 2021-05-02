@@ -1,5 +1,14 @@
 <template>
-  <h1>{{ message }}</h1>
+
+  <div class="flex justify-center">
+    <div class="w-full border shadow rounded py-5 px-8">
+      <div class="text-center">
+        <h1>{{ message }}</h1>
+      </div>
+    </div>
+    
+  </div>
+
 </template>
 
 <script>
@@ -8,7 +17,6 @@ import firestore from "@/firebase/firestore"
 export default {
   data() {
     return {
-      wait: true,
       message: ""
     }
   },
@@ -23,19 +31,25 @@ export default {
         // When the status changes to completed, show the message and redirect the user after 3seconds
         await firestore.collection('purchaseSessions').doc(ongoingPurchaseSessionId).onSnapshot((doc) => {
           if(doc.data().status === "completed") {
-            this.wait = false
-            this.message = "登録に成功しました。"
-            setTimeout(() => this.$router.push('/'), 3000)
+
+            this.message = "ご購入が完了しました。"
+            // setTimeout(() => this.$router.push('/'), 3000)
           } else if (doc.data().status === "ongoing") {
-            this.message = "登録中、、、"
+            /**
+             * Start loading screen
+             */
+            this.$store.commit('ui/startLoading')
+
           }
         }, (error) => {
           console.log("Firestore onSnapshot error: ", error)
+          this.$store.commit('ui/stopLoading')
         })
+
       } else {
-        this.wait = false
-        this.message = "登録に失敗しました。"
-        setTimeout(() => this.$router.push('/'), 3000)
+
+        this.message = "ご購入がキャンセルされました。"
+        // setTimeout(() => this.$router.push('/'), 3000)
       }
     }
   },

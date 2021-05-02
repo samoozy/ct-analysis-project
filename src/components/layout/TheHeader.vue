@@ -11,29 +11,29 @@
         </div>
       </router-link>
 
-      <MobileNavmenu 
-        @redirectToAccount="redirectToPath('/account')"
-      />
+      <MobileNavmenu />
 
       <ul 
         class="lg:flex lg:static hidden"
       >
+
         <li class="ml-4">
-          <base-button 
+          <link-button
             mode="filled"
-            @emitClick="redirectToPath('/')"
+            dest="/reports"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-current mr-2" width="16" height="16" viewBox="0 0 24 24"><path d="M4 4v20h20v-20h-20zm18 18h-16v-13h16v13zm-3-3h-10v-1h10v1zm0-3h-10v-1h10v1zm0-3h-10v-1h10v1zm2-11h-19v19h-2v-21h21v2z"/></svg>
             レポート一覧
-          </base-button>
+            
+          </link-button>
         </li>
         <li v-if="loggedIn" class="ml-4">
-          <base-button
+          <link-button
             mode="ghost"
-            @emitClick="redirectToPath('/account')"
+            dest="/account"
           >
             アカウント情報
-          </base-button>
+          </link-button>
         </li>
         <li v-if="!loggedIn" class="ml-4">
           <base-button
@@ -71,15 +71,17 @@
 <script>
 import UserAuth from "@/auth/UserAuth"
 import BaseButton from "@/components/ui/BaseButton"
+import LinkButton from "@/components/ui/LinkButton"
 import MobileNavmenu from "@/components/layout/MobileNavmenu"
 import TheModal from "@/components/layout/TheModal"
 
 export default {
   components: {
     BaseButton,
+    LinkButton,
     MobileNavmenu,
     TheModal,
-    UserAuth
+    UserAuth,
   },
   computed: {
     user() {
@@ -99,9 +101,6 @@ export default {
     },
   },
   methods: {
-    redirectToPath(path) {
-      this.$router.push(path)
-    },
     openAuthModal(mode) {
       this.$store.commit('modal/openModal', mode)
     },

@@ -13,7 +13,10 @@ export async function createCheckoutSession(req, res) {
       res.status(403).json({message: "認証されていないユーザーです。"})
     }
 
-    // Check to see if the user is already a paid subscriber
+    /**
+     * Check to see if the user is already a paid subscriber by comparing the pricingPlanId field in user document with the request body's pricingPlanId.
+     * Send back a 403 error status response if the user is already a paid subscriber
+     */
     const documentSnapshot = await db.doc(`users/${req['uid']}`).get()
     const pid = documentSnapshot.get('pricingPlanId')
     const priceId = pid ? pid : undefined
@@ -22,14 +25,12 @@ export async function createCheckoutSession(req, res) {
       res.status(403).json({message: "このアカウントは、有料会員に登録済みです"})
     }
 
-
     // Create info object with reuqest body
     const info = {
       pricingPlanId: req.body.pricingPlanId,
       callbackUrl: req.body.callbackUrl,
       userId: req['uid']
     }
-
 
     // Store checkout record to firestore
     // Create a collection on firestore
