@@ -1,6 +1,7 @@
 import firebase from "firebase/app"
 import "firebase/auth"
 import firestore from '@/firebase/firestore'
+import environments from '@/environments/environments'
 
 export default {
   namespaced: true,
@@ -105,7 +106,9 @@ export default {
           // check if the user is a subscriber
           const doc = await firestore.collection('users').doc(user.uid).get()
 
-          if(doc.data()) {
+          const pid = doc.get('pricingPlanId')
+
+          if(pid === environments.stripe.pricingPlanId) {
             context.commit('setPaidSubscriber')
           }
 

@@ -8,6 +8,7 @@ export default class ReportsService {
     this.reportId = reportId
     this.subStatus = null
     this.endpoint = environments.api.url
+    this.pricingPlanId = environments.stripe.pricingPlanId
     this.jwt = null
   }
 
@@ -21,7 +22,10 @@ export default class ReportsService {
           'Content-Type': 'application/json',
           'Authorization': this.jwt
         },
-        body: JSON.stringify({reportId: this.reportId})
+        body: JSON.stringify({
+            reportId: this.reportId, 
+            pricingPlanId: this.pricingPlanId
+          })
       })
 
       const session = await response.json()

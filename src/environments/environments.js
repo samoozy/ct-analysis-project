@@ -8,7 +8,8 @@ let environments = {
     appId: process.env.VUE_APP_FIREBASE_APP_ID
   },
   stripe: {
-    publicKey: process.env.VUE_APP_STRIPE_PUBLIC_KEY
+    publicKey: process.env.VUE_APP_STRIPE_PUBLIC_KEY,
+    pricingPlanId: process.env.VUE_APP_STRIPE_PRICING_PLAN_ID
   },
 }
 

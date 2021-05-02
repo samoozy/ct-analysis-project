@@ -20,15 +20,16 @@ export async function stripeWebhook(req, res) {
       // checkout.session.completed
       case "checkout.session.completed":
         const session = event.data.object
-        onCheckoutSessionCompleted(session)
+        await onCheckoutSessionCompleted(session)
         break
       // customer.subscription.deleted
       case "customer.subscription.deleted":
         const subscriptionDeleted = event.data.object
-        onSubscriptionDeleted(subscriptionDeleted)
+        await onSubscriptionDeleted(subscriptionDeleted)
         break
       default:
-        console.log(`Unhandled event type ${event.type}`)
+        // console.log(`Unhandled event type ${event.type}`)
+        break
     }
 
     // Send response to Stripe acknowledging that the server did receive the Event Object and handled it accordingly
@@ -42,15 +43,21 @@ export async function stripeWebhook(req, res) {
 
 // New subscription
 async function onCheckoutSessionCompleted(session) {
-  // the id of the purchase session
-  const purchaseSessionId = session.client_reference_id
+  try {
 
-  const {userId, pricingPlanId} = await getDocData(`purchaseSessions/${purchaseSessionId}`)
+    // the id of the purchase session
+    const purchaseSessionId = session.client_reference_id
 
-  await fulfillSubscriptionPurchase(userId, pricingPlanId, purchaseSessionId, session.customer)
+    const {userId, pricingPlanId} = await getDocData(`purchaseSessions/${purchaseSessionId}`)
+
+    await fulfillSubscriptionPurchase(userId, pricingPlanId, purchaseSessionId, session.customer)
+
+  } catch(err) {
+    return res.status(400).send(`Webhook error: ${err.message}`)
+  }
 }
 
-async function fulfillSubscriptionPurchase(userId, pricingPlanId, purchaseSessionId, customer) {
+function fulfillSubscriptionPurchase(userId, pricingPlanId, purchaseSessionId, customer) {
   const batch = db.batch()
 
   // Change the status to complete
@@ -67,19 +74,26 @@ async function fulfillSubscriptionPurchase(userId, pricingPlanId, purchaseSessio
 
 // Subscription deleted
 async function onSubscriptionDeleted(subscriptionDeleted) {
-  const customerId = subscriptionDeleted.customer
-  // Get the user Id associated with the stripe customer id
-  const userId = await getDocIdByPropValue('users', 'customer', customerId)
+  try {
 
-  await removePricingPlanIdFromUser(userId)
+    const customerId = subscriptionDeleted.customer
+    // Get the user Id associated with the stripe customer id
+    const userId = await getDocIdByPropValue('users', 'customer', customerId)
+
+    await removePricingPlanIdFromUser(userId)
+
+  } catch(err) {
+    return res.status(400).send(`Webhook error: ${err.message}`)
+  }
 }
 
-async function removePricingPlanIdFromUser(userId) {
+function removePricingPlanIdFromUser(userId) {
+
   const batch = db.batch()
 
   const userRef = db.doc(`users/${userId}`)
-  batch.delete(userRef)
-  // batch.update(userRef, {pricingPlanId: ""})
+  // batch.delete(userRef)
+  batch.update(userRef, {pricingPlanId: ""})
 
   return batch.commit()
 }

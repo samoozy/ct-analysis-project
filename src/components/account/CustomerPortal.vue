@@ -35,6 +35,7 @@ export default {
   methods: {
     async openCustomerPortal() {
       this.portalInProgress = true
+      this.$store.commit('ui/startLoading')
 
       const customerPortal = new CustomerPortal()
 

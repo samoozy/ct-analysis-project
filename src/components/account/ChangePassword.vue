@@ -1,7 +1,6 @@
 <template>
 
   <div v-if="provider.google && !provider.password">
-    <p>メールアドレス・パスワード設定</p>
     <button class="btn" @click="changePassword" :disabled="!show">パスワードを設定する</button>
   </div>
   <div  v-else-if="provider.password">

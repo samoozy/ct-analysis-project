@@ -64,8 +64,6 @@
      />
   </the-modal>
 
-  
-
 </template>
 
 <script>
@@ -107,6 +105,6 @@ export default {
     closeAuthModal() {
       this.$store.commit('modal/closeModal')
     },
-  }
+  },
 }
 </script>

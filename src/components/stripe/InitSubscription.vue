@@ -16,6 +16,7 @@
 <script>
 import CheckoutService from '@/services/checkout'
 import BaseButton from '@/components/ui/BaseButton'
+import environments from '@/environments/environments'
 
 export default {
   components: {
@@ -24,7 +25,7 @@ export default {
   data() {
     return {
       deactivate: false,
-      pricingPlanId: process.env.VUE_APP_STRIPE_PRICING_PLAN_ID,
+      pricingPlanId: environments.stripe.pricingPlanId,
       message: ''
     }
   },
@@ -32,19 +33,33 @@ export default {
     paidSubscriber() {
       return this.$store.getters['auth/paidSubscriber']
     },
-  },
-  watch: {
-    paidSubscriber() {
-      /**
-       * Frontend validation
-       * Disable the button if the user is already a paid subscriber
-       */
-      this.alreadyPaidSubscriber()
-    }
+    userVerified() {
+      return this.$store.getters['auth/userVerified']
+    },
+    loggedIn() {
+      return this.$store.getters['auth/loggedIn']
+    },
   },
   methods: {
     async subscribeToPlan() {
       try {
+
+        /**
+         * email not verified
+         */
+        if(!this.userVerified && this.loggedIn) {
+          this.message = "メールアドレスの認証を行ってください"
+          return
+        }
+
+        /**
+         * already a paid subscriber
+         */
+        if(this.paidSubscriber) {
+          this.message = "このアカウントは、有料会員に登録済みです"
+          this.deactivate = true
+          return
+        }
 
         // disable button and start loading screen
         this.deactivate = true
@@ -61,12 +76,6 @@ export default {
           this.$store.commit('modal/openModal', 'register')
         }
 
-        /**
-         * Backend validation 
-         * cancel the session if the user is already a subscriber
-         */
-        
-
         // redirect to stripe checkout page
         return await checkoutService.redirectToCheckout(session)
 
@@ -75,15 +84,6 @@ export default {
         this.$store.commit('ui/stopLoading')
       }
     },
-    alreadyPaidSubscriber() {
-      this.deactivate = true
-      this.message = "このアカウントは、有料会員に登録済みです"
-    },
-  },
-  mounted() {
-    if(this.paidSubscriber) {
-      this.alreadyPaidSubscriber()
-    }
   },
 }
 </script>
