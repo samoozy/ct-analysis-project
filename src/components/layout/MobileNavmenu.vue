@@ -25,32 +25,34 @@
     >
       <ul class="flex flex-col items-center">
         <li>
-          <router-link
-            to="/"
-            class="flex items-center font-bold text-indigo-600 hover:opacity-70"
+          <base-button 
+            mode="filled"
+            @emitClick="redirectToPath('/')"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-current mr-2" width="16" height="16" viewBox="0 0 24 24"><path d="M4 4v20h20v-20h-20zm18 18h-16v-13h16v13zm-3-3h-10v-1h10v1zm0-3h-10v-1h10v1zm0-3h-10v-1h10v1zm2-11h-19v19h-2v-21h21v2z"/></svg>
             レポート一覧
-          </router-link>
+          </base-button>
         </li>
-        <li>
+        <li v-if="loggedIn">
           <base-button
             mode="ghost"
-            @click="$emit('redirectToAccount')"
+            @emitClick="redirectToPath('/account')"
           >
             アカウント情報
           </base-button>
         </li>
-        <li>
+        <li v-if="!loggedIn">
           <base-button
             mode="ghost"
+            @emitClick="openAuthModal('login')"
           >
             ログイン
           </base-button>
         </li>
-        <li>
+        <li v-if="!loggedIn">
           <base-button
             mode="filled"
+            @emitClick="openAuthModal('register')"
           >
             新規登録
           </base-button>
@@ -65,7 +67,7 @@ import BaseButton from "@/components/ui/BaseButton"
 
 export default {
   components: {
-    BaseButton
+    BaseButton,
   },
   emits: [
     'redirectToAccount'
@@ -75,6 +77,11 @@ export default {
       isActive: false
     }
   },
+  computed: {
+    loggedIn() {
+      return this.$store.getters['auth/loggedIn']
+    },
+  },
   methods: {
     openMenu() {
       this.isActive = true
@@ -82,12 +89,19 @@ export default {
     closeMenu() {
       this.isActive = false
     },
+    redirectToPath(path) {
+      this.$router.push(path)
+      this.closeMenu()
+    },
+    openAuthModal(mode) {
+      this.$store.commit('modal/openModal', mode)
+    },
   }
 }
 </script>
 
 <style scoped>
 li {
-  @apply mt-7;
+  @apply mt-6;
 }
 </style>

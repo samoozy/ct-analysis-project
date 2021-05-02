@@ -39,7 +39,7 @@ export default {
        * Frontend validation
        * Disable the button if the user is already a paid subscriber
        */
-      // this.alreadyPaidSubscriber()
+      this.alreadyPaidSubscriber()
     }
   },
   methods: {
@@ -67,7 +67,6 @@ export default {
          */
         
 
-
         // redirect to stripe checkout page
         return await checkoutService.redirectToCheckout(session)
 
@@ -79,7 +78,7 @@ export default {
     alreadyPaidSubscriber() {
       this.deactivate = true
       this.message = "このアカウントは、有料会員に登録済みです"
-    }
+    },
   },
   mounted() {
     if(this.paidSubscriber) {
