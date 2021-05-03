@@ -2,12 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import ReportsList from './pages/reports/ReportsList.vue'
 import ReportDetail from './pages/reports/ReportDetail.vue'
-import UserAccount from './pages/user/UserAccount.vue'
+import TheAccount from './pages/account/TheAccount.vue'
 import StripeCheckout from './pages/stripe-checkout/StripeCheckout.vue'
 import ThePromotion from './pages/promotion/ThePromotion.vue'
 
 import AccountSettings from './components/account/AccountSettings.vue'
 import AccountPayment from './components/account/AccountPayment.vue'
+import AccountDelete from './components/account/AccountDelete.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -33,7 +34,7 @@ const router = createRouter({
     {
       path: '/account',
       name: 'account',
-      component: UserAccount,
+      component: TheAccount,
       children: [
         {
           path: '',
@@ -42,6 +43,10 @@ const router = createRouter({
         {
           path: 'settings',
           component: AccountSettings
+        },
+        {
+          path: 'settings/delete',
+          component: AccountDelete,
         },
         {
           path: 'payment',

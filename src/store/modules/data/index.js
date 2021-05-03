@@ -2,6 +2,9 @@ export default {
   namespaced: true,
   state() {
     return {
+      /**
+       * This is needed for the ReportDetail component to load its id specific report on a page refresh
+       */
       completed: false
     }
   },

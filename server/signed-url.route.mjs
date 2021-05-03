@@ -2,26 +2,44 @@ import env from "./environments.mjs"
 import {db, getDocData, getDocIdByPropValue} from "./database.mjs"
 import { Storage } from "@google-cloud/storage"
 
+const serviceAccountPath = `./service-accounts/${env.firebase.serviceAccount}`
+
+const bucketName = env.firebase.bucketName
+
+const storage = new Storage({
+  projectId: env.firebase.projectId,
+  keyFilename: serviceAccountPath
+})
+
 export async function signedUrl(req, res, next) {
   try {
-    const serviceAccountPath = `./service-accounts/${env.firebase.serviceAccount}`
-    const storage = new Storage({
-      projectId: env.firebase.projectId,
-      keyFilename: serviceAccountPath
-    })
-    const bucketName = env.firebase.bucketName
 
     const fileName = `${req.body.reportId}.pdf`
 
+    /**
+     * check if the user is a paid subscriber
+     * returns Boolean
+     */
     const subscriber = await checkIfUserIsSubscriber(req['uid'], req.body.pricingPlanId)
 
+    /**
+     * Gets the reports document id by its name field
+     * returns String
+     */
     const reportDocId = await getDocIdByPropValue('reports/', 'name', req.body.reportId)
 
+    /**
+     * Get paid field from reports document
+     * paid field stores Boolean
+     */
     const reportDocData = await getDocData(`reports/${reportDocId}`)
     const paid = reportDocData.paid
 
     if(subscriber) {
-      // Has access to both free and paid url
+      /**
+       * paid user
+       */
+
       const url = await generateV4ReadSignedUrl(storage, bucketName, fileName)
 
       res.status(200).json({
@@ -29,11 +47,15 @@ export async function signedUrl(req, res, next) {
         success: true
       })
     } else {
+      /**
+       * free user
+       */
+
       if(paid) {
-        // Has no access to paid url
+        // return access denied
         res.status(403).json({error: "有料会員のみアクセス可能"})
       } else {
-        // Has access to free url
+        // free report
         const url = await generateV4ReadSignedUrl(storage, bucketName, fileName)
 
         res.status(200).json({
@@ -42,36 +64,39 @@ export async function signedUrl(req, res, next) {
         })
       }
     }
-
-    // console.log(`subscriber: ${subscriber}`)
-    // console.log(`fileName: ${fileName}`)
-    // console.log(`paid: ${paid}`)
   
-  } catch(error) {
-    console.error()
+  } catch(err) {
+    return res.status(400).send(`SignedUrl Error: ${err.message}`)
   }
   
 }
 
 async function checkIfUserIsSubscriber(userId, pricingPlanId) {
 
-  // Check if the user has this specific pricingPlanId in its pricingPlanId field
-  const documentSnapshot = await db.doc(`users/${userId}`).get()
-  const pid = documentSnapshot.get('pricingPlanId')
-  
-  if(pid === pricingPlanId) {
-    return true
-  } else {
-    return false
+  try {
+    // Check if the user has this specific pricingPlanId in its pricingPlanId field
+    const documentSnapshot = await db.doc(`users/${userId}`).get()
+    const pid = documentSnapshot.get('pricingPlanId')
+    
+    if(pid === pricingPlanId) {
+      return true
+    } else {
+      return false
+    }
+
+    /**
+     * This is for deleting the user document
+     */
+    // const user = await getDocData(`users/${userId}`)
+    // if(user) {
+    //   return true
+    // } else {
+    //   return false
+    // }
+  } catch(err) {
+    return res.status(400).send(`SignedUrl Error: ${err.message}`)
   }
 
-  // If no user exits, the user is not a subscriber so should not be able to access paid download link
-  // const user = await getDocData(`users/${userId}`)
-  // if(user) {
-  //   return true
-  // }
-
-  // return false
 }
 
 async function generateV4ReadSignedUrl(storage, bucketName, fileName) {
@@ -90,7 +115,7 @@ async function generateV4ReadSignedUrl(storage, bucketName, fileName) {
   
     return url
 
-  } catch(error) {
-    console.error()
+  } catch(err) {
+    return res.status(400).send(`SignedUrl Error: ${err.message}`)
   }
 }

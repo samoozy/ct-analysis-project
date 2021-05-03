@@ -61,25 +61,24 @@
     </template>
   </content-block>
 
-  <!-- サインアウトと退会手続き -->
+  <!-- ログアウトと退会手続き -->
   <content-block>
     <template v-slot:btn>
       <base-button mode="ghost" @emitClick="signout">
-        サインアウト
+        ログアウト
       </base-button>
       <!-- delete account -->
-      <div>
-        <!-- make sure its not a paid customer -->
-        <!-- warn user if is a paid customer -->
+      <div class="mt-3">
+        <base-button mode="ghost-red" @emitClick="redirectToDeleteAccount">アカウント削除と退会</base-button>  
       </div>
     </template>
   </content-block>
 
-  <content-block>
+  <!-- <content-block>
     <template v-slot:btn>
-      <router-link class="text-gray-600 text-sm" to="/">退会手続きへ</router-link>
+      <router-link class="text-gray-600 text-sm" to="/account/settings/delete">退会手続きへ</router-link>
     </template>
-  </content-block>
+  </content-block> -->
 
 </template>
 
@@ -119,7 +118,7 @@ export default {
   },
   methods: {
     signout() {
-      let r = confirm("本当にサインアウトしますか？")
+      let r = confirm("本当にログアウトしますか？")
       if(r) {
         firebase.auth().signOut()
 
@@ -127,7 +126,10 @@ export default {
         this.$router.push('/')
       }
       return
-    }
+    },
+    redirectToDeleteAccount() {
+      this.$router.push('/account/settings/delete')
+    },
   }
 }
 </script>
