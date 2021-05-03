@@ -7,20 +7,16 @@ export default {
   namespaced: true,
   state() {
     return {
-      isLoadingAuth: false,
       loggedIn: false,
-      paidSubscriber: false,
-      user: {},
+      user: null,
       provider: {
         password: false,
         google: false
-      }
+      },
+      paidSubscriber: false,
     }
   },
   getters: {
-    isLoadingAuth(state) {
-      return state.isLoadingAuth
-    },
     user(state) {
       return state.user
     },
@@ -41,12 +37,6 @@ export default {
     },
   },
   mutations: {
-    startLoadingAuth(state) {
-      state.isLoadingAuth = true
-    },
-    stopLoadingAuth(state) {
-      state.isLoadingAuth = false
-    },
     setUser(state, payload) {
       state.user = payload
     },
@@ -57,7 +47,7 @@ export default {
       state.paidSubscriber = true
     },
     setProvider(state, payload) {  
-      // Find all the provider the user have linked their account 
+      // Find all the provider the user have linked to their account 
       payload.forEach(provider => {
         if(provider === "google.com") {
           // set true if google is linked
@@ -69,59 +59,60 @@ export default {
       })
     },
     resetUser(state) {
-      state.user = {}
       state.loggedIn = false
-      state.paidSubscriber = false
+      state.user = null
       state.provider = {
         password: false,
         google: false
       }
+      state.paidSubscriber = false
     },
   },
   actions: {
     async initAuth(context) {
-      // start loading
-      // context.commit('startLoadingAuth')
 
-      firebase.auth().onAuthStateChanged(async user => {
-        if(user) {
+      try {
+        
+        /**
+         * The reason why this isnt refactored into services is because you have to call mutations inside onAuthStateChanged.
+         */
+        firebase.auth().onAuthStateChanged(async user => {
+          if(user) {
 
-          // set user
-          context.commit('setUser', {
-            userId: user.uid,
-            userPhotoURL: user.photoURL,
-            displayName: user.displayName,
-            email: user.email, 
-            verified: user.emailVerified
-          })
-          context.commit('setLoggedIn')
-
-          // set provider
-          let provider = []
-          user.providerData.forEach(profile => {
-            provider.push(profile.providerId)
-          })
-          context.commit('setProvider', provider)
-          
-          // check if the user is a subscriber
-          const doc = await firestore.collection('users').doc(user.uid).get()
-
-          const pid = doc.get('pricingPlanId')
-
-          if(pid === environments.stripe.pricingPlanId) {
-            context.commit('setPaidSubscriber')
+            // set logged in state
+            context.commit('setLoggedIn')
+  
+            // set user state
+            context.commit('setUser', {
+              userId: user.uid,
+              userPhotoURL: user.photoURL,
+              displayName: user.displayName,
+              email: user.email, 
+              verified: user.emailVerified
+            })          
+  
+            // set provider state
+            let provider = []
+            user.providerData.forEach(profile => {
+              provider.push(profile.providerId)
+            })
+            context.commit('setProvider', provider)
+            
+            // set paid subscriber state
+            const doc = await firestore.collection('users').doc(user.uid).get()
+            const pid = doc.get('pricingPlanId')
+            if(pid === environments.stripe.pricingPlanId) {
+              context.commit('setPaidSubscriber')
+            }
+            
+          } else {
+            console.log("not logged in")
           }
+        })
 
-          // stop loading
-          // context.commit('stopLoadingAuth')
-          
-        } else {
-          console.log("not logged in")
-
-          // stop loading
-          // context.commit('stopLoadingAuth')
-        }
-      })
+      } catch(err) {
+        console.log(err)
+      }
     },
   }
 }

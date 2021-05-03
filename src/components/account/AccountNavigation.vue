@@ -19,9 +19,11 @@
 export default {
   computed: {
     settingActive() {
+
       return {
-        active: this.$route.path === '/account/settings'
+        active: this.$route.path === '/account/settings' || this.$route.path === '/account/settings/delete'
       }
+
     },
     paymentActive() {
       return {

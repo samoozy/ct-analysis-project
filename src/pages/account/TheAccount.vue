@@ -30,21 +30,6 @@ export default {
     loggedIn() {
       return this.$store.getters['auth/loggedIn']
     },
-    isLoadingAuth() {
-      return this.$store.getters['auth/isLoadingAuth']
-    }
   },
-  watch: {
-    // deactivate loading screen
-    isLoadingAuth() {
-      this.$store.commit('ui/stopLoading')
-    }
-  },
-  mounted() {
-    // activate loading screen
-    if(this.isLoadingAuth) {
-      this.$store.commit('ui/startLoading')
-    }
-  }
 }
 </script>
