@@ -73,9 +73,6 @@ export default {
 
       try {
         
-        /**
-         * The reason why this isnt refactored into services is because you have to call mutations inside onAuthStateChanged.
-         */
         firebase.auth().onAuthStateChanged(async user => {
           if(user) {
 

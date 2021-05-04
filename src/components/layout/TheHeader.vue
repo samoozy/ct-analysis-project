@@ -59,7 +59,7 @@
   <the-modal
     @onClick="closeAuthModal"
   >
-    <UserAuth
+    <TheAuth
       :mode="mode"
      />
   </the-modal>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import UserAuth from "@/auth/UserAuth"
+import TheAuth from "@/components/auth/TheAuth"
 import BaseButton from "@/components/ui/BaseButton"
 import LinkButton from "@/components/ui/LinkButton"
 import MobileNavmenu from "@/components/layout/MobileNavmenu"
@@ -79,7 +79,7 @@ export default {
     LinkButton,
     MobileNavmenu,
     TheModal,
-    UserAuth,
+    TheAuth,
   },
   computed: {
     user() {
