@@ -4,6 +4,7 @@ import {getUserMiddleware} from './user.middleware.mjs'
 import {createCustomerPortalSession} from './customer-portal.route.mjs'
 import {stripeWebhook} from './stripe-webhooks.route.mjs'
 import {signedUrl} from './signed-url.route.mjs'
+import {deleteUser} from './delete-user.mjs'
 import cors from 'cors'
 
 
@@ -39,6 +40,12 @@ export function initServer() {
     express.json(),
     getUserMiddleware,
     signedUrl
+  )
+
+  app.route("/user/delete").post(
+    express.json(),
+    getUserMiddleware,
+    deleteUser
   )
 
 

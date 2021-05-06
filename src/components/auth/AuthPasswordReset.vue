@@ -32,9 +32,7 @@
 </template>
 
 <script>
-import environments from "@/environments/environments"
-import firebase from "firebase/app"
-import "firebase/auth"
+import FirebaseAuth from "@/services/firebase-auth.service"
 import BaseButton from "@/components/ui/BaseButton"
 import FormInput from "@/components/ui/FormInput"
 import ErrorMessage from "@/components/ui/ErrorMessage"
@@ -64,14 +62,8 @@ export default {
       try {
         this.deactivated = true
 
-        const auth = firebase.auth()
-        // set redirect url
-        const actionCodeSettings = {
-          url: environments.front.url
-        }
-
-        await auth.sendPasswordResetEmail(this.email, actionCodeSettings)
-
+        await new FirebaseAuth(...Array(1), this.email).sendResetPasswordEmail()
+        
         this.sent = `パスワードリセットのリンクを送信しました。`
 
       } catch(err) {

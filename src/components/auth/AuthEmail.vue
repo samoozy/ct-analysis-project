@@ -56,9 +56,7 @@
 </template>
 
 <script>
-import environments from "@/environments/environments"
-import firebase from "firebase/app"
-import "firebase/auth"
+import FirebaseAuth from "@/services/firebase-auth.service"
 
 import FormInput from "@/components/ui/FormInput"
 import ErrorMessage from "@/components/ui/ErrorMessage"
@@ -111,18 +109,10 @@ export default {
         // Register new user
         this.deactivated = true
 
-        const userCredential =  await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-
-        // set redirect url
-        const actionCodeSettings = {
-          url: environments.front.url
-        }
-
-        // send confirmation email
-        await userCredential.user.sendEmailVerification(actionCodeSettings)
+        // instantiate FirebaseAuth
+        await new FirebaseAuth(this.password, this.email).createUserWithEmailAndPassword()
 
         // open confirmation modal
-        
         this.$emit('authConfirm')
         
         this.deactivated = false
@@ -141,10 +131,10 @@ export default {
       console.log(this.validateForLogin())
 
       try {
-
         this.deactivated = true 
 
-        await firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+        // instantiate FirebaseAuth
+        await new FirebaseAuth(this.password, this.email).loginUserWithEmailAndPassword()
 
         this.$store.commit('modal/closeModal')
         this.deactivated = false

@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import firebase from "firebase/app"
-import "firebase/auth"
+import FirebaseAuth from "@/services/firebase-auth.service"
 import GoogleAuthButton from "@/components/ui/GoogleAuthButton"
 
 export default {
@@ -22,13 +21,9 @@ export default {
   },
   methods: {
     async initGoogleAuthProvider() {
-
-      // initiate google account auth
-      const provider = new firebase.auth.GoogleAuthProvider()
-      // set language to Japanese
-      firebase.auth().languageCode = 'ja'
-
-      await firebase.auth().signInWithPopup(provider)
+      
+      // Instantiate FirebaseAuth
+      await new FirebaseAuth().signInWithGoogleAuth()
 
       this.$store.commit('modal/closeModal')
 
