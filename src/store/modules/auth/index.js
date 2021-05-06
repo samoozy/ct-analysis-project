@@ -8,7 +8,7 @@ export default {
   state() {
     return {
       loggedIn: false,
-      user: null,
+      user: {},
       provider: {
         password: false,
         google: false
@@ -60,7 +60,7 @@ export default {
     },
     resetUser(state) {
       state.loggedIn = false
-      state.user = null
+      state.user = {}
       state.provider = {
         password: false,
         google: false

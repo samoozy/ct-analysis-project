@@ -3,7 +3,8 @@ export default {
   state() {
     return {
       isOpen: false,
-      mode: ''
+      mode: '',
+      modalHook: '',
     }
   },
   getters: {
@@ -12,7 +13,10 @@ export default {
     },
     mode(state) {
       return state.mode
-    }
+    },
+    modalHook(state) {
+      return state.modalHook
+    },
   },
   mutations: {
     closeModal(state) {
@@ -21,6 +25,12 @@ export default {
     openModal(state, payload) {
       state.mode = payload
       state.isOpen = true
+    },
+    setModalHook(state, payload) {
+      state.modalHook = payload
+    },
+    resetModalHook(state) {
+      state.modalHook = ''
     },
   }
 }

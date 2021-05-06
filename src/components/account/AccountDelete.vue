@@ -21,9 +21,6 @@
     <div class="mb-8">
 
       <form @submit.prevent="submitDeleteAccountForm">
-        <div class="mb-2">
-          <input class="border rounded p-2 focus:outline-none" type="password" v-model="password" placeholder="パスワード">
-        </div>
         <base-button mode="ghost-red">アカウントを完全に削除して退会する</base-button>
       </form>
       
@@ -34,7 +31,6 @@
 
 <script>
 import BaseButton from '@/components/ui/BaseButton'
-import FirebaseAuth from '@/services/firebase-auth.service'
 import BackButton from '@/components/ui/BackButton'
 
 export default {
@@ -47,13 +43,24 @@ export default {
       password: '',
     }
   },
+  computed: {
+    modalHook() {
+      return this.$store.getters['modal/modalHook']
+    }
+  },
+  watch: {
+    modalHook() {
+      if(this.modalHook === 'delete-reauthenticated') {
+        console.log('delete user')
+        this.$store.commit('modal/resetModalHook')
+      }
+    }
+  },
   methods: {
     async submitDeleteAccountForm() {
-
+      
       this.$store.commit('modal/openModal', 'reauthenticate')
-
-      const firebaseAuth = new FirebaseAuth()
-      await firebaseAuth.reauthenticateWithCredential()
+      this.$store.commit('modal/setModalHook', 'delete')
 
 
       // const user = firebase.auth().currentUser
