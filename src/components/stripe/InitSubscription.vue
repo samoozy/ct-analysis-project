@@ -47,7 +47,7 @@ export default {
         /**
          * email not verified
          */
-        if(this.loggedIn) {
+        if(this.loggedIn && !this.userVerified) {
           this.message = "メールアドレスの認証を行ってください"
           return
         }

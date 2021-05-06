@@ -41,6 +41,9 @@ export async function stripeWebhook(req, res) {
   }
 }
 
+
+
+
 // New subscription
 async function onCheckoutSessionCompleted(session) {
   try {
@@ -72,13 +75,24 @@ function fulfillSubscriptionPurchase(userId, pricingPlanId, purchaseSessionId, c
 }
 
 
+
+
+
+
 // Subscription deleted
 async function onSubscriptionDeleted(subscriptionDeleted) {
   try {
-
     const customerId = subscriptionDeleted.customer
+
     // Get the user Id associated with the stripe customer id
     const userId = await getDocIdByPropValue('users', 'customer', customerId)
+
+    // Check if the user document exists. If it doesnt, terminate the execution.
+    const user = await getDocData(`users/${userId}`)
+    if(!user) {
+      return
+    }
+  
 
     await removePricingPlanIdFromUser(userId)
 
@@ -86,6 +100,8 @@ async function onSubscriptionDeleted(subscriptionDeleted) {
     return res.status(400).send(`Webhook error: ${err.message}`)
   }
 }
+
+
 
 function removePricingPlanIdFromUser(userId) {
 

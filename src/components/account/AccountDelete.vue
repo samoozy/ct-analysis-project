@@ -5,7 +5,6 @@
       戻る
     </back-button>
 
-
     <h1 class="text-xl mt-4 font-bold">アカウント削除と退会</h1>
     <p>アカウントを削除すると関連するデータ(Stripe決済など)は全て削除され、サービスをご利用できなくなります。</p>
     <p>CT ANALYSISのアカウントを完全に削除して退会しますか？</p>
@@ -32,6 +31,7 @@
 <script>
 import BaseButton from '@/components/ui/BaseButton'
 import BackButton from '@/components/ui/BackButton'
+import FirebaseAuth from "@/services/firebase-auth.service"
 
 export default {
   components: {
@@ -51,37 +51,35 @@ export default {
   watch: {
     modalHook() {
       if(this.modalHook === 'delete-reauthenticated') {
-        console.log('delete user')
-        this.$store.commit('modal/resetModalHook')
+        this.initDeleteAccount()
       }
     }
   },
   methods: {
-    async submitDeleteAccountForm() {
+    submitDeleteAccountForm() {
+      let r = window.confirm("本当にアカウントを削除しますか？")
+
+      if(r) {
+        this.$store.commit('modal/openModal', 'reauthenticate')
+        this.$store.commit('modal/setModalHook', 'delete')
+      }
       
-      this.$store.commit('modal/openModal', 'reauthenticate')
-      this.$store.commit('modal/setModalHook', 'delete')
+    },
+    async initDeleteAccount() {
+      try {
+        this.$store.commit('ui/startLoading')
+      
+        this.$store.commit('modal/resetModalHook')
 
+        // send delete fetch request to backend
+        await new FirebaseAuth().initDeleteUserRequest()
 
-      // const user = firebase.auth().currentUser
-      // const credential = firebase.auth.EmailAuthProvider.credential(
-      //   user.email,
-      //   this.password
-      // )
-
-      // try {
-      //   const res = await user.reauthenticateWithCredential(credential)
-      //   console.log(await res.user.getIdToken())
-      // } catch(err) {
-      //   console.log('failed to authenticate')
-      // }
-
-    
-      /**
-       * Google Authentication
-       */
-      // const provider = new firebase.auth.GoogleAuthProvider()
-      // user.reauthenticateWithPopup(provider)
+        this.$store.commit('ui/stopLoading')
+        this.$store.commit('auth/resetUser')
+        this.$router.push('/')
+      } catch(err) {
+        console.log(err)
+      }
     }
   },
 }

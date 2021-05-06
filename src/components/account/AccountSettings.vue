@@ -22,7 +22,7 @@
     </template>
     <template v-slot:text>
       <p v-if="user.verified">認証済み</p>
-      <p v-else>メール認証中。確認メールを{{user.email}}宛に送りました。</p>
+      <p v-else>メール認証中。確認メールを{{user.email}}宛に送信しました。</p>
     </template>
     <!-- resend verfication email -->
     <template v-slot:btn>

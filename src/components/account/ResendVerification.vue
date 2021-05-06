@@ -14,9 +14,7 @@
 </template>
 
 <script>
-import environments from "@/environments/environments"
-import firebase from "firebase/app"
-import "firebase/auth"
+import FirebaseAuth from "@/services/firebase-auth.service"
 
 export default {
   data() {
@@ -25,25 +23,24 @@ export default {
       loading: false
     }
   },
+  computed: {
+    userEmail() {
+      return this.$store.getters['auth/userEmail']
+    },
+  },
   methods: {
     async resendEmailVerification() {
       try {
         this.loading = true
 
-        const user = firebase.auth().currentUser
+        // instantiate FirebaseAuth
+        const firebaseAuth = new FirebaseAuth(this.password)
+        await firebaseAuth.resendEmailVerification()
 
-        // set redirect url
-        const actionCodeSettings = {
-          url: environments.front.url
-        }
-
-        await user.sendEmailVerification(actionCodeSettings)
-
-        this.message = `認証メールを${user.email}宛に送信しました。`
+        this.message = `確認メールを${this.userEmail}宛に送信しました。`
         this.loading = false
 
       } catch(err) {
-
         this.loading = false
         console.log(err)
       }
