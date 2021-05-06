@@ -38,6 +38,11 @@
     <AuthConfirm />
   </div>
 
+  <!-- reauthentication -->
+  <div v-if="show === 'auth-reauthenticate'">
+    <AuthReauthenticate />
+  </div>
+
 </template>
 
 <script>
@@ -47,6 +52,7 @@ import AuthConfirm from "@/components/auth/AuthConfirm"
 import AuthEmail from "@/components/auth/AuthEmail"
 import AuthGoogle from "@/components/auth/AuthGoogle"
 import AuthPasswordReset from "@/components/auth/AuthPasswordReset"
+import AuthReauthenticate from "@/components/auth/AuthReauthenticate"
 
 export default {
   components: {
@@ -56,19 +62,20 @@ export default {
     AuthEmail,
     AuthGoogle,
     AuthPasswordReset,
+    AuthReauthenticate
   },
   props: {
     mode: {
       type: String,
       required: true,
-    }
+    },
   },
   data() {
     return {
+      show: '',
       title: '',
       googleAuthText: '',
       authEmailText: '',
-      show: '',
       deactivated: false,
     }
   },
@@ -76,7 +83,7 @@ export default {
     setShow(value) {
       this.show = value
     },
-    setInitialAuth() {
+    setInitialValue() {
       switch(this.mode) {
         case 'login':
           this.title = "ログイン"
@@ -87,6 +94,10 @@ export default {
           this.title = "ユーザー登録"
           this.authGoogleText = "Googleで登録"
           this.authEmailText = "メールアドレスで登録"
+          break
+        case 'reauthenticate':
+          this.show = "auth-reauthenticate"
+          this.title = "ユーザーの再認証"
           break
         default:
           break
@@ -108,7 +119,7 @@ export default {
   mounted() {
     this.show = 'auth'
     this.deactivated = false
-    this.setInitialAuth()
+    this.setInitialValue()
   },
 }
 </script>
