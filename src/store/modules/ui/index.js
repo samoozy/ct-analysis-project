@@ -2,13 +2,17 @@ export default {
   namespaced: true,
   state() {
     return {
-      loading: false
+      loading: false,
+      loadingAuth: false,
     }
   },
   getters: {
     loading(state) {
       return state.loading
-    }
+    },
+    loadingAuth(state) {
+      return state.loadingAuth
+    },
   },
   mutations: {
     startLoading(state) {
@@ -16,6 +20,12 @@ export default {
     },
     stopLoading(state) {
       state.loading = false
+    },
+    startLoadingAuth(state) {
+      state.loadingAuth = true
+    },
+    stopLoadingAuth(state) {
+      state.loadingAuth = false
     },
   },
 }
