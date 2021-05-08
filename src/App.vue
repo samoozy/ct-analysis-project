@@ -16,7 +16,13 @@ export default {
     LoadScreen
   },
   async created() {
-    await this.$store.dispatch('data/loadData')
+
+
+    /**
+     * load auth data
+     */
+
+    this.$store.dispatch('data/loadAuthAndData')
   }
 }
 

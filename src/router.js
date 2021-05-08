@@ -9,13 +9,14 @@ import ThePromotion from './pages/promotion/ThePromotion.vue'
 import AccountSettings from './components/account/AccountSettings.vue'
 import AccountPayment from './components/account/AccountPayment.vue'
 import AccountDelete from './components/account/AccountDelete.vue'
+import LandingPage from './pages/lp/LandingPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: '/',
-      redirect: '/reports'
+      component: LandingPage,
     },
     {
       path: '/reports',

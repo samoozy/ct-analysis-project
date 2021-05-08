@@ -29,7 +29,7 @@ export async function deleteUser(req, res) {
       /**
        * Stripe webhook has a problem with firebase async await calls for some reason. Therefore the user documentation must be deleted here and not with the webhook.
        * 
-       * Also user document must be deleted first in order for customer.subscription.deleted to detect that the document is empty.
+       * Also the user document must be deleted first in order to prevent customer.subscription.deleted Event from creating a new user document.
        */
       await deleteUserDocument(uid)
 

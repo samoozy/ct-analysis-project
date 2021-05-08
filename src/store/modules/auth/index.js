@@ -1,5 +1,3 @@
-import firebase from "firebase/app"
-import "firebase/auth"
 import firestore from '@/firebase/firestore'
 import environments from '@/environments/environments'
 
@@ -69,47 +67,33 @@ export default {
     },
   },
   actions: {
-    async initAuth(context) {
+    async setUserAuth(context, payload) {
+      // set logged in state
+      context.commit('setLoggedIn')
 
-      try {
-        
-        firebase.auth().onAuthStateChanged(async user => {
-          if(user) {
+      // set user state
+      context.commit('setUser', {
+        userId: payload.uid,
+        userPhotoURL: payload.photoURL,
+        displayName: payload.displayName,
+        email: payload.email, 
+        verified: payload.emailVerified
+      })
 
-            // set logged in state
-            context.commit('setLoggedIn')
-  
-            // set user state
-            context.commit('setUser', {
-              userId: user.uid,
-              userPhotoURL: user.photoURL,
-              displayName: user.displayName,
-              email: user.email, 
-              verified: user.emailVerified
-            })          
-  
-            // set provider state
-            let provider = []
-            user.providerData.forEach(profile => {
-              provider.push(profile.providerId)
-            })
-            context.commit('setProvider', provider)
-            
-            // set paid subscriber state
-            const doc = await firestore.collection('users').doc(user.uid).get()
-            const pid = doc.get('pricingPlanId')
-            if(pid === environments.stripe.pricingPlanId) {
-              context.commit('setPaidSubscriber')
-            }
-            
-          } else {
-            console.log("not logged in")
-          }
-        })
+      // set provider state
+      let provider = []
+      payload.providerData.forEach(profile => {
+        provider.push(profile.providerId)
+      })
+      context.commit('setProvider', provider)
 
-      } catch(err) {
-        console.log(err)
+      // set paid subscriber state
+      const doc = await firestore.collection('users').doc(payload.uid).get()
+      const pid = doc.get('pricingPlanId')
+      if(pid === environments.stripe.pricingPlanId) {
+        context.commit('setPaidSubscriber')
       }
+
     },
   }
 }

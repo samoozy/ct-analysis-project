@@ -191,7 +191,8 @@ export default {
       this.$store.commit('modal/openModal', mode)
     }
   },
-  async mounted() { 
+  async mounted() {
+
     if(this.completed) {
       this.loadPostById()
     }

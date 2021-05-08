@@ -1,3 +1,6 @@
+import firebase from "firebase/app"
+import "firebase/auth"
+
 export default {
   namespaced: true,
   state() {
@@ -19,29 +22,49 @@ export default {
     }
   },
   actions: {
-    async loadData(context) {
-      try {
+    /**
+     * 
+     * Experimental state loader
+     * 
+     */
+    loadAuthAndData(context) {
+      // start spinner when the root App is first loaded
+      context.commit('ui/startLoading', null, {root: true})
 
-        context.commit('ui/startLoading', null, {root: true})
 
-        /**
-         * load auth data
-         */
-        await context.dispatch('auth/initAuth', null, {root: true})
+      firebase.auth().onAuthStateChanged(async user => {
+
+        // check if the user object exists
+        if(user) {
+
+          // This loading screen is necessary for user login and user register
+          context.commit('ui/startLoading', null, {root: true})
+
+          await context.dispatch('auth/setUserAuth', user, {root: true})
+          console.log('done loading auth...')
+
+        }
 
         /**
          * load post data
+         * 
+         * Since Vue returns a Proxy object instead of an array, we have to check the length of the returned object. 
          */
-        await context.dispatch('posts/loadPosts', null, {root: true})
+        if(!context.rootGetters['posts/posts'].length) {
+          await context.dispatch('posts/loadPosts', null, {root: true})
 
-        context.commit('isCompleted')
+          // This is for triggering the watcher in ReportDetail component
+          context.commit('isCompleted')
+        }
 
+        // stop spinner
         context.commit('ui/stopLoading', null, {root: true})
 
-      } catch(err) {
-        console.log(err)
-        context.commit('ui/stopLoading', null, {root: true})
-      }
+        // unsubscribe from onauthstatechanged
+        // If this is enabled, the state change will not occur when user logs in or registers
+        // unsubscribe()
+      })
+      // end of firebase onauthstatechanged
     }
   }
 }
