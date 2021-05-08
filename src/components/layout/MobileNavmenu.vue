@@ -12,13 +12,13 @@
     <!-- menu overlay -->
     <div 
       v-if="isActive"
-      class="fixed top-0 left-0 w-full h-full bg-black opacity-50"
+      class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10"
       @click="closeMenu"
     ></div>
 
     <!-- mobile navbar menu -->
     <div 
-      class="fixed top-0 -left-48 w-48 h-full bg-white transition-transform duration-200 ease-out"
+      class="fixed top-0 -left-48 w-48 h-full bg-white transition-transform duration-200 ease-out z-10"
       :class="{ 
         'transform translate-x-48' : isActive
       }"

@@ -1,4 +1,6 @@
 <template>
+  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-5">Features</h3>
+
   <div class="flex flex-col items-center sm:flex-row sm:items-start mb-9">
 
     <div class="w-24 h-full flex-none mr-10">
@@ -43,6 +45,6 @@
 
 <style lang="postcss" scoped>
 p {
-  @apply py-1;
+  @apply py-1 text-gray-500;
 }
 </style>

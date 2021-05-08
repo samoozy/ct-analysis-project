@@ -1,15 +1,17 @@
 <template>
-  <TheTitle title="レポート一覧" />
+  <div class="xl:px-40 sm:px-10 px-5">
+    <TheTitle title="レポート一覧" />
 
-  <ul class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
-    
-    <report-card 
-      v-for="post in posts"
-      :key="post.id" 
-      :post="post"
-    ></report-card>
+    <ul class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">
       
-  </ul>
+      <report-card 
+        v-for="post in posts"
+        :key="post.id" 
+        :post="post"
+      ></report-card>
+        
+    </ul>
+  </div>
 
 </template>
 

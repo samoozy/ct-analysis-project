@@ -5,6 +5,7 @@ import ReportDetail from './pages/reports/ReportDetail.vue'
 import TheAccount from './pages/account/TheAccount.vue'
 import StripeCheckout from './pages/stripe-checkout/StripeCheckout.vue'
 import ThePromotion from './pages/promotion/ThePromotion.vue'
+import TheTerms from './pages/terms/TheTerms.vue'
 
 import AccountSettings from './components/account/AccountSettings.vue'
 import AccountPayment from './components/account/AccountPayment.vue'
@@ -62,7 +63,11 @@ const router = createRouter({
     {
       path: '/promotion',
       component: ThePromotion
-    }
+    },
+    {
+      path: '/terms',
+      component: TheTerms
+    },
   ]
 })
 

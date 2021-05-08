@@ -2,7 +2,7 @@
 
     <transition name="fade">
       <div v-if="loading">
-        <div class="fixed top-0 left-0 w-full h-full z-50 bg-white">
+        <div class="fixed top-0 left-0 w-full h-full bg-white z-50">
           <div class="flex h-full items-center justify-center">
             <img class="h-20 w-auto animate-bounce" src="@/assets/icon-logo-sm.png" alt="">
           </div>
@@ -19,7 +19,7 @@ export default {
   computed: {
     loading() {
       return this.$store.getters['ui/loading']
-    }
+    },
   },
 }
 </script>
@@ -33,4 +33,5 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
+
 </style>

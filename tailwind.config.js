@@ -3,7 +3,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     fontFamily: {
-      'sans-jp': ['"Noto Sans JP"','sans-serif']
+      'sans-jp': ['"Noto Sans JP"','sans-serif'],
+      'nunito-sans': ['"Nunito Sans"'],
     },
     extend: {
       spacing: {
