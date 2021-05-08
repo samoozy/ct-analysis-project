@@ -1,17 +1,20 @@
 <template>
-  <TheTitle title="有料会員登録" />
 
-  <div class="flex justify-center"> 
-    <PromotionBox />
+  <div class="xl:px-40 sm:px-10 px-5">
+    <TheTitle title="有料会員登録" />
+
+    <div class="flex justify-center"> 
+      <PromotionBox />
+    </div>
+
+    <!-- feature section -->
+    <div class="my-12">
+      <FeatureSection />
+    </div>
+
+    <!-- partners section -->
+    <PartnersSection />
   </div>
-
-  <!-- feature section -->
-  <div class="my-12">
-    <FeatureSection />
-  </div>
-
-  <!-- partners section -->
-  <PartnersSection />
 
 </template>
 

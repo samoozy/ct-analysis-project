@@ -3,7 +3,6 @@ export default {
   state() {
     return {
       loading: false,
-      loadingAuth: false,
     }
   },
   getters: {
@@ -20,12 +19,6 @@ export default {
     },
     stopLoading(state) {
       state.loading = false
-    },
-    startLoadingAuth(state) {
-      state.loadingAuth = true
-    },
-    stopLoadingAuth(state) {
-      state.loadingAuth = false
     },
   },
 }

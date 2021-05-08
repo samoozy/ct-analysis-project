@@ -1,5 +1,5 @@
 <template>
-  <h3 class="text-center font-bold text-2xl">Partners</h3>
+  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-5">Partners</h3>
   <div class="flex flex-col items-center sm:flex-row sm:justify-evenly">
 
     <a href="https://blockdata.tech/">

@@ -27,11 +27,13 @@ export default {
      * Experimental state loader
      * 
      */
-    loadAuthAndData(context) {
+    loadData(context) {
+
+
       // start spinner when the root App is first loaded
       context.commit('ui/startLoading', null, {root: true})
 
-
+      // firebase auth observer
       firebase.auth().onAuthStateChanged(async user => {
 
         // check if the user object exists
@@ -65,6 +67,7 @@ export default {
         // unsubscribe()
       })
       // end of firebase onauthstatechanged
-    }
+
+    },
   }
 }

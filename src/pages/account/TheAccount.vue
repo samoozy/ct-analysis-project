@@ -1,21 +1,23 @@
 <template>
-  
-  <div v-if="!loggedIn">
+  <div class="xl:px-40 sm:px-10 px-5">
+    <div v-if="!loggedIn">
       ログインしてください。
-  </div>
-
-  <div v-else>
-
-    <div class="lg:flex">
-      <div class="lg:w-3/12 lg:mr-5 h-full">
-        <AccountNavigation />
-      </div>
-      <div class="lg:w-9/12 lg:border lg:px-12 lg:py-4 lg:rounded lg:shadow border-t border-b border-gray-300">
-        <router-view></router-view>
-      </div>
     </div>
-    
+
+    <div v-else>
+
+      <div class="lg:flex">
+        <div class="lg:w-3/12 lg:mr-5 h-full">
+          <AccountNavigation />
+        </div>
+        <div class="lg:w-9/12 lg:border lg:px-12 lg:py-4 lg:rounded lg:shadow border-t border-b border-gray-300">
+          <router-view></router-view>
+        </div>
+      </div>
+      
+    </div>
   </div>
+  
 
 </template>
 

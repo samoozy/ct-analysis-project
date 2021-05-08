@@ -1,7 +1,8 @@
 <template>
   <LoadScreen />
   <the-header></the-header>
-  <div class="xl:px-48 sm:px-10 px-5 mb-8">
+  <!-- <div class="xl:px-48 sm:px-10 px-5 mb-8"> -->
+  <div>
     <router-view></router-view>
   </div>
 </template>
@@ -15,14 +16,12 @@ export default {
     TheHeader,
     LoadScreen
   },
-  async created() {
-
+  created() {
 
     /**
-     * load auth data
+     * load auth data and reports data
      */
-
-    this.$store.dispatch('data/loadAuthAndData')
+    this.$store.dispatch('data/loadData')
   }
 }
 
