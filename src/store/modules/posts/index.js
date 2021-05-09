@@ -28,7 +28,7 @@ export default {
           body: JSON.stringify({
             query: `
               {
-                posts(where: {orderby: {field: DATE, order: DESC}}) {
+                posts(where: {orderby: {field: DATE, order: DESC}}, last: 20) {
                   nodes {
                     title
                     id

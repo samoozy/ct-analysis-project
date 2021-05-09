@@ -5,7 +5,7 @@
     <div class="flex flex-col mb-10 items-center">
       <img class="h-20 w-auto animate-bounce" src="@/assets/icon-logo-sm.png" alt="">
 
-      <h1 class="text-5xl font-extrabold font-nunito-sans text-gray-700 lg:self-start">Analysis for the future</h1>
+      <h1 class="text-5xl font-extrabold font-nunito-sans text-gray-700 lg:self-start mt-5">Analysis for the future</h1>
 
       <p class="text-gray-500 my-5 max-w-2xl">CT Analysisは、ブロックチェーン/暗号通貨の総合Webメディア『CRYPTO TIMES』のリサーチチームが提供する調査・分析を主としたレポート配信コンテンツです。</p>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="xl:px-40 sm:px-10 px-5">
+  <div class="page-container bg-gray-50">
     <div v-if="!loggedIn">
       ログインしてください。
     </div>
@@ -10,7 +10,7 @@
         <div class="lg:w-3/12 lg:mr-5 h-full">
           <AccountNavigation />
         </div>
-        <div class="lg:w-9/12 lg:border lg:px-12 lg:py-4 lg:rounded lg:shadow border-t border-b border-gray-300">
+        <div class="lg:w-9/12 lg:px-12 lg:py-4 lg:rounded lg:shadow border-t border-b lg:border-none bg-white">
           <router-view></router-view>
         </div>
       </div>

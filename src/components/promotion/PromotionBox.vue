@@ -3,7 +3,7 @@
     <div class="h-7 w-full bg-indigo-600 rounded-t"></div>
     
     <div class="py-5 px-8 flex flex-col items-center">
-      <div class="text-3xl font-bold mb-2">3,000円
+      <div class="text-3xl font-bold mb-2">1,100円
         <small class="text-base">(税込)/月</small>
       </div>
       <p>有料会員レポートの閲覧</p>

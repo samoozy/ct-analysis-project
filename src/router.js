@@ -14,6 +14,16 @@ import LandingPage from './pages/lp/LandingPage.vue'
 
 const router = createRouter({
   history: createWebHistory(),
+  scrollBehavior() {
+    // Wait for leave transition to finish
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve({top: 0})
+      }, 200)
+    })
+
+
+  },
   routes: [
     {
       path: '/',

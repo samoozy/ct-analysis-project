@@ -1,6 +1,6 @@
 <template>
 
-  <div class="xl:px-40 sm:px-10 px-5">
+  <div class="page-container">
     <div class="flex justify-center">
 
       <div class="w-full border shadow rounded py-5 px-8">

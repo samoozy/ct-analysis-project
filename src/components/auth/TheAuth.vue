@@ -7,6 +7,9 @@
     <base-button class="w-full mt-3" mode="filled-lg" @emitClick="setShow('auth-email')">
       <span class="w-full">{{ authEmailText }}</span>
     </base-button>
+
+
+    <button @click="openTermsAndPolicy" class="mt-3 text-xs text-gray-500 block focus:outline-none">利用規約・プライバシーポリシー</button>
   </div>
 
   <!-- Email Authentication -->
@@ -115,6 +118,10 @@ export default {
       this.title = ""
       this.setShow('auth-confirm')
     },
+    openTermsAndPolicy() {
+      this.$router.push('/terms')
+      this.$store.commit('modal/closeModal')
+    }
   },
   mounted() {
     this.show = 'auth'

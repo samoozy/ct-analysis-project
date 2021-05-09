@@ -27,7 +27,7 @@
         <li>
           <base-button 
             mode="filled"
-            @emitClick="redirectToPath('/')"
+            @emitClick="redirectToPath('/reports')"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="fill-current mr-2" width="16" height="16" viewBox="0 0 24 24"><path d="M4 4v20h20v-20h-20zm18 18h-16v-13h16v13zm-3-3h-10v-1h10v1zm0-3h-10v-1h10v1zm0-3h-10v-1h10v1zm2-11h-19v19h-2v-21h21v2z"/></svg>
             レポート一覧

@@ -69,16 +69,11 @@
       </base-button>
       <!-- delete account -->
       <div class="mt-3">
-        <base-button mode="ghost-red" @emitClick="redirectToDeleteAccount">アカウント削除と退会</base-button>  
+        
+        <button class="text-sm text-gray-600 focus:outline-none" @click="redirectToDeleteAccount">アカウント削除と退会手続き</button> 
       </div>
     </template>
   </content-block>
-
-  <!-- <content-block>
-    <template v-slot:btn>
-      <router-link class="text-gray-600 text-sm" to="/account/settings/delete">退会手続きへ</router-link>
-    </template>
-  </content-block> -->
 
 </template>
 

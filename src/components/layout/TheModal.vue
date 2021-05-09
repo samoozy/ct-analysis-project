@@ -1,12 +1,12 @@
 <template>
   <div v-if="isOpen">
     <div 
-      class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-10"
+      class="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-20"
       @click="$emit('onClick')"
     ></div>
 
     <div 
-      class="bg-white top-1/2 left-1/2 w-72 h-96 fixed -mt-48 -ml-36 sm:w-96 sm:-ml-48 rounded py-5 px-8 overflow-auto z-10"
+      class="bg-white top-1/2 left-1/2 w-72 h-96 fixed -mt-48 -ml-36 sm:w-96 sm:-ml-48 rounded py-5 px-8 overflow-auto z-20"
     >
 
       <!-- close button -->

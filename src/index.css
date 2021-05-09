@@ -10,17 +10,33 @@
 /* tailwind css base styling */
 @layer base {
   body {
-    @apply font-sans-jp;
+    @apply font-sans-jp text-gray-800;
   }
 }
 
-/* This is the custom styling for the post content recieved from WP API */
+
 @layer components {
+  /* This is the custom styling for the post content recieved from WP API */
   .report-post-content {
     @apply my-5;
   }
-
   .report-post-content > p {
-    @apply py-2 leading-8;
+    @apply py-3 text-gray-600;
   }
+  .report-post-content > h2 {
+    @apply py-4 text-gray-600 text-3xl font-bold; 
+  }
+  .report-post-content > h3 {
+    @apply py-3 text-gray-600 text-xl font-bold; 
+  }
+  .report-post-content > p > a,
+  .report-post-content > a {
+    @apply text-indigo-600;
+  }
+
+  /* container for page components */
+  .page-container {
+    @apply xl:px-40 sm:px-14 px-5 min-h-screen pt-24;
+  }
+
 }
