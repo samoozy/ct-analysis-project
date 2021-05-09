@@ -4,7 +4,7 @@
     <base-button
       mode="filled-lg"
       :isDisabled="deactivate"
-      @emitClick="subscribeToPlan"
+      @emitClick="initSubscribe"
     >
       有料会員になる
     </base-button>
@@ -39,27 +39,47 @@ export default {
     loggedIn() {
       return this.$store.getters['auth/loggedIn']
     },
+    modalHook() {
+      return this.$store.getters['modal/modalHook']
+    },
+  },
+  watch: {
+    modalHook() {
+      if(this.modalHook === 'subscribe-reauthenticated') {
+        this.subscribeToPlan()
+      }
+    }
   },
   methods: {
+    initSubscribe() {
+
+      if(!this.loggedIn) {
+        this.$store.commit('modal/openModal', 'login')
+        return
+      }
+
+      this.$store.commit('modal/openModal', 'reauthenticate')
+      this.$store.commit('modal/setModalHook', 'subscribe')
+    },
     async subscribeToPlan() {
       try {
 
         /**
          * email not verified
          */
-        if(this.loggedIn && !this.userVerified) {
-          this.message = "メールアドレスの認証を行ってください"
-          return
-        }
+        // if(this.loggedIn && !this.userVerified) {
+        //   this.message = "メールアドレスの認証を行ってください"
+        //   return
+        // }
 
         /**
          * already a paid subscriber
          */
-        if(this.paidSubscriber) {
-          this.message = "このアカウントは、有料会員に登録済みです"
-          this.deactivate = true
-          return
-        }
+        // if(this.paidSubscriber) {
+        //   this.message = "このアカウントは、有料会員に登録済みです"
+        //   this.deactivate = true
+        //   return
+        // }
 
         // disable button and start loading screen
         this.deactivate = true

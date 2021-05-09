@@ -43,7 +43,6 @@ export default {
           context.commit('ui/startLoading', null, {root: true})
 
           await context.dispatch('auth/setUserAuth', user, {root: true})
-          console.log('done loading auth...')
 
         }
 

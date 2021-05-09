@@ -1,5 +1,5 @@
 <template>
-  <div class="xl:px-40 sm:px-10 px-5">
+  <div class="page-container">
     <TheTitle title="レポート一覧" />
 
     <ul class="grid lg:grid-cols-3 md:grid-cols-2 gap-4">

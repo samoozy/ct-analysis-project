@@ -1,9 +1,9 @@
 <template>
 
-  <div class="xl:px-40 sm:px-10 px-5">
+  <div class="page-container">
     <back-button @emitClick="$router.push('/reports')">レポート一覧</back-button>
 
-    <div v-if="completed">
+    <div v-if="completed" class="mb-16 sm:mb-20">
       <div>
         <div class="flex justify-center py-5">
           <img class="rounded-lg" :src="post.imgUrl" alt="">
@@ -178,7 +178,9 @@ export default {
 
       const session = await reportService.generateSignedUrl()
 
-      console.log(session.signedUrl)
+      // console.log(session.signedUrl)
+
+      window.open(session.signedUrl, '_blank')
 
       this.isCompleted = true
       this.isLoading = false

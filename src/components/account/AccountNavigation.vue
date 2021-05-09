@@ -40,6 +40,6 @@ export default {
 }
 
 .nav-link {
-  @apply block py-3 pl-2 rounded hover:bg-gray-100;
+  @apply block py-3 pl-2 rounded hover:bg-gray-200;
 }
 </style>
