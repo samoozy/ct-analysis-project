@@ -36,7 +36,7 @@
 
   /* container for page components */
   .page-container {
-    @apply xl:px-40 sm:px-14 px-5 min-h-screen pt-24;
+    @apply xl:px-64 lg:px-40 sm:px-14 px-5 min-h-screen pt-24;
   }
 
 }
