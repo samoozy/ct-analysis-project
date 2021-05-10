@@ -8,7 +8,7 @@
         <div class="flex justify-center py-5">
           <img class="rounded-lg" :src="post.imgUrl" alt="">
         </div>
-        <h2 class="text-2xl font-bold my-3">{{ post.title }}</h2>
+        <h2 class="text-xl lg:text-2xl font-bold my-3">{{ post.title }}</h2>
         <div>
           <span :class="`${post.type === '無料' ? `bg-gray-200` : `bg-yellow-300`} 
             w-max px-2 py-1 rounded-sm text-sm`">{{ post.type }} 
@@ -82,6 +82,11 @@
         post.type === '無料'"
         class="flex flex-col justify-center items-center"
       >
+
+        <div>
+          <p class="text-center py-4">ダウンロードボタンを押すとリサーチレポートがPDF形式で表示されます。</p>
+        </div>
+
         <download-button
           :mode="`primary`"
           :loading="isLoading"
@@ -101,6 +106,10 @@
         paidSubscriber"
         class="flex flex-col justify-center items-center"
       >
+        <div>
+          <p class="text-center py-4">ダウンロードボタンを押すとリサーチレポートがPDF形式で表示されます。</p>
+        </div>
+
         <download-button
           :mode="`primary`"
           :loading="isLoading"
@@ -195,7 +204,7 @@ export default {
       this.$store.commit('modal/openModal', mode)
     }
   },
-  async mounted() {
+  mounted() {
 
     if(this.completed) {
       this.loadPostById()

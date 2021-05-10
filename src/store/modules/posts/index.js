@@ -11,57 +11,27 @@ export default {
     posts(state) {
       return state.posts
     },
-    getPostById: state => id => state.posts.find(post => post.id === id)
+    getInitialPosts(state) {
+      return state.posts.slice(0, 6)
+    },
+    getPostById: state => reportId => state.posts.find(post => post.reportId === reportId)
   },
   actions: {
-    // Load WP posts using WPGraphQL
     async loadPosts(context) {
-
       try {
 
-        // fetch posts from wpgraphql
-        const response = await fetch(environments.wpgraphql.url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            query: `
-              {
-                posts(where: {orderby: {field: DATE, order: DESC}}, last: 20) {
-                  nodes {
-                    title
-                    id
-                    date
-                    slug
-                    content
-                    featuredImage {
-                      node {
-                        mediaItemUrl
-                      }
-                    }
-                    categories {
-                      nodes {
-                        name
-                      }
-                    }
-                  }
-                }
-              }
-            `
-          })
+        const response = await fetch(`${environments.strapi.url}/posts?_sort=post_date:DESC`, {
+          method: 'GET',
         })
-
-        const res = await response.json()
-        const posts = res.data.posts.nodes
-
-        context.commit('setPosts', posts)
         
-      } catch(error) {
-        console.error()
-      }
-    }
+        const data = await response.json()
 
+        context.commit('setPosts', data)
+
+      } catch(err) {
+        console.log(err)
+      }
+    },
   },
   mutations: {
     setPosts(state, payload) {
@@ -73,11 +43,11 @@ export default {
         // Clean data
         d.title = post.title
         d.id = post.id
-        d.reportId = post.slug
+        d.reportId = post.report_name
         d.content = post.content.replace(/\n/g, '')
-        d.date = post.date.split('T')[0].replace(/-/g, '/')
-        d.imgUrl = post.featuredImage.node.mediaItemUrl
-        d.type = post.categories.nodes[0].name
+        d.date = post.post_date.replace(/-/g, '/')
+        d.imgUrl = post.featured_image_url
+        d.type = post.paid ? "有料" : "無料"
 
         posts.push(d)
       })

@@ -24,10 +24,13 @@
     @apply py-3 text-gray-600;
   }
   .report-post-content > h2 {
-    @apply py-4 text-gray-600 text-3xl font-bold; 
+    @apply py-4 text-gray-600 text-xl lg:text-2xl font-bold; 
   }
   .report-post-content > h3 {
-    @apply py-3 text-gray-600 text-xl font-bold; 
+    @apply py-4 text-gray-600 text-lg lg:text-xl font-bold; 
+  }
+  .report-post-content > img {
+    @apply block my-4 rounded shadow border;
   }
   .report-post-content > p > a,
   .report-post-content > a {

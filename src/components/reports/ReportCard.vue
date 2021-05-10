@@ -1,14 +1,14 @@
 <template>
   <li>
     <router-link
-      :to="`/reports/${post.id}`"
+      :to="`/reports/${post.reportId}`"
     >
       <img 
         class="rounded"
         :src="post.imgUrl" 
         alt=""
       >
-      <h3 class="font-bold mt-2">{{ post.title }}</h3>
+      <h3 class="mt-1 font-bold text-sm">{{ post.title }}</h3>
     </router-link>
     <p class="my-2">{{ post.date }}</p>
     <div
