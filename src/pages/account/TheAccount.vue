@@ -1,5 +1,5 @@
 <template>
-  <div class="page-container bg-gray-50">
+  <div class="page-container bg-white lg:bg-gray-50">
     <div v-if="!loggedIn">
       ログインしてください。
     </div>
