@@ -1,16 +1,10 @@
 <template>
   <div>
-    <!-- <div class="xl:pl-28 sm:px-10 px-5 pt-16">
-      <HeroSection />
-    </div> -->
 
+    <HeroSection />
 
     <div class="page-container pt-0">
-
-      <HeroSection />
-
-
-
+  
       <div class="wrapper">
         <FeatureSection />
       </div>
@@ -21,10 +15,7 @@
 
       <div class="wrapper">
         <AboutSection />
-      </div>
-
-      
-
+      </div>     
     
     </div>
   </div>
