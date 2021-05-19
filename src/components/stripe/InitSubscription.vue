@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CheckoutService from '@/services/checkout'
+import CheckoutService from '@/services/checkout.service'
 import BaseButton from '@/components/ui/BaseButton'
 import environments from '@/environments/environments'
 

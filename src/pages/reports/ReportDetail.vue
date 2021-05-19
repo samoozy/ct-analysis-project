@@ -141,7 +141,7 @@
 </template>
 
 <script>
-import ReportService from '@/services/reports'
+import ReportService from '@/services/reports.service'
 import DownloadButton from '@/components/ui/DownloadButton'
 import BaseButton from '@/components/ui/BaseButton'
 import BackButton from '@/components/ui/BackButton'
@@ -200,25 +200,10 @@ export default {
       this.isLoading = true
 
       const reportService = new ReportService(this.post.reportId)
-
+    
       const session = await reportService.generateSignedUrl()
       this.url = session.signedUrl
       this.urlReady = true
-
-      // console.log(session.signedUrl)
-      // window.open(session.signedUrl, '_blank')
-
-      // windowReference.location = url
-
-      // create a download link
-      // const blob = new Blob([session.signedUrl], {type: 'application/pdf'})
-      // const link = document.createElement('a')
-      // link.href = session.signedUrl
-      // link.target = "_blank"
-      // link.download = `${this.post.title}.pdf`
-      // link.click()
-      // URL.revokeObjectURL(link.href)
-
 
       this.isCompleted = true
       this.isLoading = false
