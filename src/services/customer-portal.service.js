@@ -1,4 +1,4 @@
-import CheckoutService from './checkout'
+import CheckoutService from './checkout.service'
 
 export default class CustomerPortal extends CheckoutService {
   constructor(...args) {

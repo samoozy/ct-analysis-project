@@ -88,7 +88,7 @@ class FirebaseAuth {
   /**
    * Delete Account permanently
    */
-   async initDeleteUserRequest() {
+  async initDeleteUserRequest() {
     try {
       const jwt = await this._getAccessToken()
       

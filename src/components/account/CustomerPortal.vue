@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import CustomerPortal from '@/services/customer-portal'
+import CustomerPortal from '@/services/customer-portal.service'
 import BaseButton from '@/components/ui/BaseButton'
 
 export default {

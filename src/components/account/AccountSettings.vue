@@ -24,7 +24,7 @@
       <p v-if="user.verified">認証済み</p>
       <p v-else>メール認証中。確認メールを{{user.email}}宛に送信しました。</p>
     </template>
-    <!-- resend verfication email -->
+    <!-- 認証メールを再送信する -->
     <template v-slot:btn>
       <ResendVerification v-if="!user.verified" />
     </template>
@@ -67,7 +67,7 @@
       <base-button mode="ghost" @emitClick="signout">
         ログアウト
       </base-button>
-      <!-- delete account -->
+      <!-- アカウント削除 -->
       <div class="mt-3">
         
         <button class="text-sm text-gray-600 focus:outline-none" @click="redirectToDeleteAccount">アカウント削除と退会手続き</button> 
