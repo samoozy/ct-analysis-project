@@ -1,53 +1,62 @@
 <template>
-  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-5">Features</h3>
+  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center">Features</h3>
 
-  <div class="flex flex-col items-center sm:flex-row sm:items-start mb-9">
+  <div class="block mt-8 lg:grid lg:grid-cols-3 lg:gap-5">
+    <FeatureItem>
+      <template v-slot:img>
+        <img class="h-full" src="@/assets/feature_img/feature1.png" alt="">
+      </template>
+      <template v-slot:title>
+        満足度90%以上の信頼性高いレポート
+      </template>
+      <template v-slot:text-primary>
+        弊社アンケートの結果、CT アナリシスを購読して頂いた方の満足度は90%以上となっております。
+      </template>
+      <template v-slot:text-secondary>
+        また、500以上のプロダクトをリサーチしたことにより信頼性の高いレポートを配信できています。
+      </template>
+    </FeatureItem>
 
-    <div class="w-24 h-full flex-none mr-10">
-      <img class="w-full h-auto" src="@/assets/promotion-icon1.png" alt="">
-    </div>
+    <FeatureItem>
+      <template v-slot:img>
+        <img class="h-full" src="@/assets/feature_img/feature2.png" alt="">
+      </template>
+      <template v-slot:title>
+        難しい海外情報を日本語でキャッチアップ
+      </template>
+      <template v-slot:text-primary>
+        海外プロジェクトを日本語に落とし込み、基本情報からエコシステムまで網羅的にキャッチアップできます。
+      </template>
+      <template v-slot:text-secondary>
+        英語ができない方でも理解できるレポートと仕上がっています。
+      </template>
+    </FeatureItem>
 
-    <div class="h-full">
-      <h3 class="text-center sm:text-left font-bold mb-2">
-        専門性の高いリサーチレポート
-      </h3>
-      <p>
-        本レポートでは、大手監査機関へのリサーチを提供するオランダのアムステルダムに拠点を置くBLOCKDATAと提携し、共同で作成するCT Analysis独自のコンテンツも配信していきます。</p>
-      <p>
-        テキストレポートのみならず、CT Analysisでは専門性とわかりやすさを追求したレポートとなります。
-      </p>
-    </div>
-
+    <FeatureItem>
+      <template v-slot:img>
+        <img class="h-full" src="@/assets/feature_img/feature3.png" alt="">
+      </template>
+      <template v-slot:title>
+        50時間以上リサーチした内容を10分でインプット
+      </template>
+      <template v-slot:text-primary>
+        弊社のスペシャリストが50時間以上かけてリサーチした内容をわかりやすく解説されたレポートです。
+      </template>
+      <template v-slot:text-secondary>
+        約10分でインプットできますので、時間コストを削減することができます。
+      </template>
+    </FeatureItem>
   </div>
-
-  <div class="flex flex-col items-center sm:flex-row sm:items-start">
-
-    <div class="w-24 h-full flex-none mr-10">
-      <img class="w-full h-auto" src="@/assets/promotion-icon2.png" alt="">
-    </div>
-
-    <div class="h-full">
-      <h3 class="text-center sm:text-left font-bold mb-2">
-        パートナー企業との連携
-      </h3>
-      <p>パートナー企業の強みを生かしたリサーチレポートも特徴です。</p>
-      <p>
-        オンチェーン、オフチェーンデータ、暗号通貨市場に関するセンチメントデータ、ユーザーの予測を機械学習で最適化したデータなども使ったレポート配信を予定しています。</p>
-      <p>
-        これらは日本だけでなく、世界各国の情報も取り入れたコンテンツになっています。
-      </p>
-    </div>
-
-    
-
-  </div>
-  
 
 
 </template>
 
-<style lang="postcss" scoped>
-p {
-  @apply py-1 text-gray-500;
+<script>
+import FeatureItem from '@/components/lp/FeatureItem'
+
+export default {
+  components: {
+    FeatureItem
+  }
 }
-</style>
+</script>
