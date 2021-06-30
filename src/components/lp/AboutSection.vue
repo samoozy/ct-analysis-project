@@ -11,9 +11,9 @@
     <p>CT Analysisでは、2年間ブロックチェーン業界に携わりながら、運営してきた知見やデータを活用して一般ユーザーから事業者まで、幅広いデータ・分析需要に応えることを目標としてリサーチ・レポートを提供していきます。</p>
   </div>
 
-  <div class="flex justify-center mt-12">
+  <!-- <div class="flex justify-center mt-12">
     <a class="block" href="https://crypto-times.jp/"><img class="h-10 w-auto" src="@/assets/ct-logo.png" alt=""></a>
-  </div>
+  </div> -->
       
 
 </template>
