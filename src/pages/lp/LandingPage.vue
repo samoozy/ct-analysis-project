@@ -3,27 +3,23 @@
     <HeroSection />
 
     <div class="page-container pt-0">
+
       <div class="wrapper">
-        <AboutSection />
+        <FeatureSection />
       </div>
 
       <div class="wrapper">
         <LogoSection />
       </div>
 
-      
 
-      <div class="wrapper">
-        <FeatureSection />
-      </div>
-
-
-      <div class="wrapper">
+      <!-- <div class="wrapper">
         <PartnersSection />
+      </div> -->
+
+      <div class="wrapper">
+        <AboutSection />
       </div>
-
-      
-
 
       <div class="wrapper">
         <FaqSection />
@@ -33,12 +29,12 @@
 </template>
 
 <script>
-import HeroSection from "@/components/lp/HeroSection";
-import FeatureSection from "@/components/lp/FeatureSection";
-import LogoSection from "@/components/lp/LogoSection";
-import PartnersSection from "@/components/lp/PartnersSection";
-import AboutSection from "@/components/lp/AboutSection";
-import FaqSection from "@/components/lp/FaqSection";
+import HeroSection from "@/components/lp/HeroSection"
+import FeatureSection from "@/components/lp/FeatureSection"
+import LogoSection from "@/components/lp/LogoSection"
+// import PartnersSection from "@/components/lp/PartnersSection"
+import AboutSection from "@/components/lp/AboutSection"
+import FaqSection from "@/components/lp/FaqSection"
 
 export default {
   components: {
@@ -46,7 +42,7 @@ export default {
     AboutSection,
     FeatureSection,
     LogoSection,
-    PartnersSection,
+    // PartnersSection,
     FaqSection,
   },
 };

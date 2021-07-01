@@ -7,7 +7,7 @@
 
       <h1 class="text-3xl lg:text-4xl xl:text-5xl font-extrabold font-nunito-sans text-gray-700">Analysis for the future</h1>
 
-      <p class="text-gray-500 my-5 max-w-2xl">CT Analysisは、ブロックチェーン/暗号通貨の総合Webメディア『CRYPTO TIMES』のリサーチチームが提供する調査・分析を主としたレポート配信コンテンツです。</p>
+      <p class="text-gray-500 my-5 max-w-2xl">あなたをクリプトオタクまで成長させる暗号資産特化レポート</p>
 
       <div class="flex">
         <link-button 

@@ -1,46 +1,52 @@
 <template>
-  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-5">
-    Projects
-  </h3>
   <section>
-    <div class="content Huobi">
-      <img src="@/assets/project_logos/440px-Huobi-logo.png" alt="Huobi" />
+    <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-5">
+      CT Analysis 掲載プロジェクト
+    </h3>
+    <div class="icon-wrapper">
+      <div class="content Huobi">
+        <img src="@/assets/project_logos/440px-Huobi-logo.png" alt="Huobi" />
+      </div>
+      <div class="content Bithumb">
+        <img src="@/assets/project_logos/Bithumb_logo.png" alt="Bithumb" />
+      </div>
+      <div class="content Coinbase">
+        <img src="@/assets/project_logos/Coinbase.png" alt="Coinbase" />
+      </div>
+      <div class="content Cosmos">
+        <img src="@/assets/project_logos/cosmos-logo-black.png" alt="Cosmos" />
+      </div>
+      <div class="content Binance">
+        <img src="@/assets/project_logos/d44818-6-851058-0.png" alt="Binance" />
+      </div>
+      <div class="content Etherum">
+        <img src="@/assets/project_logos/ethereum.svg" alt="Etherum" />
+      </div>
+      <div class="content Kusama">
+        <img src="@/assets/project_logos/KUSAMA_logo_1.png" alt="Kusama" />
+      </div>
+      <div class="content Solana">
+        <img src="@/assets/project_logos/OMnvVEz.png" alt="Solana" />
+      </div>
+      <div class="content SymbolNem">
+        <img
+          src="@/assets/project_logos/Symbol_from_nem.png"
+          alt="Symbol from Nem"
+        />
+      </div>
+      <div class="content Polkadot">
+        <img src="@/assets/project_logos/ダウンロード.png" alt="Polkadot" />
+      </div>
     </div>
-    <div class="content Bithumb">
-      <img src="@/assets/project_logos/Bithumb_logo.png" alt="Bithumb" />
-    </div>
-    <div class="content Coinbase">
-      <img src="@/assets/project_logos/Coinbase.png" alt="Coinbase" />
-    </div>
-    <div class="content Cosmos">
-      <img src="@/assets/project_logos/cosmos-logo-black.png" alt="Cosmos" />
-    </div>
-    <div class="content Binance">
-      <img src="@/assets/project_logos/d44818-6-851058-0.png" alt="Binance" />
-    </div>
-    <div class="content Etherum">
-      <img src="@/assets/project_logos/ethereum.svg" alt="Etherum" />
-    </div>
-    <div class="content Kusama">
-      <img src="@/assets/project_logos/KUSAMA_logo_1.png" alt="Kusama" />
-    </div>
-    <div class="content Solana">
-      <img src="@/assets/project_logos/OMnvVEz.png" alt="Solana" />
-    </div>
-    <div class="content SymbolNem">
-      <img
-        src="@/assets/project_logos/Symbol_from_nem.png"
-        alt="Symbol from Nem"
-      />
-    </div>
-    <div class="content Polkadot">
-      <img src="@/assets/project_logos/ダウンロード.png" alt="Polkadot" />
+
+    <div class="flex justify-end">
+      <p class="text-gray-600">上記は一例です</p>
     </div>
   </section>
 </template>
 
 <style lang="postcss" scoped>
-section {
+.icon-wrapper {
   display: flex;
   flex: auto;
   flex-wrap: wrap;
