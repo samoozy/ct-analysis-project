@@ -14,9 +14,24 @@
   <!-- <div class="flex justify-center mt-12">
     <a class="block" href="https://crypto-times.jp/"><img class="h-10 w-auto" src="@/assets/ct-logo.png" alt=""></a>
   </div> -->
-      
+
+  <div class="flex justify-center mt-6">
+    <LinkButton class="inline-block" mode="filled-lg" dest="#">
+      お問い合わせ
+    </LinkButton>
+  </div>
 
 </template>
+
+<script>
+import LinkButton from '@/components/ui/LinkButton'
+
+export default {
+  components: {
+    LinkButton
+  }
+}
+</script>
 
 <style lang="postcss" scoped>
 p {
