@@ -1,7 +1,7 @@
 <template>
 
   <!-- <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-5">What is CT Analysis</h3> -->
-  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-2">What is CT Analysis</h3>
+  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-8">What is CT Analysis</h3>
   <div class="flex justify-center">
     <img class="h-32 w-auto" src="@/assets/logo.png" alt="">
   </div>

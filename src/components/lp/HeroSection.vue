@@ -1,6 +1,6 @@
 <template>
 
-  <div class="lg:flex mt-14 sm:mt-20 h-full justify-end">
+  <div class="lg:flex mt-14 sm:mt-20 h-full justify-end pb-24 lg:pt-2">
     
     <div class="px-5 lg:pr-0 lg:pl-20 flex flex-col items-center lg:items-start justify-center h-108 sm:h-144">
       <img class="h-16 w-auto animate-bounce flex-none mb-2" src="@/assets/icon-logo-sm.png" alt="">
