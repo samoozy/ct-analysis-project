@@ -12,8 +12,6 @@
       <FeatureSection />
     </div>
 
-    <!-- partners section -->
-    <PartnersSection />
   </div>
 
 </template>
@@ -22,14 +20,12 @@
 import TheTitle from '@/components/layout/TheTitle'
 import PromotionBox from '@/components/promotion/PromotionBox'
 import FeatureSection from '@/components/lp/FeatureSection'
-import PartnersSection from '@/components/lp/PartnersSection'
 
 export default {
   components: {
     TheTitle,
     PromotionBox,
     FeatureSection,
-    PartnersSection,
   },
 }
 </script>

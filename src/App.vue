@@ -1,7 +1,6 @@
 <template>
   <LoadScreen />
   <TheHeader />
-  <!-- <div class="xl:px-48 sm:px-10 px-5 mb-8"> -->
   <div>
     <router-view v-slot="slotProps">
       <transition name="route" mode="out-in">

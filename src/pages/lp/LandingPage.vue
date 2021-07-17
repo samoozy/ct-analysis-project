@@ -12,10 +12,6 @@
         <LogoSection />
       </div>
 
-      <!-- <div class="wrapper">
-        <PartnersSection />
-      </div> -->
-
       <div class="wrapper">
         <AboutSection />
       </div>
@@ -31,7 +27,6 @@
 import HeroSection from "@/components/lp/HeroSection"
 import FeatureSection from "@/components/lp/FeatureSection"
 import LogoSection from "@/components/lp/LogoSection"
-// import PartnersSection from "@/components/lp/PartnersSection"
 import AboutSection from "@/components/lp/AboutSection"
 import FaqSection from "@/components/lp/FaqSection"
 
@@ -41,7 +36,6 @@ export default {
     AboutSection,
     FeatureSection,
     LogoSection,
-    // PartnersSection,
     FaqSection,
   },
 };
