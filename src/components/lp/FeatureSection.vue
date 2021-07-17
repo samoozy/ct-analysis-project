@@ -1,5 +1,5 @@
 <template>
-  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center">Features</h3>
+  <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center pb-8">Features</h3>
 
   <div class="block mt-8 lg:grid lg:grid-cols-3 lg:gap-5">
     <FeatureItem>

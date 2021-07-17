@@ -1,7 +1,7 @@
 <template>
   <section>
-    <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-5">
-      CT Analysis 掲載プロジェクト
+    <h3 class="text-3xl font-extrabold font-nunito-sans text-gray-700 text-center mb-20">
+      CT Analysis <span class="text-2xl">掲載プロジェクト</span>
     </h3>
     <div class="icon-wrapper">
       <div class="content Huobi">

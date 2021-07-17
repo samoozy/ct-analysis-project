@@ -12,7 +12,6 @@
         <LogoSection />
       </div>
 
-
       <!-- <div class="wrapper">
         <PartnersSection />
       </div> -->
@@ -50,6 +49,6 @@ export default {
 
 <style lang="postcss" scoped>
 .wrapper {
-  @apply mb-16 sm:mb-24;
+  @apply mb-16 sm:mb-36;
 }
 </style>
