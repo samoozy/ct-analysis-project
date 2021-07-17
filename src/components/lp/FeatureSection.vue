@@ -37,10 +37,10 @@
         <img class="h-full" src="@/assets/feature_img/feature3.png" alt="">
       </template>
       <template v-slot:title>
-        50時間以上リサーチした内容を10分でインプット
+        長時間かけてリサーチした海外情報の内容を10分でインプット
       </template>
       <template v-slot:text-primary>
-        弊社のスペシャリストが50時間以上かけてリサーチした内容をわかりやすく解説されたレポートです。
+        弊社のスペシャリストが長時間かけてリサーチした海外情報の内容をわかりやすく解説されたレポートです。
       </template>
       <template v-slot:text-secondary>
         約10分でインプットできますので、時間コストを削減することができます。
