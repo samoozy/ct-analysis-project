@@ -48,7 +48,6 @@
 <style lang="postcss" scoped>
 
 img {
-  max-width: 100%;
-  height: auto;
+  @apply max-w-full h-auto;
 }
 </style>
