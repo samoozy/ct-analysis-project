@@ -1,32 +1,66 @@
 # ct-analysis-project
 
-## Project setup
+## Required env setup
+### firebase app
+```
+VUE_APP_FIREBASE_API_KEY=
+VUE_APP_FIREBASE_AUTH_DOMAIN=
+VUE_APP_FIREBASE_PROJECT_ID=
+VUE_APP_FIREBASE_STORAGE_BUCKET=
+VUE_APP_FIREBASE_MESSAGING_SENDER_ID=
+VUE_APP_FIREBASE_APP_ID=
+```
+### stripe keys
+```
+VUE_APP_STRIPE_PRICING_PLAN_ID=
+VUE_APP_STRIPE_PUBLIC_KEY=
+```
+### strapi url
+```
+VUE_APP_STRAPI_URL=
+VUE_APP_PROD_API_URL=
+```
+### front url
+```
+VUE_APP_PROD_FRONT_URL=
+```
+
+## Frontend setup
+### frontend development server
+```
+localhost:8080
+```
+### npm setup
 ```
 npm install
 ```
-
 ### Compiles and hot-reloads for development
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
+### Always run this before deploying to firebase hosting
 ```
 npm run build
 ```
 
-### Lints and fixes files
+## Server-side Node.js and Stripe endpoint
+### api development server
 ```
-npm run lint
+localhost:3000
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-# Stripe server-side endpoint
 ### The server directory contains all the server-side code
 ```
 npm run server
 ```
 
-
+## production setup
+### Frontend deployment
+firebase hosting
+```
+firebase deploy
+```
+### Backend deployment
+GCP app engine
+```
+gcloud app deploy
+```
