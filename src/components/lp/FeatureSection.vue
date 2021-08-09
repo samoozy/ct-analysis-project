@@ -19,6 +19,21 @@
 
     <FeatureItem>
       <template v-slot:img>
+        <img class="h-full" src="@/assets/feature_img/feature3.png" alt="">
+      </template>
+      <template v-slot:title>
+        50時間以上かけてリサーチした内容を10分でインプット
+      </template>
+      <template v-slot:text-primary>
+        弊社のスペシャリストが50時間以上かけてリサーチした内容をわかりやすく解説されたレポートです。
+      </template>
+      <template v-slot:text-secondary>
+        約10分でインプットできますので、時間コストを削減することができます。
+      </template>
+    </FeatureItem>
+
+    <FeatureItem>
+      <template v-slot:img>
         <img class="h-full" src="@/assets/feature_img/feature2.png" alt="">
       </template>
       <template v-slot:title>
@@ -29,21 +44,6 @@
       </template>
       <template v-slot:text-secondary>
         英語ができない方でも理解できるレポートと仕上がっています。
-      </template>
-    </FeatureItem>
-
-    <FeatureItem>
-      <template v-slot:img>
-        <img class="h-full" src="@/assets/feature_img/feature3.png" alt="">
-      </template>
-      <template v-slot:title>
-        長時間かけてリサーチした海外情報の内容を10分でインプット
-      </template>
-      <template v-slot:text-primary>
-        弊社のスペシャリストが長時間かけてリサーチした海外情報の内容をわかりやすく解説されたレポートです。
-      </template>
-      <template v-slot:text-secondary>
-        約10分でインプットできますので、時間コストを削減することができます。
       </template>
     </FeatureItem>
   </div>

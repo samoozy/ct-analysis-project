@@ -25,6 +25,11 @@ VUE_APP_PROD_API_URL=
 VUE_APP_PROD_FRONT_URL=
 ```
 
+### contact form url
+```
+VUE_APP_CONTACT_FORM=
+```
+
 ## Frontend setup
 ### frontend development server
 ```

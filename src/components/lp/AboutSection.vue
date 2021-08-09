@@ -16,19 +16,22 @@
   </div> -->
 
   <div class="flex justify-center mt-6">
-    <LinkButton class="inline-block" mode="filled-lg" dest="#">
+    <a class="bg-indigo-600 px-5 py-2 rounded hover:bg-indigo-800 duration-200 text-white text-base border border-indigo-600 hover:border-indigo-800 flex items-center" :href="url" target="_blank">
       お問い合わせ
-    </LinkButton>
+    </a>
   </div>
 
 </template>
 
 <script>
-import LinkButton from '@/components/ui/LinkButton'
+import environments from "@/environments/environments"
+
 
 export default {
-  components: {
-    LinkButton
+  data() {
+    return {
+      url: environments.contactForm.url
+    }
   }
 }
 </script>
