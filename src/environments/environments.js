@@ -14,6 +14,9 @@ let environments = {
   strapi: {
     url: process.env.VUE_APP_STRAPI_URL,
   },
+  contactForm: {
+    url: process.env.VUE_APP_CONTACT_FORM
+  }
 }
 
 if(process.env.NODE_ENV == "development" || process.env.NODE_ENV == "test") {
