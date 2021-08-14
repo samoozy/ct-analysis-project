@@ -31,7 +31,8 @@
   </content-block>
 
   <!-- サブスクリプション -->
-  <content-block>
+  <!-- 有料プランが決まるまで一旦コメントアウト -->
+  <!-- <content-block>
     <template v-slot:title>
       サブスクリプション
     </template>
@@ -45,7 +46,7 @@
         class="text-sm text-indigo-600"
         to="/promotion">有料プラン詳細</router-link>
     </template>
-  </content-block>
+  </content-block> -->
 
   <!-- 外部サービスとの連携 -->
   <content-block>

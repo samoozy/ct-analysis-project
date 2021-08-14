@@ -7,11 +7,12 @@
     to="/account"
   >アカウント設定</router-link>
 
-  <router-link 
+  <!-- 有料プランが決まるまで一旦コメントアウト -->
+  <!-- <router-link 
     class="nav-link" 
     :class="paymentActive" 
     to="/account/payment"
-  >お支払い設定</router-link>
+  >お支払い設定</router-link> -->
 
 </template>
 
