@@ -80,10 +80,11 @@
           @emitClick="openAuthModal('register')"
         >今すぐ無料登録</base-button>
 
-        <base-button
+        <!-- 有料プランが決まるまで一旦コメントアウト -->
+        <!-- <base-button
           mode="ghost-lg"
           @emitClick="redirectToPath('/promotion')"
-        >有料プラン詳細</base-button>
+        >有料プラン詳細</base-button> -->
 
       </div>
 
@@ -114,10 +115,11 @@
           <p class="text-center py-4">有料会員に登録すると、ダウンロードすることができます。</p>
         </div>
 
-        <base-button
+        <!-- 有料プランが決まるまで一旦コメントアウト -->
+        <!-- <base-button
           mode="ghost-lg"
           @emitClick="redirectToPath('/promotion')"
-        >有料プラン詳細</base-button>
+        >有料プラン詳細</base-button> -->
       </div>
 
       <!-- if user is a free subscriber -->
