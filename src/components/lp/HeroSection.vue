@@ -18,13 +18,14 @@
           レポート一覧
         </link-button>
 
-        <link-button 
+        <!-- 有料プランが決まるまで一旦コメントアウト -->
+        <!-- <link-button 
           class="w-max ml-3"
           mode="ghost-lg"
           dest="/promotion"
         >
           有料プラン詳細
-        </link-button>
+        </link-button> -->
       </div>
     </div> 
 
