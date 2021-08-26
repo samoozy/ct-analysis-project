@@ -35,12 +35,24 @@ export async function signedUrl(req, res, next) {
     const reportDocData = await getDocData(`reports/${reportDocId}`)
     const paid = reportDocData.paid
 
+    // reportDownloadsに保存するデータ
+    const downloadData = {
+      fileName: fileName,
+      reportId: req.body.reportId,
+      reportDocId: reportDocId,
+      userId: req['uid'],
+      timestamp: formatDate()
+    }
+
     if(subscriber) {
       /**
        * paid user
        */
 
-      const url = await generateV4ReadSignedUrl(storage, bucketName, fileName)
+      // signedUrl発行時に、ユーザーがダウロードしたことをfirestoreに記録する
+      await addReportDownloads(downloadData);
+
+      const url = await generateV4ReadSignedUrl(storage, bucketName, fileName);
 
       res.status(200).json({
         signedUrl: url,
@@ -55,8 +67,11 @@ export async function signedUrl(req, res, next) {
         // return access denied
         res.status(403).json({error: "有料会員のみアクセス可能"})
       } else {
+
+        // signedUrl発行時に、ユーザーがダウロードしたことをfirestoreに記録する
+        await addReportDownloads(downloadData);
         // free report
-        const url = await generateV4ReadSignedUrl(storage, bucketName, fileName)
+        const url = await generateV4ReadSignedUrl(storage, bucketName, fileName);
 
         res.status(200).json({
           signedUrl: url,
@@ -69,6 +84,15 @@ export async function signedUrl(req, res, next) {
     return res.status(400).send(`SignedUrl Error: ${err.message}`)
   }
   
+}
+
+function formatDate() {
+  const d = new Date()
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`
+}
+
+async function addReportDownloads(downloadData) {
+  return await db.collection('reportDownloads').add(downloadData)
 }
 
 async function checkIfUserIsSubscriber(userId, pricingPlanId) {
